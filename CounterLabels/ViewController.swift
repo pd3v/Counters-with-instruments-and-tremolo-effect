@@ -13,10 +13,10 @@ class ViewController: UIViewController, StateDelegate {
     @IBOutlet var doubleClick: UITapGestureRecognizer!
     @IBOutlet var swipeMove: UISwipeGestureRecognizer!
     
-    let numberOfViewsPerRow: Int = 3
-    var counter: Int = 0
+    let numberOfViewsPerRow = 8
+    var counter = 0
     var rankingPosition = 0
-    var firstLabelInRow: UIView = UIView()
+    //var firstLabelInRow: UIView = UIView()
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -33,8 +33,8 @@ class ViewController: UIViewController, StateDelegate {
     
     // TODO: If labels are simultaneously "almost" created, the newers ones don't start looping imediatly. How to put all on wait and start all at once?
     @IBAction func addLabel() {
-        print("firstLabelInRow:", firstLabelInRow)
-        if self.counter >= 0 && self.counter <= 8 {
+        //print("firstLabelInRow:", firstLabelInRow)
+        if self.counter >= 0 && self.counter <= numberOfViewsPerRow * numberOfViewsPerRow - 1 {
             var newLabel: CounterLabel = CounterLabel()
             
             //FIXME: Create Animals with Factory DP to avoid knowing previously all the animals that are subclassed
@@ -74,10 +74,12 @@ class ViewController: UIViewController, StateDelegate {
                 // Each 1st label in row is left aligned to superview
                 self.view.addConstraint(NSLayoutConstraint(item: newLabel , attribute: .Leading, relatedBy: .Equal, toItem: self.view, attribute: .Leading, multiplier: 1, constant: 0))
                 // Excluding _UILayoutGuide views
+                /*
                 if previouslyCreatedView is UILabel {
                     newLabel.notes += "*1st label in row to be vertical ref (firstLabelInRow)"
                     firstLabelInRow = previouslyCreatedView!
                 }
+                */
             } else {
                 // Each left label is left aligned to previous one
                 newLabel.notes += "*Left aligned to previous one (self.left to prev.right)"
@@ -93,9 +95,8 @@ class ViewController: UIViewController, StateDelegate {
             } else {
                 newLabel.notes += "*Other than 1st line"
                 // Other rows, align labels' top to previous row labels' bottoms
-                self.view.addConstraint(NSLayoutConstraint(item: newLabel, attribute: .Top , relatedBy: .Equal, toItem: firstLabelInRow, attribute: .Bottom , multiplier: 1, constant: 0))
+                self.view.addConstraint(NSLayoutConstraint(item: newLabel, attribute: .Top , relatedBy: .Equal, toItem: self.view, attribute: .Bottom , multiplier: 1 / CGFloat(numberOfViewsPerRow) * CGFloat(rowNumber - 1), constant: 0))
             }
-            self.view.setNeedsUpdateConstraints()
         }
     }
     
@@ -111,7 +112,7 @@ class ViewController: UIViewController, StateDelegate {
         labelToBe?.removeConstraints(labelToBeConst!)
         */
         
-        print(labelToRemove?.notes, labelToRemove!)
+        //print(labelToRemove?.notes, labelToRemove!)
         labelToRemove?.removeFromSuperview()
         
         //print(self.view.hasAmbiguousLayout())
