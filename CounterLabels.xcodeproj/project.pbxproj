@@ -11,7 +11,7 @@
 		3A923EEF1BA8430400DBE4A6 /* ViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3A923EEE1BA8430400DBE4A6 /* ViewController.swift */; };
 		3A923EF21BA8430400DBE4A6 /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 3A923EF01BA8430400DBE4A6 /* Main.storyboard */; };
 		3A923EF41BA8430400DBE4A6 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 3A923EF31BA8430400DBE4A6 /* Assets.xcassets */; };
-		3A923EF71BA8430400DBE4A6 /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 3A923EF51BA8430400DBE4A6 /* LaunchScreen.storyboard */; };
+		3A923EFF1BA843B600DBE4A6 /* CounterLabel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3A923EFE1BA843B600DBE4A6 /* CounterLabel.swift */; settings = {ASSET_TAGS = (); }; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -20,8 +20,8 @@
 		3A923EEE1BA8430400DBE4A6 /* ViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ViewController.swift; sourceTree = "<group>"; };
 		3A923EF11BA8430400DBE4A6 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/Main.storyboard; sourceTree = "<group>"; };
 		3A923EF31BA8430400DBE4A6 /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
-		3A923EF61BA8430400DBE4A6 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/LaunchScreen.storyboard; sourceTree = "<group>"; };
 		3A923EF81BA8430400DBE4A6 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
+		3A923EFE1BA843B600DBE4A6 /* CounterLabel.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CounterLabel.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -56,9 +56,9 @@
 			children = (
 				3A923EEC1BA8430400DBE4A6 /* AppDelegate.swift */,
 				3A923EEE1BA8430400DBE4A6 /* ViewController.swift */,
+				3A923EFE1BA843B600DBE4A6 /* CounterLabel.swift */,
 				3A923EF01BA8430400DBE4A6 /* Main.storyboard */,
 				3A923EF31BA8430400DBE4A6 /* Assets.xcassets */,
-				3A923EF51BA8430400DBE4A6 /* LaunchScreen.storyboard */,
 				3A923EF81BA8430400DBE4A6 /* Info.plist */,
 			);
 			path = CounterLabels;
@@ -122,7 +122,6 @@
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				3A923EF71BA8430400DBE4A6 /* LaunchScreen.storyboard in Resources */,
 				3A923EF41BA8430400DBE4A6 /* Assets.xcassets in Resources */,
 				3A923EF21BA8430400DBE4A6 /* Main.storyboard in Resources */,
 			);
@@ -137,6 +136,7 @@
 			files = (
 				3A923EEF1BA8430400DBE4A6 /* ViewController.swift in Sources */,
 				3A923EED1BA8430400DBE4A6 /* AppDelegate.swift in Sources */,
+				3A923EFF1BA843B600DBE4A6 /* CounterLabel.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -149,14 +149,6 @@
 				3A923EF11BA8430400DBE4A6 /* Base */,
 			);
 			name = Main.storyboard;
-			sourceTree = "<group>";
-		};
-		3A923EF51BA8430400DBE4A6 /* LaunchScreen.storyboard */ = {
-			isa = PBXVariantGroup;
-			children = (
-				3A923EF61BA8430400DBE4A6 /* Base */,
-			);
-			name = LaunchScreen.storyboard;
 			sourceTree = "<group>";
 		};
 /* End PBXVariantGroup section */
@@ -248,9 +240,11 @@
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				INFOPLIST_FILE = CounterLabels/Info.plist;
+				IPHONEOS_DEPLOYMENT_TARGET = 8.4;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
 				PRODUCT_BUNDLE_IDENTIFIER = xyz.CounterLabels;
 				PRODUCT_NAME = "$(TARGET_NAME)";
+				TARGETED_DEVICE_FAMILY = 1;
 			};
 			name = Debug;
 		};
@@ -259,9 +253,11 @@
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				INFOPLIST_FILE = CounterLabels/Info.plist;
+				IPHONEOS_DEPLOYMENT_TARGET = 8.4;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
 				PRODUCT_BUNDLE_IDENTIFIER = xyz.CounterLabels;
 				PRODUCT_NAME = "$(TARGET_NAME)";
+				TARGETED_DEVICE_FAMILY = 1;
 			};
 			name = Release;
 		};
