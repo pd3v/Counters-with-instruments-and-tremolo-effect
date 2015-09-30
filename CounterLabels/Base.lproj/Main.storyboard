@@ -3,6 +3,9 @@
     <dependencies>
         <deployment identifier="iOS"/>
         <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="8151.3"/>
+        <capability name="Aspect ratio constraints" minToolsVersion="5.1"/>
+        <capability name="Constraints to layout margins" minToolsVersion="6.0"/>
+        <capability name="Constraints with non-1.0 multipliers" minToolsVersion="5.1"/>
     </dependencies>
     <scenes>
         <!--View Controller-->
@@ -16,16 +19,119 @@
                     <view key="view" contentMode="scaleToFill" id="8bC-Xf-vdC">
                         <rect key="frame" x="0.0" y="0.0" width="600" height="600"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                        <subviews>
+                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="750" verticalHuggingPriority="750" horizontalCompressionResistancePriority="250" verticalCompressionResistancePriority="250" usesAttributedText="YES" lineBreakMode="wordWrap" numberOfLines="8" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="Ylx-tK-r7n">
+                                <rect key="frame" x="6" y="151" width="588" height="300"/>
+                                <constraints>
+                                    <constraint firstAttribute="width" relation="lessThanOrEqual" id="3ED-Lj-oaz"/>
+                                    <constraint firstAttribute="width" secondItem="Ylx-tK-r7n" secondAttribute="height" multiplier="2:1" priority="750" id="DNV-y7-Juw"/>
+                                    <constraint firstAttribute="height" relation="greaterThanOrEqual" constant="150" id="YP5-Rb-LF0"/>
+                                    <constraint firstAttribute="height" constant="285" id="bcj-kX-coN"/>
+                                    <constraint firstAttribute="height" relation="greaterThanOrEqual" constant="300" id="eop-BM-1rU"/>
+                                </constraints>
+                                <attributedString key="attributedText">
+                                    <fragment content="Double tap to create all counters. ">
+                                        <attributes>
+                                            <color key="NSColor" red="0.0" green="0.0" blue="0.0" alpha="1" colorSpace="calibratedRGB"/>
+                                            <font key="NSFont" size="40" name="HelveticaNeue-Bold"/>
+                                            <paragraphStyle key="NSParagraphStyle" alignment="justified" lineBreakMode="wordWrapping" baseWritingDirection="natural"/>
+                                        </attributes>
+                                    </fragment>
+                                    <fragment content="Single tap to create one counter.">
+                                        <attributes>
+                                            <font key="NSFont" size="40" name="HelveticaNeue-Bold"/>
+                                            <paragraphStyle key="NSParagraphStyle" alignment="justified" lineBreakMode="wordWrapping" baseWritingDirection="natural"/>
+                                        </attributes>
+                                    </fragment>
+                                </attributedString>
+                                <nil key="highlightedColor"/>
+                                <variation key="default">
+                                    <mask key="constraints">
+                                        <exclude reference="3ED-Lj-oaz"/>
+                                        <exclude reference="DNV-y7-Juw"/>
+                                        <exclude reference="YP5-Rb-LF0"/>
+                                        <exclude reference="bcj-kX-coN"/>
+                                    </mask>
+                                </variation>
+                            </label>
+                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="0.0s slower" textAlignment="center" lineBreakMode="tailTruncation" minimumFontSize="10" translatesAutoresizingMaskIntoConstraints="NO" id="tcb-qP-D3e">
+                                <rect key="frame" x="152" y="20" width="294" height="43"/>
+                                <constraints>
+                                    <constraint firstAttribute="width" secondItem="tcb-qP-D3e" secondAttribute="height" multiplier="2:1" constant="14" id="oxj-3K-1ye"/>
+                                </constraints>
+                                <fontDescription key="fontDescription" name="HelveticaNeue-Bold" family="Helvetica Neue" pointSize="24"/>
+                                <color key="textColor" red="0.0" green="0.0" blue="0.0" alpha="0.0" colorSpace="calibratedRGB"/>
+                                <nil key="highlightedColor"/>
+                                <variation key="default">
+                                    <mask key="constraints">
+                                        <exclude reference="oxj-3K-1ye"/>
+                                    </mask>
+                                </variation>
+                            </label>
+                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="clip" translatesAutoresizingMaskIntoConstraints="NO" id="7Gr-QG-jMD">
+                                <rect key="frame" x="548" y="548" width="42" height="42"/>
+                                <color key="backgroundColor" white="1" alpha="0.14999999999999999" colorSpace="calibratedWhite"/>
+                                <constraints>
+                                    <constraint firstAttribute="width" secondItem="7Gr-QG-jMD" secondAttribute="height" multiplier="1:1" id="0aK-hI-v8h"/>
+                                    <constraint firstAttribute="width" constant="40" id="dUl-w2-YmW"/>
+                                    <constraint firstAttribute="height" constant="40" id="m5Z-b2-eYD"/>
+                                </constraints>
+                                <fontDescription key="fontDescription" name="HelveticaNeue" family="Helvetica Neue" pointSize="30"/>
+                                <state key="normal" title="3">
+                                    <color key="titleColor" white="1" alpha="0.35000000000000003" colorSpace="calibratedWhite"/>
+                                </state>
+                                <variation key="default">
+                                    <mask key="constraints">
+                                        <exclude reference="dUl-w2-YmW"/>
+                                        <exclude reference="m5Z-b2-eYD"/>
+                                    </mask>
+                                </variation>
+                                <connections>
+                                    <action selector="changingNumberOfCounters:" destination="BYZ-38-t0r" eventType="touchUpInside" id="pOV-1J-vh1"/>
+                                </connections>
+                            </button>
+                        </subviews>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="calibratedWhite"/>
                         <gestureRecognizers/>
+                        <constraints>
+                            <constraint firstItem="tcb-qP-D3e" firstAttribute="height" secondItem="8bC-Xf-vdC" secondAttribute="height" multiplier="0.05" constant="13" id="8zR-OU-Pzw"/>
+                            <constraint firstItem="Ylx-tK-r7n" firstAttribute="centerY" secondItem="8bC-Xf-vdC" secondAttribute="centerY" constant="1" id="Cnq-Mg-kiN"/>
+                            <constraint firstAttribute="trailingMargin" secondItem="tcb-qP-D3e" secondAttribute="trailing" constant="236" id="FBt-UL-uJ5"/>
+                            <constraint firstItem="tcb-qP-D3e" firstAttribute="width" secondItem="8bC-Xf-vdC" secondAttribute="width" multiplier="0.1" constant="234" id="GTS-GX-B3o"/>
+                            <constraint firstItem="wfy-db-euE" firstAttribute="top" secondItem="7Gr-QG-jMD" secondAttribute="bottom" constant="10" id="I3C-hI-JGK"/>
+                            <constraint firstItem="tcb-qP-D3e" firstAttribute="centerX" secondItem="Ylx-tK-r7n" secondAttribute="centerX" id="LDh-va-VCM"/>
+                            <constraint firstItem="Ylx-tK-r7n" firstAttribute="centerX" secondItem="8bC-Xf-vdC" secondAttribute="centerX" id="N2Y-E4-wDQ"/>
+                            <constraint firstAttribute="trailingMargin" secondItem="7Gr-QG-jMD" secondAttribute="trailing" constant="-10" id="d8R-uz-Gqg"/>
+                            <constraint firstItem="tcb-qP-D3e" firstAttribute="top" secondItem="y3c-jy-aDJ" secondAttribute="bottom" id="egH-Vb-NoS"/>
+                            <constraint firstItem="tcb-qP-D3e" firstAttribute="centerX" secondItem="8bC-Xf-vdC" secondAttribute="centerX" constant="-1" id="fJX-J6-h2w"/>
+                            <constraint firstItem="Ylx-tK-r7n" firstAttribute="height" secondItem="8bC-Xf-vdC" secondAttribute="height" id="fjk-5M-Jhg"/>
+                            <constraint firstItem="7Gr-QG-jMD" firstAttribute="width" secondItem="8bC-Xf-vdC" secondAttribute="width" multiplier="0.07" id="oau-nk-WTQ"/>
+                            <constraint firstItem="Ylx-tK-r7n" firstAttribute="width" secondItem="8bC-Xf-vdC" secondAttribute="width" multiplier="0.98" id="zdC-us-54B"/>
+                        </constraints>
+                        <variation key="default">
+                            <mask key="constraints">
+                                <exclude reference="fjk-5M-Jhg"/>
+                                <exclude reference="FBt-UL-uJ5"/>
+                                <exclude reference="LDh-va-VCM"/>
+                            </mask>
+                        </variation>
                         <connections>
                             <outletCollection property="gestureRecognizers" destination="rT5-9X-yUx" appends="YES" id="GUc-Ih-ud5"/>
                             <outletCollection property="gestureRecognizers" destination="JU3-H0-s9n" appends="YES" id="cdY-gI-Jgm"/>
+                            <outletCollection property="gestureRecognizers" destination="ggb-oI-LGT" appends="YES" id="ld9-yR-h3a"/>
+                            <outletCollection property="gestureRecognizers" destination="D61-eY-Wro" appends="YES" id="BiM-8v-48r"/>
+                            <outletCollection property="gestureRecognizers" destination="Jht-1X-eKU" appends="YES" id="OMT-Iv-Pdi"/>
                         </connections>
                     </view>
                     <connections>
-                        <outlet property="doubleClick" destination="rT5-9X-yUx" id="x6T-PO-lZw"/>
-                        <outlet property="swipeMove" destination="JU3-H0-s9n" id="03h-Gq-Uvk"/>
+                        <outlet property="bttNumberOfCounters" destination="7Gr-QG-jMD" id="cws-cc-f6U"/>
+                        <outlet property="clickToAddLabel" destination="rT5-9X-yUx" id="nyh-9P-A6Z"/>
+                        <outlet property="dbClickToFillWithLabels" destination="ggb-oI-LGT" id="jRr-Y5-41O"/>
+                        <outlet property="dbSwipeToRemoveAllLabels" destination="D61-eY-Wro" id="nEZ-ax-GGb"/>
+                        <outlet property="labelInstructions" destination="Ylx-tK-r7n" id="eXx-hZ-12g"/>
+                        <outlet property="labelSpeedChangingValue" destination="tcb-qP-D3e" id="wEc-Bh-yuf"/>
+                        <outlet property="panToAccelerate" destination="Jht-1X-eKU" id="rj2-r9-gvK"/>
+                        <outlet property="swipeToRemoveLabel" destination="JU3-H0-s9n" id="a9l-V9-qfu"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="dkx-z0-nzr" sceneMemberID="firstResponder"/>
@@ -35,13 +141,32 @@
                         <outlet property="delegate" destination="8bC-Xf-vdC" id="nQx-8s-rug"/>
                     </connections>
                 </tapGestureRecognizer>
+                <tapGestureRecognizer id="ggb-oI-LGT">
+                    <connections>
+                        <action selector="addAllLabels" destination="BYZ-38-t0r" id="z11-n5-ZTB"/>
+                        <outlet property="delegate" destination="8bC-Xf-vdC" id="zkU-bY-DBc"/>
+                    </connections>
+                </tapGestureRecognizer>
                 <swipeGestureRecognizer direction="right" id="JU3-H0-s9n">
                     <connections>
-                        <action selector="deleteLabel" destination="BYZ-38-t0r" id="ftd-iQ-5gP"/>
+                        <action selector="removeLabel" destination="BYZ-38-t0r" id="Kkb-gb-6gK"/>
                         <outlet property="delegate" destination="8bC-Xf-vdC" id="8Ns-y7-odU"/>
                     </connections>
                 </swipeGestureRecognizer>
+                <swipeGestureRecognizer direction="right" id="D61-eY-Wro">
+                    <connections>
+                        <action selector="removeAllLabels" destination="BYZ-38-t0r" id="eRA-7s-UQh"/>
+                        <outlet property="delegate" destination="8bC-Xf-vdC" id="fvy-Ff-QvK"/>
+                    </connections>
+                </swipeGestureRecognizer>
+                <panGestureRecognizer minimumNumberOfTouches="1" id="Jht-1X-eKU" userLabel="Pan To Speed Up">
+                    <connections>
+                        <action selector="accelerating:" destination="BYZ-38-t0r" id="EbY-ef-pDP"/>
+                        <outlet property="delegate" destination="8bC-Xf-vdC" id="1CM-46-FIY"/>
+                    </connections>
+                </panGestureRecognizer>
             </objects>
+            <point key="canvasLocation" x="281" y="159"/>
         </scene>
     </scenes>
 </document>
