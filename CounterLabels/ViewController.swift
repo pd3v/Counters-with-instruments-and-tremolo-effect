@@ -11,7 +11,7 @@ import UIKit
 extension UIViewController {
     
     var allCounters: [UIView] {
-        return self.view.subviews.filter{($0 is CounterLabel)}
+        return self.view.subviews.filter{($0 is Counter)}
     }
 
     func fadeWithDuration(duration: NSTimeInterval = 0.2, alpha: CGFloat, indicators: (UIView) -> Bool, exclude: Set<UIView>?) {
@@ -26,7 +26,7 @@ extension UIViewController {
     }
 }
 
-class ViewController: UIViewController, UIGestureRecognizerDelegate, StateDelegate {
+class ViewController: UIViewController, UIGestureRecognizerDelegate, CounterDelegate {
     
     @IBOutlet var clickToAddLabel: UITapGestureRecognizer!
     @IBOutlet var dbClickToFillWithLabels: UITapGestureRecognizer!
@@ -41,11 +41,11 @@ class ViewController: UIViewController, UIGestureRecognizerDelegate, StateDelega
     
     let maxCountersPerRowColumn = 6
     var numberOfViewsPerRowColumn = 3
-    lazy var allIndicators: (UIView) -> Bool = {($0 is UIButton) || !($0 is CounterLabel)}
-    lazy var speedIndicators: (UIView) -> Bool = {($0 is UILabel) && !($0 is CounterLabel) && !($0 is UIButton)}
+    lazy var allIndicators: (UIView) -> Bool = {($0 is UIButton) || !($0 is Counter)}
+    lazy var speedIndicators: (UIView) -> Bool = {($0 is UILabel) && !($0 is Counter) && !($0 is UIButton)}
     var counter = 0
     var overallHue: CGFloat = 0
-
+ 
     override func viewDidLoad() {
         super.viewDidLoad()
 
@@ -63,7 +63,7 @@ class ViewController: UIViewController, UIGestureRecognizerDelegate, StateDelega
         bttNumberOfCounters.titleLabel?.text = String(numberOfViewsPerRowColumn)
         
         overallHue = CGFloat(arc4random_uniform(100)) / 100
-        self.view.backgroundColor = UIColor(hue: overallHue, saturation: 0.5, brightness: 0.5, alpha: 1.0)
+        self.view.backgroundColor = CounterType.colorWithHue(overallHue, brightness: 0.4) //UIColor(hue: overallHue, saturation: 0.5, brightness: 0.5, alpha: 1.0)
         labelInstructions.textColor = UIColor(hue: overallHue , saturation: 0.5, brightness: 0.9, alpha: 0.5)
         labelSpeedChangingValue.textColor = UIColor(hue: overallHue + 0.5 , saturation: 0.5, brightness: 0.9, alpha: 0.65)
         //labelSpeedChangingText.textColor = UIColor(hue: overallHue + 0.5 , saturation: 0.5, brightness: 0.9, alpha: 0.5)    
@@ -75,6 +75,7 @@ class ViewController: UIViewController, UIGestureRecognizerDelegate, StateDelega
     
     @IBAction func addLabel() {
         if self.allCounters.count >= 0 && self.allCounters.count <= numberOfViewsPerRowColumn * numberOfViewsPerRowColumn - 1 {
+            /*
             var newLabel: CounterLabel
             
             let createCounterLabel = arc4random_uniform(3)
@@ -88,6 +89,9 @@ class ViewController: UIViewController, UIGestureRecognizerDelegate, StateDelega
             default: ()
                 newLabel = SlowLabel(hue: overallHue)
             }
+            */
+            
+            let newLabel = CounterFactory.initWithHue(overallHue)
             ++counter
             newLabel.tag = counter
             newLabel.delegate = self
@@ -109,7 +113,7 @@ class ViewController: UIViewController, UIGestureRecognizerDelegate, StateDelega
         }
     }
     
-    func addGridConstraintsTo(newLabel: CounterLabel) {
+    func addGridConstraintsTo(newLabel: Counter) {
         // Width and Height with same value constraint
         //self.view.addConstraint(NSLayoutConstraint(item: newLabel, attribute: NSLayoutAttribute.Width, relatedBy: NSLayoutRelation.Equal, toItem: newLabel, attribute: NSLayoutAttribute.Height, multiplier: 1, constant: 0))
         
@@ -183,17 +187,10 @@ class ViewController: UIViewController, UIGestureRecognizerDelegate, StateDelega
         } else if recognizer.state == UIGestureRecognizerState.Changed {
             //let allCounters1 = self.allCounters //self.view.subviews.filter{($0 is CounterLabel)}
             self.allCounters.map{ v in
-                let label = (v as? CounterLabel)!
-                // FIXME: Refactor to trinary operator
+                let counter = v as! Counter //(v as? Counter)!
                 let velocity = panToAccelerate.velocityInView(self.view)
-                /*if velocity.y > 0 {
-                    label.speedChanged += 0.1
-                }
-                else {
-                    label.speedChanged -= 0.1
-                }*/
-                label.speedChanged += velocity.y > 0 ? 0.1 : -0.1
-                self.labelSpeedChangingValue.text = String(format: "%.1f s slower", label.speedChanged)
+                counter.speed += velocity.y > 0 ? 0.1 : -0.1
+                labelSpeedChangingValue.text = String(format: "%.1f s slower", counter.speed)
                 //print(label.dynamicType, label.tag, ":", label.delaySecWithOffset, label.brightness)
             }
         } else if recognizer.state == UIGestureRecognizerState.Ended {
@@ -208,11 +205,11 @@ class ViewController: UIViewController, UIGestureRecognizerDelegate, StateDelega
     }
     
     // Not in use for now
-    func runDidEnd(counter: CounterLabel) {
+    func runDidEnd(counter: Counter) {
         
     }
     
-    func messageAfterEnding() -> String? {
+    func textAfterEnding() -> String? {
         return nil
     }
     
