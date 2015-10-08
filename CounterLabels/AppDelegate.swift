@@ -1,8 +1,6 @@
 //
-//  AppDelegate.swift
-//  CounterLabels
 //
-//  Created by Paulo on 15/09/15.
+//  Created by Paulo.
 //  Copyright © 2015 xyz. All rights reserved.
 //
 
@@ -12,7 +10,6 @@ import UIKit
 class AppDelegate: UIResponder, UIApplicationDelegate {
 
     var window: UIWindow?
-
 
     func application(application: UIApplication, didFinishLaunchingWithOptions launchOptions: [NSObject: AnyObject]?) -> Bool {
         // Override point for customization after application launch.

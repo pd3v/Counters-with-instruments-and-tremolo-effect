@@ -1,15 +1,12 @@
 //
-//  ViewController.swift
-//  Animals
 //
-//  Created by Paulo on 16/08/14.
-//  Copyright (c) 2014 xyz. All rights reserved.
+//  Created by Paulo.
+//  Copyright (c) 2015 xyz. All rights reserved.
 //
 
 import UIKit
 
 extension UIViewController {
-    
     var allCounters: [UIView] {
         return self.view.subviews.filter{($0 is Counter)}
     }
@@ -21,177 +18,148 @@ extension UIViewController {
                     return $0 != view
                 }
                 return true
-            }.map{$0.alpha = alpha}
+            }.forEach{$0.alpha = alpha}
         })
     }
 }
 
 class ViewController: UIViewController, UIGestureRecognizerDelegate, CounterDelegate {
-    
-    @IBOutlet var clickToAddLabel: UITapGestureRecognizer!
-    @IBOutlet var dbClickToFillWithLabels: UITapGestureRecognizer!
-    @IBOutlet var swipeToRemoveLabel: UISwipeGestureRecognizer!
-    @IBOutlet var dbSwipeToRemoveAllLabels: UISwipeGestureRecognizer!
+    @IBOutlet var tapToAddCounter: UITapGestureRecognizer!
+    @IBOutlet var dbTapToFillUpWithCounters: UITapGestureRecognizer!
+    @IBOutlet var swipeToRemoveCounter: UISwipeGestureRecognizer!
+    @IBOutlet var dbSwipeToRemoveAllCounters: UISwipeGestureRecognizer!
     @IBOutlet var panToAccelerate: UIPanGestureRecognizer!
     
     @IBOutlet weak var bttNumberOfCounters: UIButton!
     @IBOutlet weak var labelInstructions: UILabel!
-    //@IBOutlet weak var labelSpeedChangingText: UILabel!
     @IBOutlet weak var labelSpeedChangingValue: UILabel!
     
-    let maxCountersPerRowColumn = 6
+    let FONTSIZE_RESCALE: CGFloat = 1.3
+    let MAX_COUNTERS_PER_ROW_COLUMN = 6
+    
     var numberOfViewsPerRowColumn = 3
-    lazy var allIndicators: (UIView) -> Bool = {($0 is UIButton) || !($0 is Counter)}
-    lazy var speedIndicators: (UIView) -> Bool = {($0 is UILabel) && !($0 is Counter) && !($0 is UIButton)}
-    var counter = 0
+    var allIndicators: (UIView) -> Bool = {($0 is UIButton) || !($0 is Counter)}
+    var speedIndicators: (UIView) -> Bool = {($0 is UILabel) && !($0 is Counter) && !($0 is UIButton)}
     var overallHue: CGFloat = 0
  
     override func viewDidLoad() {
         super.viewDidLoad()
-
+        
         self.view.userInteractionEnabled = true
-        dbClickToFillWithLabels.numberOfTouchesRequired = 2
-        swipeToRemoveLabel.direction = UISwipeGestureRecognizerDirection.Left
-        dbSwipeToRemoveAllLabels.numberOfTouchesRequired = 2
-        dbSwipeToRemoveAllLabels.direction = UISwipeGestureRecognizerDirection.Left
+        dbTapToFillUpWithCounters.numberOfTouchesRequired = 2
+        swipeToRemoveCounter.direction = UISwipeGestureRecognizerDirection.Left
+        dbSwipeToRemoveAllCounters.numberOfTouchesRequired = 2
+        dbSwipeToRemoveAllCounters.direction = UISwipeGestureRecognizerDirection.Left
         panToAccelerate.maximumNumberOfTouches = 1
-        swipeToRemoveLabel.delegate = self
-        //panToAccelerate.delegate = self
-        bttNumberOfCounters.titleLabel?.adjustsFontSizeToFitWidth = true
-        bttNumberOfCounters.titleLabel?.minimumScaleFactor = 0.3
+        swipeToRemoveCounter.delegate = self
         bttNumberOfCounters.titleLabel?.baselineAdjustment = .AlignCenters
         bttNumberOfCounters.titleLabel?.text = String(numberOfViewsPerRowColumn)
-        
+        labelSpeedChangingValue.adjustsFontSizeToFitWidth = true
+        labelSpeedChangingValue.minimumScaleFactor = 0.4
+        labelSpeedChangingValue.layer.masksToBounds = true
+        labelSpeedChangingValue.layer.cornerRadius = 8.0
         overallHue = CGFloat(arc4random_uniform(100)) / 100
-        self.view.backgroundColor = CounterType.colorWithHue(overallHue, brightness: 0.4) //UIColor(hue: overallHue, saturation: 0.5, brightness: 0.5, alpha: 1.0)
+        self.view.backgroundColor = CounterType.colorWithHue(overallHue, brightness: 0.4)
         labelInstructions.textColor = UIColor(hue: overallHue , saturation: 0.5, brightness: 0.9, alpha: 0.5)
-        labelSpeedChangingValue.textColor = UIColor(hue: overallHue + 0.5 , saturation: 0.5, brightness: 0.9, alpha: 0.65)
-        //labelSpeedChangingText.textColor = UIColor(hue: overallHue + 0.5 , saturation: 0.5, brightness: 0.9, alpha: 0.5)    
+        labelSpeedChangingValue.textColor = UIColor(hue: 1.0 , saturation: 0.0, brightness: 1.0, alpha: 0.45) // White color
+        labelSpeedChangingValue.backgroundColor = UIColor(hue: 1.0, saturation: 1.0, brightness: 0.0, alpha: 0.45) // Black color
     }
     
     override func didReceiveMemoryWarning() {
         super.didReceiveMemoryWarning()
     }
     
-    @IBAction func addLabel() {
+    @IBAction func addCounter() {
         if self.allCounters.count >= 0 && self.allCounters.count <= numberOfViewsPerRowColumn * numberOfViewsPerRowColumn - 1 {
-            /*
-            var newLabel: CounterLabel
-            
-            let createCounterLabel = arc4random_uniform(3)
-            switch createCounterLabel {
-            case 0:
-                newLabel = SlowLabel(hue: overallHue)
-            case 1:
-                newLabel = AverageLabel(hue: overallHue)
-            case 2:
-                newLabel = FastLabel(hue: overallHue)
-            default: ()
-                newLabel = SlowLabel(hue: overallHue)
-            }
-            */
-            
-            let newLabel = CounterFactory.initWithHue(overallHue)
-            ++counter
-            newLabel.tag = counter
-            newLabel.delegate = self
-            newLabel.translatesAutoresizingMaskIntoConstraints = false
-            
-            //self.view.sendSubviewToBack((labelSpeedChangingText))
-            self.view.sendSubviewToBack(labelSpeedChangingValue)
+            let newCounter = CounterFactory.initWithHue(overallHue)
+            newCounter.delegate = self
+            newCounter.translatesAutoresizingMaskIntoConstraints = false
         
-            self.view.addSubview(newLabel)
-            addGridConstraintsTo(newLabel)
-            
-            //self.view.bringSubviewToFront(labelSpeedChangingText)
+            self.view.sendSubviewToBack(labelSpeedChangingValue)
+            self.view.addSubview(newCounter)
+            addGridConstraintsTo(newCounter)
             self.view.bringSubviewToFront(labelSpeedChangingValue)
 
-            // Fade out indicators (views other than CounterLabels) after first counter label added to the view
+            // Fade out indicators (any view other than Counter) after first counter added to the view
             if self.allCounters.count == 1 {
                 self.fadeWithDuration(alpha: 0.0, indicators: allIndicators, exclude: nil)
             }
         }
     }
     
-    func addGridConstraintsTo(newLabel: Counter) {
+    func addGridConstraintsTo(newCounter: Counter) {
         // Width and Height with same value constraint
-        //self.view.addConstraint(NSLayoutConstraint(item: newLabel, attribute: NSLayoutAttribute.Width, relatedBy: NSLayoutRelation.Equal, toItem: newLabel, attribute: NSLayoutAttribute.Height, multiplier: 1, constant: 0))
+        //self.view.addConstraint(NSLayoutConstraint(item: newCounter, attribute: NSLayoutAttribute.Width, relatedBy: NSLayoutRelation.Equal, toItem: newCounter, attribute: NSLayoutAttribute.Height, multiplier: 1, constant: 0))
         
         // Number of labels per column constraint
-        self.view.addConstraint(NSLayoutConstraint(item: newLabel, attribute: .Height, relatedBy: NSLayoutRelation.Equal, toItem: self.view , attribute: .Height, multiplier: 1 / CGFloat(numberOfViewsPerRowColumn), constant: 0))
+        self.view.addConstraint(NSLayoutConstraint(item: newCounter, attribute: .Height, relatedBy: NSLayoutRelation.Equal, toItem: self.view , attribute: .Height, multiplier: 1 / CGFloat(numberOfViewsPerRowColumn), constant: 0))
         
         // Number of labels per row constraint
-        self.view.addConstraint(NSLayoutConstraint(item: newLabel, attribute: .Width, relatedBy: NSLayoutRelation.Equal, toItem: self.view , attribute: .Width, multiplier: 1 / CGFloat(numberOfViewsPerRowColumn), constant: 0))
+        self.view.addConstraint(NSLayoutConstraint(item: newCounter, attribute: .Width, relatedBy: NSLayoutRelation.Equal, toItem: self.view , attribute: .Width, multiplier: 1 / CGFloat(numberOfViewsPerRowColumn), constant: 0))
         
         // Labels horizontal alignment constraints
         let previouslyCreatedView = self.view.subviews.dropLast().last
         if /*self.counter*/ self.allCounters.count % numberOfViewsPerRowColumn == 1 {
             // Each 1st label in row is left aligned to superview
-            self.view.addConstraint(NSLayoutConstraint(item: newLabel , attribute: .Leading, relatedBy: .Equal, toItem: self.view, attribute: .Leading, multiplier: 1, constant: 0))
+            self.view.addConstraint(NSLayoutConstraint(item: newCounter , attribute: .Leading, relatedBy: .Equal, toItem: self.view, attribute: .Leading, multiplier: 1, constant: 0))
         } else {
             // Each left label is left aligned to previous one
-            self.view.addConstraint(NSLayoutConstraint(item: newLabel , attribute: .Left, relatedBy: NSLayoutRelation.Equal, toItem: previouslyCreatedView!, attribute: .Right, multiplier: 1, constant: 0))
+            self.view.addConstraint(NSLayoutConstraint(item: newCounter , attribute: .Left, relatedBy: NSLayoutRelation.Equal, toItem: previouslyCreatedView!, attribute: .Right, multiplier: 1, constant: 0))
         }
         
         // Labels' vertical alignment constraints
         let rowNumber = (self.allCounters.count - 1) / numberOfViewsPerRowColumn + 1
         if rowNumber == 1 {
             // Align row 1 labels' top to superview's top
-            self.view.addConstraint(NSLayoutConstraint(item: newLabel, attribute: .Top , relatedBy: .Equal, toItem: self.view, attribute: .Top, multiplier: 1, constant: 0))
+            self.view.addConstraint(NSLayoutConstraint(item: newCounter, attribute: .Top , relatedBy: .Equal, toItem: self.view, attribute: .Top, multiplier: 1, constant: 0))
         } else {
             // Other rows, align labels' top to previous row labels' bottoms
-            self.view.addConstraint(NSLayoutConstraint(item: newLabel, attribute: .Top , relatedBy: .Equal, toItem: self.view, attribute: .Bottom , multiplier: 1 / CGFloat(numberOfViewsPerRowColumn) * CGFloat(rowNumber - 1), constant: 0))
+            self.view.addConstraint(NSLayoutConstraint(item: newCounter, attribute: .Top , relatedBy: .Equal, toItem: self.view, attribute: .Bottom , multiplier: 1 / CGFloat(numberOfViewsPerRowColumn) * CGFloat(rowNumber - 1), constant: 0))
         }
         
-        newLabel.layoutIfNeeded()
-        newLabel.font = UIFont(name: newLabel.font.fontName, size: newLabel.frame.height * 1.3)
+        newCounter.layoutIfNeeded()
+        newCounter.font = UIFont(name: newCounter.font.fontName, size: newCounter.frame.height * FONTSIZE_RESCALE)
     }
     
-    @IBAction func addAllLabels() {
-        let maxOfLabels = numberOfViewsPerRowColumn * numberOfViewsPerRowColumn
-        if self.allCounters.count < maxOfLabels {
-            for _ in 1...(maxOfLabels - self.allCounters.count) {
-                addLabel()
+    @IBAction func addAllCounters() {
+        let maxOfCounters = numberOfViewsPerRowColumn * numberOfViewsPerRowColumn
+        if self.allCounters.count < maxOfCounters {
+            for _ in 1...(maxOfCounters - self.allCounters.count) {
+                addCounter()
             }
         }
-        //self.view.bringSubviewToFront(labelSpeedChangingText)
         self.view.bringSubviewToFront(labelSpeedChangingValue)
     }
     
-    @IBAction func removeLabel() {
+    @IBAction func removeCounter() {
         if self.allCounters.count > 0 {
-            //self.view.subviews.filter{($0 is CounterLabel)}.last?.removeFromSuperview()
             self.allCounters.last?.removeFromSuperview()
-            --counter
         }
         if self.allCounters.count == 0 {
             self.fadeWithDuration(alpha: 1.0, indicators: allIndicators, exclude: nil)
         }
     }
     
-    @IBAction func removeAllLabels() {
-        //let allCounters = self.view.subviews.filter{($0 is CounterLabel)}
-        for v in self.allCounters {
+    @IBAction func removeAllCounters() {
+        /*for v in self.allCounters {
             v.removeFromSuperview()
-        }
-        counter = 0
-        self.labelSpeedChangingValue.text = "0.0 s slower"
+        }*/
+        self.allCounters.forEach{v in v.removeFromSuperview()}
+        self.labelSpeedChangingValue.text = "0.0s slower"
         self.fadeWithDuration(alpha: 1.0, indicators: allIndicators, exclude: nil)
     }
     
     @IBAction func accelerating(recognizer: UIPanGestureRecognizer) {
         // Accelerating label indicator value changing and on/off of screen
-        recognizer.requireGestureRecognizerToFail(swipeToRemoveLabel)
+        recognizer.requireGestureRecognizerToFail(swipeToRemoveCounter)
         if recognizer.state == UIGestureRecognizerState.Began {
             self.fadeWithDuration(alpha: 1.0, indicators: speedIndicators, exclude: [labelInstructions])
         } else if recognizer.state == UIGestureRecognizerState.Changed {
-            //let allCounters1 = self.allCounters //self.view.subviews.filter{($0 is CounterLabel)}
-            self.allCounters.map{ v in
-                let counter = v as! Counter //(v as? Counter)!
+            self.allCounters.forEach{ view in
+                let counter = view as! Counter
                 let velocity = panToAccelerate.velocityInView(self.view)
                 counter.speed += velocity.y > 0 ? 0.1 : -0.1
-                labelSpeedChangingValue.text = String(format: "%.1f s slower", counter.speed)
-                //print(label.dynamicType, label.tag, ":", label.delaySecWithOffset, label.brightness)
+                labelSpeedChangingValue.text = String(format: "%.1fs slower", counter.speed)
             }
         } else if recognizer.state == UIGestureRecognizerState.Ended {
             self.fadeWithDuration(0.1, alpha: 0.0, indicators: speedIndicators, exclude: [labelInstructions])
@@ -199,18 +167,29 @@ class ViewController: UIViewController, UIGestureRecognizerDelegate, CounterDele
     }
     
     @IBAction func changingNumberOfCounters(sender: UIButton) {
-        let newNumberOfCounters = numberOfViewsPerRowColumn++ % maxCountersPerRowColumn + 1
+        let newNumberOfCounters = numberOfViewsPerRowColumn++ % MAX_COUNTERS_PER_ROW_COLUMN + 1
         sender.setTitle(String(newNumberOfCounters), forState: .Normal)
         numberOfViewsPerRowColumn = newNumberOfCounters
     }
     
-    // Not in use for now
-    func runDidEnd(counter: Counter) {
-        
+    // CounterDelegate optional method
+    func setCounterTextAfterCountingEnd() -> String {
+        return "yeah!"
     }
     
-    func textAfterEnding() -> String? {
-        return nil
+    override func supportedInterfaceOrientations() -> UIInterfaceOrientationMask {
+        return UIInterfaceOrientationMask.All
+    }
+    
+    // When rotating from portrait orientation counters have to be redrawn. Numbers inferior to 10 font's size are bigger than label size
+    override func didRotateFromInterfaceOrientation(fromInterfaceOrientation: UIInterfaceOrientation) {
+        if fromInterfaceOrientation == .Portrait || fromInterfaceOrientation == .PortraitUpsideDown {
+            view.layoutIfNeeded()
+            self.allCounters.forEach{ view in
+                let label = (view as! UILabel)
+                label.font = UIFont(name: label.font.fontName, size: label.frame.height * FONTSIZE_RESCALE)
+            }
+        }
     }
     
     func gestureRecognizer(gestureRecognizer: UIGestureRecognizer, shouldRecognizeSimultaneouslyWithGestureRecognizer otherGestureRecognizer: UIGestureRecognizer) -> Bool {
