@@ -7,6 +7,7 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		3A7265FE1BC928DE00A44F3C /* counters running 2.png in Resources */ = {isa = PBXBuildFile; fileRef = 3A7265FD1BC928DE00A44F3C /* counters running 2.png */; settings = {ASSET_TAGS = (); }; };
 		3A923EED1BA8430400DBE4A6 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3A923EEC1BA8430400DBE4A6 /* AppDelegate.swift */; };
 		3A923EEF1BA8430400DBE4A6 /* ViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3A923EEE1BA8430400DBE4A6 /* ViewController.swift */; };
 		3A923EF21BA8430400DBE4A6 /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 3A923EF01BA8430400DBE4A6 /* Main.storyboard */; };
@@ -17,6 +18,7 @@
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
+		3A7265FD1BC928DE00A44F3C /* counters running 2.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = "counters running 2.png"; path = "Screenshots/counters running 2.png"; sourceTree = "<group>"; };
 		3A923EE91BA8430400DBE4A6 /* Counters.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = Counters.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		3A923EEC1BA8430400DBE4A6 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		3A923EEE1BA8430400DBE4A6 /* ViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ViewController.swift; sourceTree = "<group>"; };
@@ -72,6 +74,7 @@
 		3AF8FFCA1BC7E844007E8B1E /* Screenshots */ = {
 			isa = PBXGroup;
 			children = (
+				3A7265FD1BC928DE00A44F3C /* counters running 2.png */,
 				3AF8FFD71BC7EA13007E8B1E /* counters running.PNG */,
 				3AF8FFD81BC7EA13007E8B1E /* Initial screen.PNG */,
 			);
@@ -137,6 +140,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				3A923EF41BA8430400DBE4A6 /* Assets.xcassets in Resources */,
+				3A7265FE1BC928DE00A44F3C /* counters running 2.png in Resources */,
 				3A923EF21BA8430400DBE4A6 /* Main.storyboard in Resources */,
 				3AF8FFD91BC7EA13007E8B1E /* counters running.PNG in Resources */,
 				3AF8FFDA1BC7EA13007E8B1E /* Initial screen.PNG in Resources */,
