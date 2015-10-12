@@ -29,6 +29,7 @@ class ViewController: UIViewController, UIGestureRecognizerDelegate, CounterDele
     @IBOutlet var swipeToRemoveCounter: UISwipeGestureRecognizer!
     @IBOutlet var dbSwipeToRemoveAllCounters: UISwipeGestureRecognizer!
     @IBOutlet var panToAccelerate: UIPanGestureRecognizer!
+    @IBOutlet var longPressToShowSpeedIndicator: UILongPressGestureRecognizer!
     
     @IBOutlet weak var bttNumberOfCounters: UIButton!
     @IBOutlet weak var labelInstructions: UILabel!
@@ -52,6 +53,7 @@ class ViewController: UIViewController, UIGestureRecognizerDelegate, CounterDele
         dbSwipeToRemoveAllCounters.direction = UISwipeGestureRecognizerDirection.Left
         panToAccelerate.maximumNumberOfTouches = 1
         swipeToRemoveCounter.delegate = self
+        longPressToShowSpeedIndicator.delegate = self
         bttNumberOfCounters.titleLabel?.baselineAdjustment = .AlignCenters
         bttNumberOfCounters.titleLabel?.text = String(numberOfViewsPerRowColumn)
         labelSpeedChangingValue.adjustsFontSizeToFitWidth = true
@@ -149,17 +151,25 @@ class ViewController: UIViewController, UIGestureRecognizerDelegate, CounterDele
     @IBAction func accelerating(recognizer: UIPanGestureRecognizer) {
         // Accelerating label indicator value changing and on/off of screen
         recognizer.requireGestureRecognizerToFail(swipeToRemoveCounter)
-        if recognizer.state == UIGestureRecognizerState.Began {
+        if recognizer.state == .Began {
             self.fadeWithDuration(alpha: 1.0, indicators: speedIndicators, exclude: [labelInstructions])
-        } else if recognizer.state == UIGestureRecognizerState.Changed {
+        } else if recognizer.state == .Changed {
             self.allCounters.forEach{ view in
                 let counter = view as! Counter
                 let velocity = panToAccelerate.velocityInView(self.view)
                 counter.speed += velocity.y > 0 ? 0.1 : -0.1
                 labelSpeedChangingValue.text = String(format: "%.1fs slower", counter.speed)
             }
-        } else if recognizer.state == UIGestureRecognizerState.Ended {
+        } else if recognizer.state == .Ended {
             self.fadeWithDuration(0.1, alpha: 0.0, indicators: speedIndicators, exclude: [labelInstructions])
+        }
+    }
+    
+    @IBAction func showSpeedIndicator(recognizer: UILongPressGestureRecognizer) {
+        if recognizer.state == .Began {
+            self.fadeWithDuration(alpha: 1.0, indicators: speedIndicators, exclude: [labelInstructions])
+        } else if recognizer.state == .Ended {
+            self.fadeWithDuration(alpha: 0.0, indicators: speedIndicators, exclude: [labelInstructions])
         }
     }
     

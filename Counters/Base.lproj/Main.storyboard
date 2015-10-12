@@ -144,6 +144,7 @@
                             <outletCollection property="gestureRecognizers" destination="ggb-oI-LGT" appends="YES" id="ld9-yR-h3a"/>
                             <outletCollection property="gestureRecognizers" destination="D61-eY-Wro" appends="YES" id="BiM-8v-48r"/>
                             <outletCollection property="gestureRecognizers" destination="Jht-1X-eKU" appends="YES" id="OMT-Iv-Pdi"/>
+                            <outletCollection property="gestureRecognizers" destination="Kht-Lm-pTC" appends="YES" id="I8a-GZ-ce3"/>
                         </connections>
                     </view>
                     <connections>
@@ -152,6 +153,7 @@
                         <outlet property="dbTapToFillUpWithCounters" destination="ggb-oI-LGT" id="bqB-O7-v4s"/>
                         <outlet property="labelInstructions" destination="Ylx-tK-r7n" id="eXx-hZ-12g"/>
                         <outlet property="labelSpeedChangingValue" destination="tcb-qP-D3e" id="wEc-Bh-yuf"/>
+                        <outlet property="longPressToShowSpeedIndicator" destination="Kht-Lm-pTC" id="SVQ-y0-UOZ"/>
                         <outlet property="panToAccelerate" destination="Jht-1X-eKU" id="836-eK-h4X"/>
                         <outlet property="swipeToRemoveCounter" destination="JU3-H0-s9n" id="8Mk-Ej-9eR"/>
                         <outlet property="tapToAddCounter" destination="rT5-9X-yUx" id="olB-Hr-uvi"/>
@@ -188,6 +190,12 @@
                         <outlet property="delegate" destination="8bC-Xf-vdC" id="1CM-46-FIY"/>
                     </connections>
                 </panGestureRecognizer>
+                <pongPressGestureRecognizer allowableMovement="5" minimumPressDuration="0.5" id="Kht-Lm-pTC">
+                    <connections>
+                        <action selector="showSpeedIndicator:" destination="BYZ-38-t0r" id="1ja-6p-eYp"/>
+                        <outlet property="delegate" destination="8bC-Xf-vdC" id="PYc-0A-r70"/>
+                    </connections>
+                </pongPressGestureRecognizer>
             </objects>
             <point key="canvasLocation" x="281" y="159"/>
         </scene>
