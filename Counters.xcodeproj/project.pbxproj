@@ -15,7 +15,7 @@
 		3A923EF21BA8430400DBE4A6 /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 3A923EF01BA8430400DBE4A6 /* Main.storyboard */; };
 		3A923EF41BA8430400DBE4A6 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 3A923EF31BA8430400DBE4A6 /* Assets.xcassets */; };
 		3A923EFF1BA843B600DBE4A6 /* Counter.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3A923EFE1BA843B600DBE4A6 /* Counter.swift */; settings = {ASSET_TAGS = (); }; };
-		3ADA8A461BCE923100CFACF2 /* CountersTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3ADA8A451BCE923100CFACF2 /* CountersTests.swift */; };
+		3ADA8A461BCE923100CFACF2 /* CounterTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3ADA8A451BCE923100CFACF2 /* CounterTests.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -40,7 +40,7 @@
 		3A923EF81BA8430400DBE4A6 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		3A923EFE1BA843B600DBE4A6 /* Counter.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Counter.swift; sourceTree = "<group>"; };
 		3ADA8A431BCE923000CFACF2 /* CountersTests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = CountersTests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
-		3ADA8A451BCE923100CFACF2 /* CountersTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CountersTests.swift; sourceTree = "<group>"; };
+		3ADA8A451BCE923100CFACF2 /* CounterTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CounterTests.swift; sourceTree = "<group>"; };
 		3ADA8A471BCE923100CFACF2 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
@@ -97,7 +97,7 @@
 		3ADA8A441BCE923100CFACF2 /* CountersTests */ = {
 			isa = PBXGroup;
 			children = (
-				3ADA8A451BCE923100CFACF2 /* CountersTests.swift */,
+				3ADA8A451BCE923100CFACF2 /* CounterTests.swift */,
 				3ADA8A471BCE923100CFACF2 /* Info.plist */,
 			);
 			path = CountersTests;
@@ -227,7 +227,7 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				3ADA8A461BCE923100CFACF2 /* CountersTests.swift in Sources */,
+				3ADA8A461BCE923100CFACF2 /* CounterTests.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -412,6 +412,7 @@
 				3ADA8A4B1BCE923100CFACF2 /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
 		};
 /* End XCConfigurationList section */
 	};

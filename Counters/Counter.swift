@@ -7,6 +7,7 @@
 import UIKit
 
 @objc protocol CounterDelegate {
+    optional func didFinishCounting(counter: Counter)
     optional func setCounterTextAfterCountingEnd() -> String
 }
 
@@ -36,6 +37,8 @@ enum CounterType: Int {
 }
 
 class CounterFactory {
+    private static var counterNumber: Int = 0
+    
     // Factory Method
     class func initWithHue(hue: CGFloat) -> Counter {
         let counterTypeInt = arc4random_uniform(UInt32(CounterType.maxCount))
@@ -43,7 +46,9 @@ class CounterFactory {
         let counterTypeString = namespace + "." + (CounterType(rawValue: Int(counterTypeInt))?.description)!
         let counterSubclass = NSClassFromString(counterTypeString) as! Counter.Type
         
-        return counterSubclass.init(hue: hue)
+        let counter = counterSubclass.init(hue: hue)
+        counter.tag = ++counterNumber
+        return counter
     }
 }
 
@@ -110,6 +115,7 @@ class Counter: UILabel {
                 })
             }
             dispatch_sync(dispatch_get_main_queue(), {
+                self.delegate!.didFinishCounting!(self)
                 guard let newEndText = self.delegate!.setCounterTextAfterCountingEnd?() else {
                     return
                 }
