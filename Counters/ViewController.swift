@@ -169,9 +169,14 @@ class ViewController: UIViewController, UIGestureRecognizerDelegate, CounterDele
         numberOfViewsPerRowColumn = newNumberOfCounters
     }
     
-    // CounterDelegate optional method    
+    // CounterDelegate optional method
     func setCounterTextAfterCountingEnd() -> String {
         return "yeah!"
+    }
+    
+    // CounterDelegate optional method
+    func didFinishCounting(counter: Counter) {
+        print("counter\(counter)")
     }
     
     override func supportedInterfaceOrientations() -> UIInterfaceOrientationMask {
