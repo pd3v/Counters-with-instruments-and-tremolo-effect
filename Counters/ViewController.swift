@@ -120,7 +120,7 @@ class ViewController: UIViewController, UIGestureRecognizerDelegate, CounterDele
         }
         
         newCounter.layoutIfNeeded()
-        newCounter.font = UIFont(name: newCounter.font.fontName, size: newCounter.frame.height * FONTSIZE_RESCALE)
+        newCounter.lblCounting.font = UIFont(name: newCounter.lblCounting.font.fontName, size: newCounter.frame.height * FONTSIZE_RESCALE)
     }
     
     @IBAction func addAllCounters() {
@@ -193,8 +193,12 @@ class ViewController: UIViewController, UIGestureRecognizerDelegate, CounterDele
         if fromInterfaceOrientation == .Portrait || fromInterfaceOrientation == .PortraitUpsideDown {
             view.layoutIfNeeded()
             self.allCounters.forEach{ view in
-                let label = (view as! UILabel)
-                label.font = UIFont(name: label.font.fontName, size: label.frame.height * FONTSIZE_RESCALE)
+                view.subviews.forEach{ subview in
+                    guard let label = (subview as? UILabel) else {
+                        return
+                    }
+                    label.font = UIFont(name: label.font.fontName, size: label.frame.height * FONTSIZE_RESCALE)
+                }
             }
         }
     }
