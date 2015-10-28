@@ -72,20 +72,19 @@ class ViewController: UIViewController, UIGestureRecognizerDelegate, CounterDele
     }
     
     @IBAction func addCounter() {
-        if self.allCounters.count >= 0 && self.allCounters.count <= numberOfViewsPerRowColumn * numberOfViewsPerRowColumn - 1 {
+        if allCounters.count >= 0 && allCounters.count <= numberOfViewsPerRowColumn * numberOfViewsPerRowColumn - 1 {
             let newCounter = CounterFactory.initWithHue(overallHue)
-            print(newCounter.dynamicType)
             newCounter.delegate = self
             newCounter.translatesAutoresizingMaskIntoConstraints = false
-        
+
             self.view.sendSubviewToBack(labelSpeedChangingValue)
             self.view.addSubview(newCounter)
             addGridConstraintsTo(newCounter)
             self.view.bringSubviewToFront(labelSpeedChangingValue)
 
             // Fade out indicators (any view other than Counter) after first counter added to the view
-            if self.allCounters.count == 1 {
-                self.fadeWithDuration(alpha: 0.0, indicators: allIndicators, exclude: nil)
+            if allCounters.count == 1 {
+                fadeWithDuration(alpha: 0.0, indicators: allIndicators, exclude: nil)
             }
         }
     }
@@ -102,7 +101,7 @@ class ViewController: UIViewController, UIGestureRecognizerDelegate, CounterDele
         
         // Labels horizontal alignment constraints
         let previouslyCreatedView = self.view.subviews.dropLast().last
-        if self.allCounters.count % numberOfViewsPerRowColumn == 1 {
+        if allCounters.count % numberOfViewsPerRowColumn == 1 {
             // Each 1st label in row is left aligned to superview
             self.view.addConstraint(NSLayoutConstraint(item: newCounter , attribute: .Leading, relatedBy: .Equal, toItem: self.view, attribute: .Leading, multiplier: 1, constant: 0))
         } else {
@@ -111,7 +110,7 @@ class ViewController: UIViewController, UIGestureRecognizerDelegate, CounterDele
         }
         
         // Labels' vertical alignment constraints
-        let rowNumber = (self.allCounters.count - 1) / numberOfViewsPerRowColumn + 1
+        let rowNumber = (allCounters.count - 1) / numberOfViewsPerRowColumn + 1
         if rowNumber == 1 {
             // Align row 1 labels' top to superview's top
             self.view.addConstraint(NSLayoutConstraint(item: newCounter, attribute: .Top , relatedBy: .Equal, toItem: self.view, attribute: .Top, multiplier: 1, constant: 0))
@@ -126,8 +125,8 @@ class ViewController: UIViewController, UIGestureRecognizerDelegate, CounterDele
     
     @IBAction func addAllCounters() {
         let maxOfCounters = numberOfViewsPerRowColumn * numberOfViewsPerRowColumn
-        if self.allCounters.count < maxOfCounters {
-            for _ in 1...(maxOfCounters - self.allCounters.count) {
+        if allCounters.count < maxOfCounters {
+            for _ in 1...(maxOfCounters - allCounters.count) {
                 addCounter()
             }
         }
@@ -135,42 +134,43 @@ class ViewController: UIViewController, UIGestureRecognizerDelegate, CounterDele
     }
     
     @IBAction func removeCounter() {
-        if self.allCounters.count > 0 {
-            self.allCounters.last?.removeFromSuperview()
+        if allCounters.count > 0 {
+            allCounters.last?.removeFromSuperview()
         }
-        if self.allCounters.count == 0 {
-            self.fadeWithDuration(alpha: 1.0, indicators: allIndicators, exclude: nil)
+        if allCounters.count == 0 {
+            labelSpeedChangingValue.text = "0.0s slower"
+            fadeWithDuration(alpha: 1.0, indicators: allIndicators, exclude: nil)
         }
     }
     
     @IBAction func removeAllCounters() {
-        self.allCounters.forEach{v in v.removeFromSuperview()}
-        self.labelSpeedChangingValue.text = "0.0s slower"
-        self.fadeWithDuration(alpha: 1.0, indicators: allIndicators, exclude: nil)
+        allCounters.forEach{v in v.removeFromSuperview()}
+        labelSpeedChangingValue.text = "0.0s slower"
+        fadeWithDuration(alpha: 1.0, indicators: allIndicators, exclude: nil)
     }
     
     @IBAction func accelerating(recognizer: UIPanGestureRecognizer) {
         // Accelerating label indicator value changing and on/off of screen
         recognizer.requireGestureRecognizerToFail(swipeToRemoveCounter)
         if recognizer.state == .Began {
-            self.fadeWithDuration(alpha: 1.0, indicators: speedIndicators, exclude: [labelInstructions])
+            fadeWithDuration(alpha: 1.0, indicators: speedIndicators, exclude: [labelInstructions])
         } else if recognizer.state == .Changed {
-            self.allCounters.forEach{ view in
+            allCounters.forEach{ view in
                 let counter = view as! Counter
                 let velocity = panToAccelerate.velocityInView(self.view)
                 counter.speed += velocity.y > 0 ? 0.1 : -0.1
                 labelSpeedChangingValue.text = String(format: "%.1fs slower", counter.speed)
             }
         } else if recognizer.state == .Ended {
-            self.fadeWithDuration(0.1, alpha: 0.0, indicators: speedIndicators, exclude: [labelInstructions])
+            fadeWithDuration(0.1, alpha: 0.0, indicators: speedIndicators, exclude: [labelInstructions])
         }
     }
     
     @IBAction func showSpeedIndicator(recognizer: UILongPressGestureRecognizer) {
         if recognizer.state == .Began {
-            self.fadeWithDuration(alpha: 1.0, indicators: speedIndicators, exclude: [labelInstructions])
+            fadeWithDuration(alpha: 1.0, indicators: speedIndicators, exclude: [labelInstructions])
         } else if recognizer.state == .Ended {
-            self.fadeWithDuration(alpha: 0.0, indicators: speedIndicators, exclude: [labelInstructions])
+            fadeWithDuration(alpha: 0.0, indicators: speedIndicators, exclude: [labelInstructions])
         }
     }
     
@@ -189,11 +189,11 @@ class ViewController: UIViewController, UIGestureRecognizerDelegate, CounterDele
         return UIInterfaceOrientationMask.All
     }
     
-    // When rotating from portrait orientation counters have to be redrawn. Numbers inferior to 10 font's size are bigger than label size
+    // When rotating from portrait orientation counters have to be laid out. UILabels don't resize font height.
     override func didRotateFromInterfaceOrientation(fromInterfaceOrientation: UIInterfaceOrientation) {
         if fromInterfaceOrientation == .Portrait || fromInterfaceOrientation == .PortraitUpsideDown {
             view.layoutIfNeeded()
-            self.allCounters.forEach{ view in
+            allCounters.forEach{ view in
                 view.subviews.forEach{ subview in
                     guard let label = (subview as? UILabel) else {
                         return

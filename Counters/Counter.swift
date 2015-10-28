@@ -10,13 +10,6 @@ import UIKit
     optional func setCounterTextAfterCountingEnd() -> String
 }
 
-/*extension UIProgressView {
-    override public func sizeThatFits(size: CGSize) -> CGSize {
-        let newSize = CGSizeMake(10, self.frame.height)
-        return newSize
-    }
-}*/
-
 // - Based on Nate Cook's web site ideas -
 extension CounterType: CustomStringConvertible {
     var description: String {
@@ -54,98 +47,7 @@ class CounterFactory {
     }
 }
 
-/*class Counter: UILabel {
-    internal let MAX_COUNT: Int = 100
-    internal let MAX_DELAY_SEC: Double = 5.0
-    internal let MIN_DELAY_SEC: Double = 0.0
-    
-    private var delaySecOffset: Double = 0.0
-    private var delaySecWithOffset: Double = 0.0
-    internal var delaySec: Double = 0.0 {
-        didSet {
-            delaySecWithOffset = delaySec + delaySecOffset
-        }
-    }
-    internal var brightness: CGFloat = 0.6
-    internal var hue: CGFloat
-    var delegate: CounterDelegate?
-    var speed: Double = 0.0 {
-        willSet {
-            if newValue >= MIN_DELAY_SEC && newValue <= MAX_DELAY_SEC  {
-                delaySecWithOffset += newValue - speed
-                brightness -= CGFloat(newValue - speed) / 10.0
-                self.backgroundColor = CounterType.colorWithHue(hue, brightness: brightness)
-            }
-        }
-        didSet {
-            if speed < MIN_DELAY_SEC {
-                speed = MIN_DELAY_SEC
-                delaySecWithOffset = delaySec + delaySecOffset + MIN_DELAY_SEC
-            }
-            else if speed > MAX_DELAY_SEC {
-                speed = MAX_DELAY_SEC
-                delaySecWithOffset = delaySec + delaySecOffset + MAX_DELAY_SEC
-            }
-        }
-    }
-    
-    required init(hue: CGFloat) {
-        self.hue = hue
-        super.init(frame: CGRectZero)
-        self.textColor = UIColor.whiteColor()
-        self.textAlignment = NSTextAlignment.Center
-        self.baselineAdjustment = UIBaselineAdjustment.AlignCenters
-        self.adjustsFontSizeToFitWidth = true
-        self.minimumScaleFactor = 0.05
-        self.font = UIFont(name: "Helvetica", size: 400)
-        self.text = "0"
-        self.backgroundColor = CounterType.colorWithHue(hue, brightness: brightness)
-        delaySecOffset = slowDownRandomSec()
-        self.running()
-    }
-    
-    required init?(coder aDecoder: NSCoder) {
-        fatalError("init(coder:) has not been implemented")
-    }
-    
-    internal func running() -> () {
-        dispatch_async(dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_DEFAULT, 0), {
-            for i in 1...self.MAX_COUNT {
-                NSThread.sleepForTimeInterval(self.delaySecWithOffset)
-                dispatch_sync(dispatch_get_main_queue(), {
-                    self.text = String(i)
-                })
-            }
-            dispatch_sync(dispatch_get_main_queue(), {
-                guard let newEndText = self.delegate!.setCounterTextAfterCountingEnd?() else {
-                    return
-                }
-                self.text = newEndText
-            })
-        })
-    }
-    
-    private func slowDownRandomSec() -> Double {
-        return Double(arc4random_uniform(10)) / 100
-    }
-}*/
-
-class Timer: NSOperation {
-
-    /*let maxCount: Int?
-    let lblC: UILabel?
-    let progC: UIProgressView?
-    var delaySec: Double? {
-        willSet{
-            print(newValue)
-        }
-        didSet{
-            print("Did set delaySec:\(delaySec)")
-        }
-    }*/
-    
-    static var num = 0
-    
+class Operation: NSOperation {
     enum State {
         case Ready, Executing, Finished, Cancelled
         func keyPath() -> String {
@@ -161,8 +63,7 @@ class Timer: NSOperation {
             }
         }
     }
-    
-    var state = State.Ready {
+    private var state = State.Ready {
         willSet {
             willChangeValueForKey(newValue.keyPath())
             willChangeValueForKey(state.keyPath())
@@ -172,174 +73,58 @@ class Timer: NSOperation {
             didChangeValueForKey(state.keyPath())
         }
     }
-    
-    override var ready: Bool {
-        return super.ready && state == .Ready
-    }
-    
-    override var executing: Bool {
-        return state == .Executing
-    }
-    
-    override var finished: Bool {
-        print("\(self.name) finished")
-        return state == .Finished
-    }
-    
-    override var cancelled: Bool {
-        //print("\(self.name) -> isCancelled Total:\(total)")
-        //print(cancelled)
-        return state == .Cancelled
-    }
-    
-    override var asynchronous: Bool {
-        return true
-    }
+    override var ready: Bool {return super.ready && state == .Ready}
+    override var executing: Bool {return state == .Executing}
+    override var finished: Bool {return state == .Finished}
+    override var cancelled: Bool {return state == .Cancelled}
+    override var asynchronous: Bool {return true}
 
-    override init(/*maxCount: Int, lblC: UILabel, progC: UIProgressView, delaySec: Double*/) {
-        /*self.maxCount = maxCount
-        self.lblC = lblC
-        self.progC = progC
-        self.delaySec = delaySec*/
-        //state == .Ready
-        super.init()
-        self.name = "Op" + String(++Timer.num)
-        //print("\(self.name!) is ready:Go!")
-    }
-    
-    /*override func start() {
-        if self.cancelled {
-            //print("cancelled:\(cancelled)")
-            state = .Finished
-        }
-        else {
-            state = .Executing
-            //print("executing:\(executing)")
-            go()
-            //self.performSelectorInBackground("go", withObject: nil)
-            //print("Is Async?:\(asynchronous)")
-        }
-    }*/
-    
-    func start(completion: ()->()) {
+    func start(loop: () -> Void) {
         super.start()
         if self.cancelled {
-            //print("cancelled:\(cancelled)")
             state = .Finished
-        }
-        else {
+        } else {
             state = .Executing
-            //print("executing:\(executing)")
-            go(completion)
-            //self.performSelectorInBackground("go", withObject: nil)
-            //print("Is Async?:\(asynchronous)")
+            loop()
         }
-        //super.start()
+    }
+    
+    func finish() {
+        state = .Finished
     }
 
-    
     override func cancel() {
-        //print(__FUNCTION__, self.name!)
         super.cancel()
-        //state = .Finished
         state = .Cancelled
     }
-    
-    func go() {
-        // --- Algorithm #1 ---
-        /*var l = true
-        while l {
-            print("Oi!")
-            if self.cancelled {
-                print("Cancelled!")
-                l = !l
-            }
-        }
-        self.state = .Finished
-        print("finished:\(self.finished) \(self.total)")
-        print("executing:\(self.executing)")*/
-        
-        // --- Algorithm #2 ---
-        /*var dicC: [String: AnyObject] = ["lblC": lblC!, "progC": progC!]
-        for i in 1...maxCount! {
-            //NSThread.sleepForTimeInterval(self.delaySecWithOffset)
-            dicC["i"] = NSNumber(integer: i)
-            self.performSelectorOnMainThread("display:", withObject: dicC, waitUntilDone: false)
-        }*/
-        
-        //--- Algorithm #3 ---
-        /*
-        dispatch_async(dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_DEFAULT, 0), {
-            print("delaySec in NSOperation loop:\(self.delaySec!)")
-            for i in 1...self.maxCount! {
-                if self.cancelled {break}
-                NSThread.sleepForTimeInterval(self.delaySec!)
-                dispatch_sync(dispatch_get_main_queue(), {
-                    self.lblC?.text = String(i)
-                    self.progC?.progress = Float(i) / Float(self.maxCount!)
-                })
-            }
-            self.state = .Finished
-            /*dispatch_sync(dispatch_get_main_queue(), {
-                guard let newEndText = self.delegate!.setCounterTextAfterCountingEnd?() else {
-                    return
-                }
-                self.lblCounting.text = newEndText
-            })*/
-        })
-        */
-
-    }
-    
-    func go(completion: ()->Void) {
-        completion()
-        self.state = .Finished
-    }
-
-    /*func display(v: [String: AnyObject]) {
-        (v["lblC"] as! UILabel).text = v["i"]!.stringValue
-        (v["progC"] as! UIProgressView).progress = Float(v["i"]!.integerValue) / Float(self.maxCount!)
-    }*/
 }
 
 class Counter: UIView {
-    
-    //TODO: Dependy injection: "Your thing should not create create the things it needs."
-    // Try to create NSOperation with dependency injection
-    lazy var timering: Timer = Timer(/*maxCount: MAX_COUNT, lblC: lblCounting, progC: progCounting, delaySec: self.delaySecWithOffset*/)
+    lazy var operation = Operation()
 
-    internal let MAX_COUNT: Int = 10_000
-    internal let MAX_DELAY_SEC: Double = 5.0
-    internal let MIN_DELAY_SEC: Double = 0.0
+    let MAX_COUNT: Int = 100
+    let MAX_DELAY_SEC: Double = 5.0
+    let MIN_DELAY_SEC: Double = 0.0
     
-    internal let lblCounting: UILabel = UILabel(frame: CGRectZero)
-    internal let progCounting: UIProgressView = UIProgressView(frame: CGRectZero)
+    let lblCounting: UILabel = UILabel(frame: CGRectZero)
+    let progCounting: UIProgressView = UIProgressView(frame: CGRectZero)
     
     private var delaySecOffset: Double = 0.0
-    private var delaySecWithOffset: Double = 0.0 /*{
-        //TODO: To be removed
-        /*didSet {
-            print("Counter delaySecWithOffset didSet:\(delaySecWithOffset)")
-        }*/
-    }*/
-    internal var delaySec: Double = 0.0 {
-        //TODO: WillSet To be removed
-        /*willSet {
-            print("Counter delaySec willSet:\(newValue)")
-        }*/
+    private var delaySecWithOffset: Double = 0.0
+    var delaySec: Double = 0.0 {
         didSet {
             delaySecWithOffset = delaySec + delaySecOffset
         }
     }
-    internal var brightness: CGFloat = 0.6
-    internal var hue: CGFloat
+    var brightness: CGFloat = 0.6
+    var hue: CGFloat
     var delegate: CounterDelegate?
     var speed: Double = 0.0 {
         willSet {
             if newValue >= MIN_DELAY_SEC && newValue <= MAX_DELAY_SEC  {
                 delaySecWithOffset += newValue - speed
                 brightness -= CGFloat(newValue - speed) / 10.0
-                self.backgroundColor = CounterType.colorWithHue(hue, brightness: brightness)
+                backgroundColor = CounterType.colorWithHue(hue, brightness: brightness)
             }
         }
         didSet {
@@ -359,25 +144,21 @@ class Counter: UIView {
         super.init(frame: CGRectZero)
         lblCounting.translatesAutoresizingMaskIntoConstraints = false
         progCounting.translatesAutoresizingMaskIntoConstraints = false
-        self.lblCounting.textColor = UIColor.whiteColor()
-        self.lblCounting.textAlignment = NSTextAlignment.Center
-        self.lblCounting.baselineAdjustment = UIBaselineAdjustment.AlignCenters
-        self.lblCounting.adjustsFontSizeToFitWidth = true
-        self.lblCounting.minimumScaleFactor = 0.05
-        self.lblCounting.font = UIFont(name: "Helvetica", size: 400)
-        self.lblCounting.text = "0"
-        self.progCounting.progressViewStyle = .Bar
+        lblCounting.textColor = UIColor.whiteColor()
+        lblCounting.textAlignment = NSTextAlignment.Center
+        lblCounting.baselineAdjustment = UIBaselineAdjustment.AlignCenters
+        lblCounting.adjustsFontSizeToFitWidth = true
+        lblCounting.minimumScaleFactor = 0.05
+        lblCounting.font = UIFont(name: "Helvetica", size: 400)
+        lblCounting.text = "0"
+        progCounting.progressViewStyle = .Bar
         let huePlus180Degrees = hue + 0.5 > 1.0 ? hue + 0.5 - 1.0 : hue + 0.5
-        self.progCounting.progressTintColor = UIColor(hue: huePlus180Degrees, saturation: 0.8, brightness: 1.0, alpha: 0.2)
+        progCounting.progressTintColor = UIColor(hue: huePlus180Degrees, saturation: 0.8, brightness: 1.0, alpha: 0.2)
         self.backgroundColor = CounterType.colorWithHue(hue, brightness: brightness)
         self.addSubview(lblCounting)
         self.addSubview(progCounting)
         delaySecOffset = slowDownRandomSec()
-        //self.timering = Timer(maxCount: MAX_COUNT, lblC: lblCounting, progC: progCounting)
-        //self.running()
-        print("Counter init - delaySec:\(delaySecWithOffset)")
-        //self.running2()
-        self.runningWithCompletion()
+        running()
     }
     
     required init?(coder aDecoder: NSCoder) {
@@ -400,59 +181,11 @@ class Counter: UIView {
         super.updateConstraints()
     }
     
-    internal func running() {
-        dispatch_async(dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_DEFAULT, 0), {
-            for i in 1...self.MAX_COUNT {
-                print("delaySecWithOffset:\(self.delaySecWithOffset)")
-                NSThread.sleepForTimeInterval(self.delaySecWithOffset)
-                dispatch_sync(dispatch_get_main_queue(), {
-                    self.lblCounting.text = String(i)
-                    self.progCounting.progress = Float(i) / Float(self.MAX_COUNT)
-                })
-            }
-            dispatch_sync(dispatch_get_main_queue(), {
-                guard let newEndText = self.delegate!.setCounterTextAfterCountingEnd?() else {
-                    return
-                }
-                self.lblCounting.text = newEndText
-            })
-        })
-    }
-    
-    internal func running2() {
-        /*print("In running2 timer creation - delaySec:\(self.delaySec) delaySecOffset:\(self.delaySecOffset) delaySecWithOffset:\(self.delaySecWithOffset)")
-
-        timering = Timer(maxCount: MAX_COUNT, lblC: lblCounting, progC: progCounting, delaySec: self.delaySecWithOffset)
-        
-        /*let myBlock = {print("CompletionBlock working!")}
-        timering.completionBlock?(myBlock())*/
-        //timering.completionBlock?(print("Finished"))
-
-        //timering.timeDelay = self.delaySecWithOffset
-        timering!.start()*/
-    }
-    
-    internal func runningWithCompletion() {
-        //print("In running2 timer creation - delaySec:\(self.delaySec) delaySecOffset:\(self.delaySecOffset) delaySecWithOffset:\(self.delaySecWithOffset)")
-        
-        /*let myBlock = {print("CompletionBlock working!")}
-        timering.completionBlock?(myBlock())*/
-        //timering.completionBlock?(print("Finished"))
-        
-        //timering.timeDelay = self.delaySecWithOffset
-        
-        /*let bl = {
-            for i in 1...1_000 {
-                print(i)
-            }
-            print("delaySecWithOffset:\(self.delaySecWithOffset)")
-        }*/
-        
-        //let counterRunningBlock =
-        timering.start({
+    private func running() {
+        operation.start({
             dispatch_async(dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_DEFAULT, 0), {
                 for i in 1...self.MAX_COUNT {
-                    if self.timering.cancelled {break}
+                    if self.operation.cancelled {break}
                     NSThread.sleepForTimeInterval(self.delaySecWithOffset)
                     dispatch_sync(dispatch_get_main_queue(), {
                         self.lblCounting.text = String(i)
@@ -460,6 +193,7 @@ class Counter: UIView {
                     })
                 }
                 dispatch_sync(dispatch_get_main_queue(), {
+                    self.operation.finish()
                     guard let newEndText = self.delegate!.setCounterTextAfterCountingEnd?() else {
                         return
                     }
@@ -470,8 +204,7 @@ class Counter: UIView {
     }
     
     override func removeFromSuperview() {
-        timering.cancel()
-        //FIXEME: Is this super.remove necessary?
+        operation.cancel()
         super.removeFromSuperview()
     }
     
