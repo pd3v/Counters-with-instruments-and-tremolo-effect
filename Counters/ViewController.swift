@@ -74,6 +74,7 @@ class ViewController: UIViewController, UIGestureRecognizerDelegate, CounterDele
     @IBAction func addCounter() {
         if self.allCounters.count >= 0 && self.allCounters.count <= numberOfViewsPerRowColumn * numberOfViewsPerRowColumn - 1 {
             let newCounter = CounterFactory.initWithHue(overallHue)
+            print(newCounter.dynamicType)
             newCounter.delegate = self
             newCounter.translatesAutoresizingMaskIntoConstraints = false
         
