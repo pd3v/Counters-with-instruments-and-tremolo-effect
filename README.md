@@ -11,4 +11,5 @@ Updated so that every Counter has now a UIProgressView to shown counting progres
 
 ##Autolayout doing its work on a 6x6 counters screen
 ![3x3_counters_screen_in_portrait_orientation](https://github.com/pd3v/Counters/blob/master/Screenshots/counters%20running%202.png)
+
 *String "yeah!" is shown when counter finishes counting. This string is settable using a delegate method in the viewcontroller.*
