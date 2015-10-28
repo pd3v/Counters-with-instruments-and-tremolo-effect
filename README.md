@@ -1,5 +1,5 @@
 # Counters
-iOS Universal app. Fills the screen up with a resettable number of counters. Every counter has its own initial speed (and a matching color brightness) but changeable while counting is running. Developed with Autolayout, multi-threading acomplished with GCD and NSOperation, and gesture recognition.
+iOS Universal app. Fills the screen up with a resettable number of counters. Every counter has its own initial speed (and a matching color brightness) but changeable while counting is running. Developed with Autolayout, multi-threading (with GCD and NSOperation) and gesture recognition.
 
 Updated so that every Counter has now a UIProgressView to shown counting progression.
 
