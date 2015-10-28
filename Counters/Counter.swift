@@ -199,12 +199,8 @@ class Counter: UIView {
                         return
                     }
                     self.lblCounting.text = newEndText
+                    lazy let _ = self.delegate!.didFinishCounting?(self)
                 })
-            }
-            dispatch_sync(dispatch_get_main_queue(), {
-                guard let newEndText = self.delegate!.setCounterTextAfterCountingEnd?() else { return }
-                self.text = newEndText
-                lazy let _ = self.delegate!.didFinishCounting?(self)
             })
         })
     }
