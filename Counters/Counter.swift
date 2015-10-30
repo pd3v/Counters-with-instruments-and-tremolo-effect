@@ -11,7 +11,7 @@ import UIKit
     optional func setCounterTextAfterCountingEnd() -> String
 }
 
-// - Based on Nate Cook's web site ideas -
+// - Based on @nnnnnnnn's web site ideas -
 extension CounterType: CustomStringConvertible {
     var description: String {
         let counterType = ["Fast", "Average", "Slow"]
@@ -23,7 +23,7 @@ extension CounterType: CustomStringConvertible {
 enum CounterType: Int {
     case Fast, Average, Slow
 
-    // - Based on Nate Cook's web site ideas -
+    // - Based on @nnnnnnnn's web site ideas -
     static var maxCount: Int {
         var numOfCounters: Int = 0
         while let _ = self.init(rawValue: ++numOfCounters) {}
@@ -33,6 +33,11 @@ enum CounterType: Int {
     
     static func colorWithHue(hue: CGFloat, brightness: CGFloat) -> UIColor {
         return UIColor(hue: hue, saturation: 0.8, brightness: brightness, alpha: 1.0)
+    }
+    
+    static func huePlus180Degrees(hue: CGFloat, brightness: CGFloat, alpha: CGFloat) -> UIColor {
+        let hue180 = hue + 0.5 > 1.0 ? hue + 0.5 - 1.0 : hue + 0.5
+        return UIColor(hue: hue180, saturation: 0.8, brightness: brightness, alpha: alpha)
     }
 }
 
@@ -49,6 +54,7 @@ class CounterFactory {
 }
 
 class Operation: NSOperation {
+    // - @calebd's elegant gist solution for KVO'ing NSOperation
     enum State {
         case Ready, Executing, Finished, Cancelled
         func keyPath() -> String {
@@ -74,11 +80,12 @@ class Operation: NSOperation {
             didChangeValueForKey(state.keyPath())
         }
     }
-    override var ready: Bool {return super.ready && state == .Ready}
+    //override var ready: Bool {return super.ready && state == .Ready}
     override var executing: Bool {return state == .Executing}
     override var finished: Bool {return state == .Finished}
     override var cancelled: Bool {return state == .Cancelled}
     override var asynchronous: Bool {return true}
+    // - - -
 
     func start(loop: () -> Void) {
         super.start()
@@ -119,7 +126,7 @@ class Counter: UIView {
     }
     var brightness: CGFloat = 0.6
     var hue: CGFloat
-    var delegate: CounterDelegate?
+    weak var delegate: CounterDelegate?
     var speed: Double = 0.0 {
         willSet {
             if newValue >= MIN_DELAY_SEC && newValue <= MAX_DELAY_SEC  {
@@ -153,8 +160,7 @@ class Counter: UIView {
         lblCounting.font = UIFont(name: "Helvetica", size: 400)
         lblCounting.text = "0"
         progCounting.progressViewStyle = .Bar
-        let huePlus180Degrees = hue + 0.5 > 1.0 ? hue + 0.5 - 1.0 : hue + 0.5
-        progCounting.progressTintColor = UIColor(hue: huePlus180Degrees, saturation: 0.8, brightness: 1.0, alpha: 0.2)
+        progCounting.progressTintColor = CounterType.huePlus180Degrees(hue, brightness: 1.0, alpha: 0.2)
         self.backgroundColor = CounterType.colorWithHue(hue, brightness: brightness)
         self.addSubview(lblCounting)
         self.addSubview(progCounting)
