@@ -185,9 +185,11 @@ class ViewController: UIViewController, UIGestureRecognizerDelegate, CounterDele
         return "yeah!"
     }
     
+    /*
     func didFinishCounting(counter: Counter) {
         
     }
+    */
     // - - -
     
     override func supportedInterfaceOrientations() -> UIInterfaceOrientationMask {
