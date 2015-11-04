@@ -1,5 +1,5 @@
 # Counters
-iOS 8.4 Universal app with the purpose of testing some programming concepts, technics and ideas. Fills the screen up with a resettable number of counters. Every counter has its own initial speed (and a matching color brightness) but changeable while counting is running. Developed with Autolayout, multi-threading (with GCD and NSOperation) and gesture recognition.
+iOS 8.4 Universal app with the purpose of testing some programming ideas. Fills the screen up with a resettable number of counters. Every counter has its own initial speed (and a matching color brightness) but changeable while counting is running. Developed with Autolayout, multi-threading (with GCD and NSOperation) and gesture recognition.
 
 Updated so that every Counter has now a UIProgressView to shown counting progression. This progression is viable from left-to-right (default) but also from right-to-left with a tap on the Counter view.
 
