@@ -31,6 +31,8 @@ enum CounterType: Int {
     }
     // - - -
     
+    static let defaultTextColor: UIColor = UIColor.whiteColor()
+    
     static func colorWithHue(hue: CGFloat, brightness: CGFloat) -> UIColor {
         return UIColor(hue: hue, saturation: 0.8, brightness: brightness, alpha: 1.0)
     }
@@ -38,6 +40,11 @@ enum CounterType: Int {
     static func huePlus180Degrees(hue: CGFloat, brightness: CGFloat, alpha: CGFloat) -> UIColor {
         let hue180 = hue + 0.5 > 1.0 ? hue + 0.5 - 1.0 : hue + 0.5
         return UIColor(hue: hue180, saturation: 0.8, brightness: brightness, alpha: alpha)
+    }
+    
+    static func huePlus120Degrees(hue: CGFloat, brightness: CGFloat, alpha: CGFloat) -> UIColor {
+        let hue120 = hue + 0.66 > 1.0 ? hue + 0.66 - 1.0 : hue + 0.66
+        return UIColor(hue: hue120, saturation: 0.8, brightness: brightness, alpha: alpha)
     }
 }
 
@@ -116,6 +123,7 @@ class Counter: UIView {
     
     let lblCounting: UILabel = UILabel(frame: CGRectZero)
     let progCounting: UIProgressView = UIProgressView(frame: CGRectZero)
+    private var progressingFromLeftToRight: Bool = true
     
     private var delaySecOffset: Double = 0.0
     private var delaySecWithOffset: Double = 0.0
@@ -150,9 +158,11 @@ class Counter: UIView {
     required init(hue: CGFloat) {
         self.hue = hue
         super.init(frame: CGRectZero)
+        let tapToRotateProgress = UITapGestureRecognizer(target: self, action: Selector("rotateCounterProgress"))
+        self.addGestureRecognizer(tapToRotateProgress)
         lblCounting.translatesAutoresizingMaskIntoConstraints = false
         progCounting.translatesAutoresizingMaskIntoConstraints = false
-        lblCounting.textColor = UIColor.whiteColor()
+        lblCounting.textColor = CounterType.defaultTextColor
         lblCounting.textAlignment = NSTextAlignment.Center
         lblCounting.baselineAdjustment = UIBaselineAdjustment.AlignCenters
         lblCounting.adjustsFontSizeToFitWidth = true
@@ -164,6 +174,7 @@ class Counter: UIView {
         self.backgroundColor = CounterType.colorWithHue(hue, brightness: brightness)
         self.addSubview(lblCounting)
         self.addSubview(progCounting)
+        //progCounting.frame = CGRectMake(0, self.frame.height/2, self.frame.width, 20)
         delaySecOffset = slowDownRandomSec()
         running()
     }
@@ -187,7 +198,7 @@ class Counter: UIView {
         
         super.updateConstraints()
     }
-    
+
     private func running() {
         operation.start({
             dispatch_async(dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_DEFAULT, 0), {
@@ -214,6 +225,18 @@ class Counter: UIView {
     override func removeFromSuperview() {
         operation.cancel()
         super.removeFromSuperview()
+    }
+    
+    func rotateCounterProgress() {
+        if operation.executing {
+            var textColor: UIColor = CounterType.defaultTextColor
+            if progressingFromLeftToRight  {
+                textColor = CounterType.huePlus120Degrees(hue, brightness: 0.8, alpha: 1.0)
+            }
+            lblCounting.textColor = textColor
+            progCounting.transform = CGAffineTransformMakeScale(progressingFromLeftToRight ? -1 : 1, 1.0)
+            progressingFromLeftToRight = !progressingFromLeftToRight
+        }
     }
     
     private func slowDownRandomSec() -> Double {

@@ -20,42 +20,6 @@
                         <rect key="frame" x="0.0" y="0.0" width="600" height="600"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
-                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="750" verticalHuggingPriority="750" horizontalCompressionResistancePriority="250" verticalCompressionResistancePriority="250" usesAttributedText="YES" lineBreakMode="tailTruncation" numberOfLines="8" minimumFontSize="12" translatesAutoresizingMaskIntoConstraints="NO" id="Ylx-tK-r7n">
-                                <rect key="frame" x="8" y="102" width="588" height="420"/>
-                                <constraints>
-                                    <constraint firstAttribute="width" relation="lessThanOrEqual" id="3ED-Lj-oaz"/>
-                                    <constraint firstAttribute="width" secondItem="Ylx-tK-r7n" secondAttribute="height" multiplier="2:1" priority="750" id="DNV-y7-Juw"/>
-                                    <constraint firstAttribute="height" relation="greaterThanOrEqual" constant="150" id="YP5-Rb-LF0"/>
-                                    <constraint firstAttribute="height" constant="285" id="bcj-kX-coN"/>
-                                    <constraint firstAttribute="height" relation="greaterThanOrEqual" priority="750" constant="300" id="eop-BM-1rU"/>
-                                </constraints>
-                                <attributedString key="attributedText">
-                                    <fragment content="Two touches tap to create all counters. ">
-                                        <attributes>
-                                            <color key="NSColor" red="0.0" green="0.0" blue="0.0" alpha="1" colorSpace="calibratedRGB"/>
-                                            <font key="NSFont" size="50" name="HelveticaNeue-Bold"/>
-                                            <paragraphStyle key="NSParagraphStyle" alignment="justified" lineBreakMode="truncatingTail" baseWritingDirection="natural"/>
-                                        </attributes>
-                                    </fragment>
-                                    <fragment>
-                                        <string key="content">Single tap to create one counter. Two touches left swipe to remove all counters. Single touch swipe left to remove one counter. Slide vertically to change counters' speed.</string>
-                                        <attributes>
-                                            <font key="NSFont" size="50" name="HelveticaNeue-Bold"/>
-                                            <paragraphStyle key="NSParagraphStyle" alignment="justified" lineBreakMode="truncatingTail" baseWritingDirection="natural"/>
-                                        </attributes>
-                                    </fragment>
-                                </attributedString>
-                                <nil key="highlightedColor"/>
-                                <variation key="default">
-                                    <mask key="constraints">
-                                        <exclude reference="3ED-Lj-oaz"/>
-                                        <exclude reference="DNV-y7-Juw"/>
-                                        <exclude reference="YP5-Rb-LF0"/>
-                                        <exclude reference="bcj-kX-coN"/>
-                                        <exclude reference="eop-BM-1rU"/>
-                                    </mask>
-                                </variation>
-                            </label>
                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="1000" verticalHuggingPriority="1000" horizontalCompressionResistancePriority="250" verticalCompressionResistancePriority="250" usesAttributedText="YES" lineBreakMode="tailTruncation" minimumScaleFactor="0.40000000000000002" translatesAutoresizingMaskIntoConstraints="NO" id="tcb-qP-D3e">
                                 <rect key="frame" x="180" y="25" width="240" height="54"/>
                                 <color key="backgroundColor" white="0.0" alpha="0.45000000000000001" colorSpace="calibratedWhite"/>
@@ -105,6 +69,42 @@
                                     <action selector="changingNumberOfCounters:" destination="BYZ-38-t0r" eventType="touchUpInside" id="aBa-FM-40r"/>
                                 </connections>
                             </button>
+                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="750" verticalHuggingPriority="750" horizontalCompressionResistancePriority="250" verticalCompressionResistancePriority="250" usesAttributedText="YES" lineBreakMode="tailTruncation" numberOfLines="8" minimumFontSize="12" translatesAutoresizingMaskIntoConstraints="NO" id="Ylx-tK-r7n">
+                                <rect key="frame" x="8" y="102" width="588" height="420"/>
+                                <constraints>
+                                    <constraint firstAttribute="width" relation="lessThanOrEqual" id="3ED-Lj-oaz"/>
+                                    <constraint firstAttribute="width" secondItem="Ylx-tK-r7n" secondAttribute="height" multiplier="2:1" priority="750" id="DNV-y7-Juw"/>
+                                    <constraint firstAttribute="height" relation="greaterThanOrEqual" constant="150" id="YP5-Rb-LF0"/>
+                                    <constraint firstAttribute="height" constant="285" id="bcj-kX-coN"/>
+                                    <constraint firstAttribute="height" relation="greaterThanOrEqual" priority="750" constant="300" id="eop-BM-1rU"/>
+                                </constraints>
+                                <attributedString key="attributedText">
+                                    <fragment content="Two touches tap to create all counters. ">
+                                        <attributes>
+                                            <color key="NSColor" red="0.0" green="0.0" blue="0.0" alpha="1" colorSpace="calibratedRGB"/>
+                                            <font key="NSFont" size="50" name="HelveticaNeue-Bold"/>
+                                            <paragraphStyle key="NSParagraphStyle" alignment="justified" lineBreakMode="truncatingTail" baseWritingDirection="natural"/>
+                                        </attributes>
+                                    </fragment>
+                                    <fragment>
+                                        <string key="content">Single tap to create one counter. Two touches left swipe to remove all counters. Single touch swipe left to remove one counter. Slide vertically to change counters' speed.</string>
+                                        <attributes>
+                                            <font key="NSFont" size="50" name="HelveticaNeue-Bold"/>
+                                            <paragraphStyle key="NSParagraphStyle" alignment="justified" lineBreakMode="truncatingTail" baseWritingDirection="natural"/>
+                                        </attributes>
+                                    </fragment>
+                                </attributedString>
+                                <nil key="highlightedColor"/>
+                                <variation key="default">
+                                    <mask key="constraints">
+                                        <exclude reference="3ED-Lj-oaz"/>
+                                        <exclude reference="DNV-y7-Juw"/>
+                                        <exclude reference="YP5-Rb-LF0"/>
+                                        <exclude reference="bcj-kX-coN"/>
+                                        <exclude reference="eop-BM-1rU"/>
+                                    </mask>
+                                </variation>
+                            </label>
                         </subviews>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="calibratedWhite"/>
                         <gestureRecognizers/>
