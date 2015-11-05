@@ -174,7 +174,6 @@ class Counter: UIView {
         self.backgroundColor = CounterType.colorWithHue(hue, brightness: brightness)
         self.addSubview(lblCounting)
         self.addSubview(progCounting)
-        //progCounting.frame = CGRectMake(0, self.frame.height/2, self.frame.width, 20)
         delaySecOffset = slowDownRandomSec()
         running()
     }
