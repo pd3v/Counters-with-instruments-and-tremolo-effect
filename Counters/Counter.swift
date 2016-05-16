@@ -121,6 +121,8 @@ class Counter: UIView {
     let MAX_DELAY_SEC: Double = 5.0
     let MIN_DELAY_SEC: Double = 0.0
     
+    var synth = SimpleSynth()
+    
     let lblCounting: UILabel = UILabel(frame: CGRectZero)
     let progCounting: UIProgressView = UIProgressView(frame: CGRectZero)
     private var progressingFromLeftToRight: Bool = true
@@ -158,7 +160,7 @@ class Counter: UIView {
     required init(hue: CGFloat) {
         self.hue = hue
         super.init(frame: CGRectZero)
-        let tapToRotateProgress = UITapGestureRecognizer(target: self, action: Selector("rotateCounterProgress"))
+        let tapToRotateProgress = UITapGestureRecognizer(target: self, action: #selector(Counter.rotateCounterProgress))
         self.addGestureRecognizer(tapToRotateProgress)
         lblCounting.translatesAutoresizingMaskIntoConstraints = false
         progCounting.translatesAutoresizingMaskIntoConstraints = false
@@ -215,6 +217,7 @@ class Counter: UIView {
                         return
                     }
                     self.lblCounting.text = newEndText
+                    self.synth.stop()
                     lazy let _ = self.delegate!.didFinishCounting?(self)
                 })
             })
@@ -223,6 +226,7 @@ class Counter: UIView {
     
     override func removeFromSuperview() {
         operation.cancel()
+        synth.stop()
         super.removeFromSuperview()
     }
     

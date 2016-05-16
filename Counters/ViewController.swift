@@ -5,6 +5,7 @@
 //
 
 import UIKit
+import AVFoundation
 
 extension UIViewController {
     var allCounters: [UIView] {
@@ -37,6 +38,11 @@ class ViewController: UIViewController, UIGestureRecognizerDelegate, CounterDele
     
     let FONTSIZE_RESCALE: CGFloat = 1.3
     let MAX_COUNTERS_PER_ROW_COLUMN = 6
+    let NUM_OF_SYNTHS = 6
+    
+    let engine = AVAudioEngine()
+    let reverb = AVAudioUnitReverb()
+    let mixer = AVAudioMixerNode()
     
     var numberOfViewsPerRowColumn = 3
     var allIndicators: (UIView) -> Bool = {($0 is UIButton) || !($0 is Counter)}
@@ -65,6 +71,21 @@ class ViewController: UIViewController, UIGestureRecognizerDelegate, CounterDele
         labelInstructions.textColor = UIColor(hue: overallHue , saturation: 0.5, brightness: 0.9, alpha: 0.45)
         labelSpeedChangingValue.textColor = UIColor(hue: 1.0 , saturation: 0.0, brightness: 1.0, alpha: 0.45) // White color
         labelSpeedChangingValue.backgroundColor = UIColor(hue: 1.0, saturation: 1.0, brightness: 0.0, alpha: 0.45) // Black color
+        
+        engine.attachNode(reverb)
+        reverb.loadFactoryPreset(.LargeHall2)
+        reverb.wetDryMix = 50
+        
+        engine.attachNode(mixer)
+    
+        engine.connect(mixer, to: reverb, format: nil)
+        engine.connect(reverb, to: engine.mainMixerNode, format: SimpleSynth().outputFormatForBus(0))
+        
+        engine.prepare()
+        do {
+            try engine.start()
+        } catch _ {
+        }
     }
     
     override func didReceiveMemoryWarning() {
@@ -76,7 +97,13 @@ class ViewController: UIViewController, UIGestureRecognizerDelegate, CounterDele
             let newCounter = CounterFactory.initWithHue(overallHue)
             newCounter.delegate = self
             newCounter.translatesAutoresizingMaskIntoConstraints = false
-
+            
+            engine.attachNode(newCounter.synth)
+            engine.connect(newCounter.synth, to: mixer, format: mixer.outputFormatForBus(0))
+            // buffer == nil -> use default built-in soundwave
+            newCounter.synth.scheduleBuffer(nil, atTime: nil, options: .Loops, completionHandler: nil)
+            newCounter.synth.play()
+            
             self.view.sendSubviewToBack(labelSpeedChangingValue)
             self.view.addSubview(newCounter)
             addGridConstraintsTo(newCounter)
@@ -135,6 +162,7 @@ class ViewController: UIViewController, UIGestureRecognizerDelegate, CounterDele
     
     @IBAction func removeCounter() {
         if allCounters.count > 0 {
+            engine.detachNode((allCounters.last as! Counter).synth)
             allCounters.last?.removeFromSuperview()
         }
         if allCounters.count == 0 {
@@ -144,7 +172,10 @@ class ViewController: UIViewController, UIGestureRecognizerDelegate, CounterDele
     }
     
     @IBAction func removeAllCounters() {
-        allCounters.forEach{v in v.removeFromSuperview()}
+        allCounters.forEach{v in
+            engine.detachNode((v as! Counter).synth)
+            v.removeFromSuperview()
+        }
         labelSpeedChangingValue.text = "0.0s slower"
         fadeWithDuration(alpha: 1.0, indicators: allIndicators, exclude: nil)
     }
