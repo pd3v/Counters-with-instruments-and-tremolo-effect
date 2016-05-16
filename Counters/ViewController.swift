@@ -38,7 +38,6 @@ class ViewController: UIViewController, UIGestureRecognizerDelegate, CounterDele
     
     let FONTSIZE_RESCALE: CGFloat = 1.3
     let MAX_COUNTERS_PER_ROW_COLUMN = 6
-    let NUM_OF_SYNTHS = 6
     
     let engine = AVAudioEngine()
     let reverb = AVAudioUnitReverb()

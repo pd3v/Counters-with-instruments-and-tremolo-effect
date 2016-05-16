@@ -5,6 +5,7 @@
 //
 
 import UIKit
+import AVFoundation
 
 @objc protocol CounterDelegate {
     optional func didFinishCounting(counter: Counter)
@@ -116,7 +117,10 @@ class Operation: NSOperation {
 
 class Counter: UIView {
     lazy var operation = Operation()
-
+    
+    /*let audioEngine = AVAudioEngine()
+    let audioNode = AVAudioNode()*/
+    
     let MAX_COUNT: Int = 100
     let MAX_DELAY_SEC: Double = 5.0
     let MIN_DELAY_SEC: Double = 0.0
@@ -177,6 +181,7 @@ class Counter: UIView {
         self.addSubview(lblCounting)
         self.addSubview(progCounting)
         delaySecOffset = slowDownRandomSec()
+        
         running()
     }
     
