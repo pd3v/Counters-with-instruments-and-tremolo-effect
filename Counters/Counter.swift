@@ -118,9 +118,6 @@ class Operation: NSOperation {
 class Counter: UIView {
     lazy var operation = Operation()
     
-    /*let audioEngine = AVAudioEngine()
-    let audioNode = AVAudioNode()*/
-    
     let MAX_COUNT: Int = 100
     let MAX_DELAY_SEC: Double = 5.0
     let MIN_DELAY_SEC: Double = 0.0
@@ -259,6 +256,7 @@ class FastCounter: Counter {
         brightness = 0.6
         self.backgroundColor = CounterType.colorWithHue(hue, brightness: brightness)
         delaySec = 0.0
+        synth.noteFrequency = 97.99 // note G2
     }
     
     required init?(coder aDecoder: NSCoder) {
@@ -272,6 +270,7 @@ class AverageCounter: Counter {
         brightness = 0.8
         self.backgroundColor = CounterType.colorWithHue(hue, brightness: brightness)
         delaySec = 0.1
+        synth.noteFrequency = 82.4 // note E2
     }
 
     required init?(coder aDecoder: NSCoder) {

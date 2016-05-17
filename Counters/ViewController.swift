@@ -97,16 +97,16 @@ class ViewController: UIViewController, UIGestureRecognizerDelegate, CounterDele
             newCounter.delegate = self
             newCounter.translatesAutoresizingMaskIntoConstraints = false
             
+            self.view.sendSubviewToBack(labelSpeedChangingValue)
+            self.view.addSubview(newCounter)
+            addGridConstraintsTo(newCounter)
+            self.view.bringSubviewToFront(labelSpeedChangingValue)
+            
             engine.attachNode(newCounter.synth)
             engine.connect(newCounter.synth, to: mixer, format: mixer.outputFormatForBus(0))
             // buffer == nil -> use default built-in soundwave
             newCounter.synth.scheduleBuffer(nil, atTime: nil, options: .Loops, completionHandler: nil)
             newCounter.synth.play()
-            
-            self.view.sendSubviewToBack(labelSpeedChangingValue)
-            self.view.addSubview(newCounter)
-            addGridConstraintsTo(newCounter)
-            self.view.bringSubviewToFront(labelSpeedChangingValue)
 
             // Fade out indicators (any view other than Counter) after first counter added to the view
             if allCounters.count == 1 {
@@ -212,7 +212,7 @@ class ViewController: UIViewController, UIGestureRecognizerDelegate, CounterDele
     
     // CounterDelegate optional methods
     func setCounterTextAfterCountingEnd() -> String {
-        return "yeah!"
+        return "Yeah!"
     }
     
     /*
