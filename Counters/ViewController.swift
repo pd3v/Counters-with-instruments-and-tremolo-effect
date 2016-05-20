@@ -190,8 +190,6 @@ class ViewController: UIViewController, UIGestureRecognizerDelegate, CounterDele
                 let velocity = panToAccelerate.velocityInView(self.view)
                 counter.speed += velocity.y > 0 ? 0.1 : -0.1
                 labelSpeedChangingValue.text = String(format: "%.1fs slower", counter.speed)
-                
-                levelingSynthsAmplitude(Float(counter.speed) / 5.1)
             }
         } else if recognizer.state == .Ended {
             fadeWithDuration(0.1, alpha: 0.0, indicators: speedIndicators, exclude: [labelInstructions])
