@@ -122,7 +122,7 @@ class Counter: UIView {
     let MAX_DELAY_SEC: Double = 5.0
     let MIN_DELAY_SEC: Double = 0.0
     
-    var synth = SimpleSynth()
+    lazy var synth = SimpleSynth()
     
     let lblCounting: UILabel = UILabel(frame: CGRectZero)
     let progCounting: UIProgressView = UIProgressView(frame: CGRectZero)
@@ -160,6 +160,7 @@ class Counter: UIView {
 
     required init(hue: CGFloat) {
         self.hue = hue
+        
         super.init(frame: CGRectZero)
         let tapToRotateProgress = UITapGestureRecognizer(target: self, action: #selector(Counter.rotateCounterProgress))
         self.addGestureRecognizer(tapToRotateProgress)
@@ -211,6 +212,9 @@ class Counter: UIView {
                     dispatch_sync(dispatch_get_main_queue(), {
                         self.lblCounting.text = String(i)
                         self.progCounting.progress = Float(i) / Float(self.MAX_COUNT)
+                        if !self.synth.playing && self.synth.engine != nil {
+                            self.synth.play()
+                        }
                     })
                 }
                 dispatch_sync(dispatch_get_main_queue(), {

@@ -32,9 +32,9 @@ class SimpleSynth: AVAudioPlayerNode {
         buffer.frameLength = frameSize
     
         for i in 0..<Int(buffer.frameLength) {
+            let val = noteFrequency * Float(i) / sampleRate // Sawtooth wave
             //let val = sinf(noteFrequency * Float(i) * 2 * Float(M_PI) / sampleRate) // Sine wave
-            //let val = noteFrequency * Float(i) / sampleRate // Sawtooth wave
-            let val =  Float(sinf(noteFrequency * Float(i) * 2 * Float(M_PI) / sampleRate) >= 0.0 ? 1.0 : -1.0) // Square wave
+            //let val =  Float(sinf(noteFrequency * Float(i) * 2 * Float(M_PI) / sampleRate) >= 0.0 ? 1.0 : -1.0) // Square wave
             buffer.floatChannelData.memory[i] = val * 0.99
         }
         return buffer

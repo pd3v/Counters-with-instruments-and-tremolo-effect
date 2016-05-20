@@ -74,12 +74,10 @@ class ViewController: UIViewController, UIGestureRecognizerDelegate, CounterDele
         engine.attachNode(reverb)
         reverb.loadFactoryPreset(.LargeHall2)
         reverb.wetDryMix = 50
-        
         engine.attachNode(mixer)
-    
+        mixer.outputVolume = 0.99
         engine.connect(mixer, to: reverb, format: nil)
         engine.connect(reverb, to: engine.mainMixerNode, format: SimpleSynth().outputFormatForBus(0))
-        
         engine.prepare()
         do {
             try engine.start()
@@ -102,11 +100,12 @@ class ViewController: UIViewController, UIGestureRecognizerDelegate, CounterDele
             addGridConstraintsTo(newCounter)
             self.view.bringSubviewToFront(labelSpeedChangingValue)
             
+            // Adding up synths causes audio distortion if total amplitude > 1.0
+            //levelingSynthsAmplitude()
             engine.attachNode(newCounter.synth)
             engine.connect(newCounter.synth, to: mixer, format: mixer.outputFormatForBus(0))
             // buffer == nil -> use default built-in soundwave
             newCounter.synth.scheduleBuffer(nil, atTime: nil, options: .Loops, completionHandler: nil)
-            newCounter.synth.play()
 
             // Fade out indicators (any view other than Counter) after first counter added to the view
             if allCounters.count == 1 {
@@ -163,6 +162,7 @@ class ViewController: UIViewController, UIGestureRecognizerDelegate, CounterDele
         if allCounters.count > 0 {
             engine.detachNode((allCounters.last as! Counter).synth)
             allCounters.last?.removeFromSuperview()
+            levelingSynthsAmplitude()
         }
         if allCounters.count == 0 {
             labelSpeedChangingValue.text = "0.0s slower"
@@ -190,6 +190,8 @@ class ViewController: UIViewController, UIGestureRecognizerDelegate, CounterDele
                 let velocity = panToAccelerate.velocityInView(self.view)
                 counter.speed += velocity.y > 0 ? 0.1 : -0.1
                 labelSpeedChangingValue.text = String(format: "%.1fs slower", counter.speed)
+                
+                levelingSynthsAmplitude(Float(counter.speed) / 5.1)
             }
         } else if recognizer.state == .Ended {
             fadeWithDuration(0.1, alpha: 0.0, indicators: speedIndicators, exclude: [labelInstructions])
@@ -205,8 +207,9 @@ class ViewController: UIViewController, UIGestureRecognizerDelegate, CounterDele
     }
     
     @IBAction func changingNumberOfCounters(sender: UIButton) {
-        let newNumberOfCounters = numberOfViewsPerRowColumn++ % MAX_COUNTERS_PER_ROW_COLUMN + 1
+        let newNumberOfCounters = numberOfViewsPerRowColumn % MAX_COUNTERS_PER_ROW_COLUMN + 1
         sender.setTitle(String(newNumberOfCounters), forState: .Normal)
+        numberOfViewsPerRowColumn += 1
         numberOfViewsPerRowColumn = newNumberOfCounters
     }
     
@@ -243,6 +246,16 @@ class ViewController: UIViewController, UIGestureRecognizerDelegate, CounterDele
     
     func gestureRecognizer(gestureRecognizer: UIGestureRecognizer, shouldRecognizeSimultaneouslyWithGestureRecognizer otherGestureRecognizer: UIGestureRecognizer) -> Bool {
         return true
+    }
+    
+    func levelingSynthsAmplitude(amplitude: Float = 0.82) {
+        // Solution #1 - When removing counters this is not useful
+        //newCounter.synth.volume = 1.0 / Float(numberOfViewsPerRowColumn * numberOfViewsPerRowColumn) * amplitude
+        
+        // Solution #2 - Releveling synths' amplitude according to the number of Counters on screen
+        allCounters.forEach{ view in
+            (view as! Counter).synth.volume = 1.0 / Float(allCounters.count) * amplitude
+        }
     }
 }
 
