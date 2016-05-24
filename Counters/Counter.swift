@@ -27,9 +27,7 @@ enum CounterType: Int {
     // - Based on @nnnnnnnn's web site ideas -
     static var maxCount: Int {
         var numOfCounters: Int = 0
-        
-        numOfCounters += 1
-        while let _ = self.init(rawValue: numOfCounters) {}
+        while let _ = self.init(rawValue: ++numOfCounters) {}
         return numOfCounters
     }
     // - - -
