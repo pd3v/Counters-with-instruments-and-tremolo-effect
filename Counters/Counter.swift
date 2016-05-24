@@ -27,7 +27,9 @@ enum CounterType: Int {
     // - Based on @nnnnnnnn's web site ideas -
     static var maxCount: Int {
         var numOfCounters: Int = 0
-        while let _ = self.init(rawValue: ++numOfCounters) {}
+        
+        numOfCounters += 1
+        while let _ = self.init(rawValue: numOfCounters) {}
         return numOfCounters
     }
     // - - -
@@ -212,7 +214,8 @@ class Counter: UIView {
                     dispatch_sync(dispatch_get_main_queue(), {
                         self.lblCounting.text = String(i)
                         self.progCounting.progress = Float(i) / Float(self.MAX_COUNT)
-                        if !self.synth.playing && self.synth.engine != nil {
+                        // For better sync start playing with start counting
+                        if self.synth.engine != nil && !self.synth.playing {
                             self.synth.play()
                         }
                     })
@@ -260,6 +263,7 @@ class FastCounter: Counter {
         brightness = 0.6
         self.backgroundColor = CounterType.colorWithHue(hue, brightness: brightness)
         delaySec = 0.0
+        delaySecOffset = 0.0
         synth.noteFrequency = 97.99 // note G2
     }
     

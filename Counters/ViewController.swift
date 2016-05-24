@@ -75,13 +75,16 @@ class ViewController: UIViewController, UIGestureRecognizerDelegate, CounterDele
         reverb.loadFactoryPreset(.LargeHall2)
         reverb.wetDryMix = 50
         engine.attachNode(mixer)
-        mixer.outputVolume = 0.99
+        mixer.outputVolume = 0.95
+        engine.mainMixerNode.outputVolume = 0.95 // Volume < 1.0 to add some room to avoid distortion
         engine.connect(mixer, to: reverb, format: nil)
         engine.connect(reverb, to: engine.mainMixerNode, format: SimpleSynth().outputFormatForBus(0))
         engine.prepare()
+        
         do {
             try engine.start()
-        } catch _ {
+        } catch let error as NSError {
+            print("error:\(error.localizedDescription)")
         }
     }
     
@@ -101,7 +104,7 @@ class ViewController: UIViewController, UIGestureRecognizerDelegate, CounterDele
             self.view.bringSubviewToFront(labelSpeedChangingValue)
             
             // Adding up synths causes audio distortion if total amplitude > 1.0
-            //levelingSynthsAmplitude()
+            levelingSynthsAmplitude()
             engine.attachNode(newCounter.synth)
             engine.connect(newCounter.synth, to: mixer, format: mixer.outputFormatForBus(0))
             // buffer == nil -> use default built-in soundwave
@@ -246,14 +249,12 @@ class ViewController: UIViewController, UIGestureRecognizerDelegate, CounterDele
         return true
     }
     
-    func levelingSynthsAmplitude(amplitude: Float = 0.82) {
-        // Solution #1 - When removing counters this is not useful
-        //newCounter.synth.volume = 1.0 / Float(numberOfViewsPerRowColumn * numberOfViewsPerRowColumn) * amplitude
-        
-        // Solution #2 - Releveling synths' amplitude according to the number of Counters on screen
+    func levelingSynthsAmplitude(amplitude amplitude: Float = 0.82) {
+        // Releveling synths' amplitude according to the number of Counters on screen
         allCounters.forEach{ view in
             (view as! Counter).synth.volume = 1.0 / Float(allCounters.count) * amplitude
         }
+        //print((allCounters[0] as! Counter).synth.volume, engine.mainMixerNode.outputVolume)
     }
 }
 
