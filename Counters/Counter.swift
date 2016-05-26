@@ -118,7 +118,7 @@ class Operation: NSOperation {
 class Counter: UIView {
     lazy var operation = Operation()
     
-    let MAX_COUNT: Int = 100
+    let MAX_COUNT: Int = 10
     let MAX_DELAY_SEC: Double = 5.0
     let MIN_DELAY_SEC: Double = 0.0
     
@@ -223,8 +223,8 @@ class Counter: UIView {
                         return
                     }
                     self.lblCounting.text = newEndText
-                    self.synth.stop()
                     lazy let _ = self.delegate!.didFinishCounting?(self)
+                    self.synth.stop()
                 })
             })
         })

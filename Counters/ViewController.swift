@@ -82,7 +82,6 @@ class ViewController: UIViewController, UIGestureRecognizerDelegate, CounterDele
         engine.connect(mixer, to: reverb, format: nil)
         engine.connect(reverb, to: engine.mainMixerNode, format: SimpleSynth().outputFormatForBus(0))
         engine.prepare()
-        
         do {
             try engine.start()
         } catch let error as NSError {
@@ -105,8 +104,6 @@ class ViewController: UIViewController, UIGestureRecognizerDelegate, CounterDele
             addGridConstraintsTo(newCounter)
             self.view.bringSubviewToFront(labelSpeedChangingValue)
             
-            // Adding up synths causes audio distortion if total amplitude > 1.0
-            levelingSynthsAmplitude()
             engine.attachNode(newCounter.synth)
             engine.connect(newCounter.synth, to: mixer, format: mixer.outputFormatForBus(0))
             // buffer == nil -> use default built-in soundwave
@@ -167,10 +164,7 @@ class ViewController: UIViewController, UIGestureRecognizerDelegate, CounterDele
     @IBAction func removeCounter() {
         if allCounters.count > 0 {
             engine.detachNode((allCounters.last as! Counter).synth)
-            /*(allCounters.last as! Counter).synth.scheduleBuffer(nil, atTime: nil, options: .InterruptsAtLoop, completionHandler: nil) // Release
-            (allCounters.last as! Counter).synth.play()*/
             allCounters.last?.removeFromSuperview()
-            levelingSynthsAmplitude()
         }
         if allCounters.count == 0 {
             labelSpeedChangingValue.text = "0.0s slower"
@@ -224,11 +218,9 @@ class ViewController: UIViewController, UIGestureRecognizerDelegate, CounterDele
         return "Yeah!"
     }
     
-    /*
     func didFinishCounting(counter: Counter) {
-        
+        counter.synth.scheduleBuffer(nil, atTime: nil, options: .InterruptsAtLoop, completionHandler: nil) // Release
     }
-    */
     // - - -
     
     override func supportedInterfaceOrientations() -> UIInterfaceOrientationMask {
@@ -252,13 +244,6 @@ class ViewController: UIViewController, UIGestureRecognizerDelegate, CounterDele
     
     func gestureRecognizer(gestureRecognizer: UIGestureRecognizer, shouldRecognizeSimultaneouslyWithGestureRecognizer otherGestureRecognizer: UIGestureRecognizer) -> Bool {
         return true
-    }
-    
-    func levelingSynthsAmplitude(amplitude amplitude: Float = 0.82) {
-        // Releveling synths' amplitude according to the number of Counters on screen
-        allCounters.forEach{ view in
-            //(view as! Counter).synth.volume = 1.0 / Float(allCounters.count) * amplitude
-        }
     }
 }
 

@@ -34,7 +34,7 @@ class SimpleSynth: AVAudioPlayerNode {
             //let val = sinf(noteFrequency * Float(i) * 2 * Float(M_PI) / sampleRate) // Sine wave
             //let val =  Float(sinf(noteFrequency * Float(i) * 2 * Float(M_PI) / sampleRate) >= 0.0 ? 1.0 : -1.0) // Square wave
             buffer.floatChannelData.memory[i] = val * amplitudeEnvelope(sample: i, buf: buffer)
-            if i == 0 {print(i, val, buffer.floatChannelData.memory[i])}
+            //if i == 0 {print(i, val, buffer.floatChannelData.memory[i])}
         }
         /*print(Int(buffer.frameLength) - 1, buffer.floatChannelData.memory[Int(buffer.frameLength-1)])
         print("----")*/
