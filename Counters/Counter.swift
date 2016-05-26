@@ -179,7 +179,6 @@ class Counter: UIView {
         self.addSubview(lblCounting)
         self.addSubview(progCounting)
         delaySecOffset = slowDownRandomSec()
-        
         running()
     }
     
@@ -212,7 +211,7 @@ class Counter: UIView {
                     dispatch_sync(dispatch_get_main_queue(), {
                         self.lblCounting.text = String(i)
                         self.progCounting.progress = Float(i) / Float(self.MAX_COUNT)
-                        // For better sync start playing with start counting
+                        // For better sync start playing with start counting. It's not a great solution nevertheless very effective on synching.
                         if self.synth.engine != nil && !self.synth.playing {
                             self.synth.play()
                         }
@@ -261,7 +260,6 @@ class FastCounter: Counter {
         brightness = 0.6
         self.backgroundColor = CounterType.colorWithHue(hue, brightness: brightness)
         delaySec = 0.0
-        delaySecOffset = 0.0
         synth.noteFrequency = 97.99 // note G2
     }
     

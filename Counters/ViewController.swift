@@ -75,8 +75,10 @@ class ViewController: UIViewController, UIGestureRecognizerDelegate, CounterDele
         reverb.loadFactoryPreset(.LargeHall2)
         reverb.wetDryMix = 50
         engine.attachNode(mixer)
-        mixer.outputVolume = 0.95
-        engine.mainMixerNode.outputVolume = 0.95 // Volume < 1.0 to add some room to avoid distortion
+        mixer.volume = 0.99
+        mixer.outputVolume = 0.99
+        engine.mainMixerNode.volume = 0.99
+        engine.mainMixerNode.outputVolume = 0.99 // Volume < 1.0 to add some room to avoid distortion
         engine.connect(mixer, to: reverb, format: nil)
         engine.connect(reverb, to: engine.mainMixerNode, format: SimpleSynth().outputFormatForBus(0))
         engine.prepare()
@@ -108,7 +110,8 @@ class ViewController: UIViewController, UIGestureRecognizerDelegate, CounterDele
             engine.attachNode(newCounter.synth)
             engine.connect(newCounter.synth, to: mixer, format: mixer.outputFormatForBus(0))
             // buffer == nil -> use default built-in soundwave
-            newCounter.synth.scheduleBuffer(nil, atTime: nil, options: .Loops, completionHandler: nil)
+            newCounter.synth.scheduleBuffer(nil, atTime: nil, options: .Interrupts, completionHandler: nil) // Attack
+            newCounter.synth.scheduleBuffer(nil, atTime: nil, options: .Loops, completionHandler: nil) // Sustain
 
             // Fade out indicators (any view other than Counter) after first counter added to the view
             if allCounters.count == 1 {
@@ -164,6 +167,8 @@ class ViewController: UIViewController, UIGestureRecognizerDelegate, CounterDele
     @IBAction func removeCounter() {
         if allCounters.count > 0 {
             engine.detachNode((allCounters.last as! Counter).synth)
+            /*(allCounters.last as! Counter).synth.scheduleBuffer(nil, atTime: nil, options: .InterruptsAtLoop, completionHandler: nil) // Release
+            (allCounters.last as! Counter).synth.play()*/
             allCounters.last?.removeFromSuperview()
             levelingSynthsAmplitude()
         }
@@ -252,9 +257,8 @@ class ViewController: UIViewController, UIGestureRecognizerDelegate, CounterDele
     func levelingSynthsAmplitude(amplitude amplitude: Float = 0.82) {
         // Releveling synths' amplitude according to the number of Counters on screen
         allCounters.forEach{ view in
-            (view as! Counter).synth.volume = 1.0 / Float(allCounters.count) * amplitude
+            //(view as! Counter).synth.volume = 1.0 / Float(allCounters.count) * amplitude
         }
-        //print((allCounters[0] as! Counter).synth.volume, engine.mainMixerNode.outputVolume)
     }
 }
 
