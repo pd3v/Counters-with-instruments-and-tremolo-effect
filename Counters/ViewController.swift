@@ -64,7 +64,6 @@ class ViewController: UIViewController, UIGestureRecognizerDelegate, CounterDele
                 reverbWetDryMix = 100
                 reverb.wetDryMix = 100
             }
-            print(reverb.wetDryMix)
         }
     }
     
