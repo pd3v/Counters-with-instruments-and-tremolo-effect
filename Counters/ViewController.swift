@@ -42,11 +42,34 @@ class ViewController: UIViewController, UIGestureRecognizerDelegate, CounterDele
     let engine = AVAudioEngine()
     let reverb = AVAudioUnitReverb()
     let mixer = AVAudioMixerNode()
+    let mixerRight = AVAudioMixerNode()
     
     var numberOfViewsPerRowColumn = 3
     var allIndicators: (UIView) -> Bool = {($0 is UIButton) || !($0 is Counter)}
     var speedIndicators: (UIView) -> Bool = {($0 is UILabel) && !($0 is Counter) && !($0 is UIButton)}
     var overallHue: CGFloat = 0
+    
+    var wetDryMix: Float = 0.0 {
+        willSet {
+            if newValue >= 0 && newValue <= 100  {
+                /*delaySecWithOffset += newValue - speed
+                 brightness -= CGFloat(newValue - speed) / 10.0
+                 backgroundColor = CounterType.colorWithHue(hue, brightness: brightness)*/
+                reverb.wetDryMix += newValue - wetDryMix
+            }
+        }
+        /*didSet {
+            if speed < MIN_DELAY_SEC {
+                speed = MIN_DELAY_SEC
+                delaySecWithOffset = delaySec + delaySecOffset + MIN_DELAY_SEC
+            }
+            else if speed > MAX_DELAY_SEC {
+                speed = MAX_DELAY_SEC
+                delaySecWithOffset = delaySec + delaySecOffset + MAX_DELAY_SEC
+            }
+        }*/
+    }
+
  
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -75,7 +98,9 @@ class ViewController: UIViewController, UIGestureRecognizerDelegate, CounterDele
         reverb.loadFactoryPreset(.LargeHall2)
         reverb.wetDryMix = 50
         engine.attachNode(mixer)
+        engine.attachNode(mixerRight)
         mixer.volume = 0.99
+        mixerRight.volume = 0.99
         mixer.outputVolume = 0.99
         engine.mainMixerNode.volume = 0.99
         engine.mainMixerNode.outputVolume = 0.99 // Volume < 1.0 to add some room to avoid distortion
@@ -192,6 +217,11 @@ class ViewController: UIViewController, UIGestureRecognizerDelegate, CounterDele
                 let velocity = panToAccelerate.velocityInView(self.view)
                 counter.speed += velocity.y > 0 ? 0.1 : -0.1
                 labelSpeedChangingValue.text = String(format: "%.1fs slower", counter.speed)
+                
+                //reverb.wetDryMix += velocity.y > 0 ? 0.5 : -0.5
+                reverb.wetDryMix += velocity.y > 0 ? 0.5 : -0.5
+                print(reverb.wetDryMix)
+
             }
         } else if recognizer.state == .Ended {
             fadeWithDuration(0.1, alpha: 0.0, indicators: speedIndicators, exclude: [labelInstructions])

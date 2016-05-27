@@ -18,7 +18,7 @@ class SimpleSynth: AVAudioPlayerNode {
     required override init() {
         super.init()
         self.volume = 0.99
-
+        
         for _ in 0..<arc4random_uniform(numOfOctaves) { noteFrequency *= 2 }
     }
     
@@ -26,9 +26,8 @@ class SimpleSynth: AVAudioPlayerNode {
         var buffer = AVAudioPCMBuffer()
         buffer = AVAudioPCMBuffer(PCMFormat: self.outputFormatForBus(0), frameCapacity: duration)
         buffer.frameLength = duration
-        /*print("Duration in samples:\(duration)")
-        print("Duration in seconds:\(round(sampleRate / noteFrequency) / 44_100.0)")*/
-        
+        /*
+        // Mono audio
         for i in 0..<Int(buffer.frameLength) {
             let val = fmodf(noteFrequency * Float(i) / sampleRate, 1.0) * 2 - 1 // Sawtooth wave
             //let val = sinf(noteFrequency * Float(i) * 2 * Float(M_PI) / sampleRate) // Sine wave
@@ -36,9 +35,16 @@ class SimpleSynth: AVAudioPlayerNode {
             buffer.floatChannelData.memory[i] = val * amplitudeEnvelope(sample: i, buf: buffer)
             //if i == 0 {print(i, val, buffer.floatChannelData.memory[i])}
         }
-        /*print(Int(buffer.frameLength) - 1, buffer.floatChannelData.memory[Int(buffer.frameLength-1)])
-        print("----")*/
-        
+        */
+        // Stereo audio
+        for i in 0..<Int(buffer.frameLength) {
+            for channel in 0..<Int(buffer.format.channelCount) {
+                let val = fmodf(noteFrequency * Float(i) / sampleRate, 1.0) * 2 - 1 // Sawtooth wave
+                //let val = sinf(noteFrequency * Float(i) * 2 * Float(M_PI) / sampleRate) // Sine wave
+                //let val =  Float(sinf(noteFrequency * Float(i) * 2 * Float(M_PI) / sampleRate) >= 0.0 ? 1.0 : -1.0) // Square wave
+                buffer.floatChannelData[channel][i] = val * amplitudeEnvelope(sample: i, buf: buffer)
+            }
+        }
         return buffer
     }
     
