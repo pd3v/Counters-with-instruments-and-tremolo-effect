@@ -26,17 +26,7 @@ class SimpleSynth: AVAudioPlayerNode {
         var buffer = AVAudioPCMBuffer()
         buffer = AVAudioPCMBuffer(PCMFormat: self.outputFormatForBus(0), frameCapacity: duration)
         buffer.frameLength = duration
-        /*
-        // Mono audio
-        for i in 0..<Int(buffer.frameLength) {
-            let val = fmodf(noteFrequency * Float(i) / sampleRate, 1.0) * 2 - 1 // Sawtooth wave
-            //let val = sinf(noteFrequency * Float(i) * 2 * Float(M_PI) / sampleRate) // Sine wave
-            //let val =  Float(sinf(noteFrequency * Float(i) * 2 * Float(M_PI) / sampleRate) >= 0.0 ? 1.0 : -1.0) // Square wave
-            buffer.floatChannelData.memory[i] = val * amplitudeEnvelope(sample: i, buf: buffer)
-            //if i == 0 {print(i, val, buffer.floatChannelData.memory[i])}
-        }
-        */
-        // Stereo audio
+        
         for i in 0..<Int(buffer.frameLength) {
             for channel in 0..<Int(buffer.format.channelCount) {
                 let val = fmodf(noteFrequency * Float(i) / sampleRate, 1.0) * 2 - 1 // Sawtooth wave
@@ -77,15 +67,4 @@ class SimpleSynth: AVAudioPlayerNode {
                              options: options,
                              completionHandler: completionHandler)
     }
-    
-    /*func secondsToFrameSize(sampleRate sampleRate: Float, timeInSec: Float) -> AVAudioFrameCount {
-        let samplesMinimum = round(sampleRate / noteFrequency)
-        let minimumDuration = samplesMinimum / 44_100.0
-        //print("Samples Minimum:\(samplesMinimum)")
-        print("Minimum Duration:\(minimumDuration)seg")
-        /*let snapDurantion = timeInSec / minimumDuration * minimumDuration
-        print("Span Duration:\(snapDurantion)seg")
-        return UInt32(sampleRate * snapDurantion)*/
-        return UInt32(sampleRate * timeInSec)
-    }*/
 }
