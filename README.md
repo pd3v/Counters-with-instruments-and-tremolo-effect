@@ -5,7 +5,7 @@ Updated so that every Counter has now a UIProgressView to shown counting progres
 
 
 # Counters with Instruments branch `Checkout!`
-This branch is totally based on Counters but with sound! This time each counter has a built-in Synth playing one note. The notes are randomly generated from C, E, G notes (C Major chord) in various octaves. Slowing down counters' counting increases reverb dry/wet parameter. All programmed using classes AVAudioEngine, AVAudioPlayerNode, with code generated soundwave curves into AVAudioPCMBuffer buffers, AVAudioMixerNode and AVAudioUnitReverb were used.
+This branch is totally based on Counters but with sound! This time each counter has a built-in Synth playing one note. The notes are randomly generated out of C, E, G notes (C Major chord) in various octaves. Slowing down counters' counting increases reverb dry/wet parameter. All programmed using classes AVAudioEngine, AVAudioPlayerNode, with code generated soundwave curves into AVAudioPCMBuffer buffers, AVAudioMixerNode and AVAudioUnitReverb were used.
 
 ## App's initial screen
 ![intial_screen](https://github.com/pd3v/Counters/blob/master/Screenshots/Initial%20screen.PNG)
