@@ -3,6 +3,9 @@ iOS 8.4 Universal app with the purpose of testing some programming ideas. Fills 
 
 Updated so that every Counter has now a UIProgressView to shown counting progression. This progression is viable from left-to-right (default) but also from right-to-left with a tap on the Counter view.
 
+# Counters with Instruments branch ´Check it out!´
+This branch is totally based on Counters but with sound! This time each counter has a built-in Synth playing one note. The notes are randomly generated from C, E, G notes (C Major chord) in various octaves. Slowing down counters' counting increases reverb dry/wet parameter. All programmed using classes AVAudioEngine, AVAudioPlayerNode, with code generated soundwave curves into AVAudioPCMBuffer buffers, AVAudioMixerNode and AVAudioUnitReverb were used.
+
 ## App's initial screen
 ![intial_screen](https://github.com/pd3v/Counters/blob/master/Screenshots/Initial%20screen.PNG)
 
