@@ -1,8 +1,6 @@
 //
-//  SimpleSynth.swift
-//  SynthNative
 //
-//  Created by Paulo on 14/05/16.
+//  Created by Paulo.
 //  Copyright © 2016 xyz. All rights reserved.
 //
 
