@@ -184,7 +184,7 @@ class ViewController: UIViewController, UIGestureRecognizerDelegate, CounterDele
             allCounters.last?.removeFromSuperview()
         }
         if allCounters.count == 0 {
-            labelSpeedChangingValue.text = "0.0s slower"
+            labelSpeedChangingValue.text = "0.0s slower reverb 100%"
             fadeWithDuration(alpha: 1.0, indicators: allIndicators, exclude: nil)
         }
         relevelSynthsVolumes()
@@ -195,7 +195,7 @@ class ViewController: UIViewController, UIGestureRecognizerDelegate, CounterDele
             engine.detachNode((view as! Counter).synth) // No new counters/synths will be reused
             view.removeFromSuperview()
         }
-        labelSpeedChangingValue.text = "0.0s slower"
+        labelSpeedChangingValue.text = "0.0s slower reverb 100%"
         fadeWithDuration(alpha: 1.0, indicators: allIndicators, exclude: nil)
     }
     
@@ -209,7 +209,7 @@ class ViewController: UIViewController, UIGestureRecognizerDelegate, CounterDele
             allCounters.forEach{ view in
                 let counter = view as! Counter
                 counter.speed += velocity.y > 0 ? 0.1 : -0.1
-                labelSpeedChangingValue.text = String(format: "%.1fs slower", counter.speed)
+                labelSpeedChangingValue.text = String(format: "%.1fs slower reverb %3.f%%", counter.speed, reverbWetDryMix)
             }
             reverbWetDryMix += velocity.y > 0 ? -2 : 2 // Reverb wetDryMix varies inversely with counting speed
         } else if recognizer.state == .Ended {

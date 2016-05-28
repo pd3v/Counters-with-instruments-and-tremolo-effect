@@ -21,7 +21,7 @@
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="1000" verticalHuggingPriority="1000" horizontalCompressionResistancePriority="250" verticalCompressionResistancePriority="250" usesAttributedText="YES" lineBreakMode="tailTruncation" minimumScaleFactor="0.40000000000000002" translatesAutoresizingMaskIntoConstraints="NO" id="tcb-qP-D3e">
-                                <rect key="frame" x="180" y="25" width="240" height="54"/>
+                                <rect key="frame" x="90" y="25" width="420" height="54"/>
                                 <color key="backgroundColor" white="0.0" alpha="0.45000000000000001" colorSpace="calibratedWhite"/>
                                 <constraints>
                                     <constraint firstAttribute="height" constant="45" id="71Y-nQ-JiB"/>
@@ -30,7 +30,7 @@
                                     <constraint firstAttribute="width" constant="180" id="xxr-py-Quj"/>
                                 </constraints>
                                 <attributedString key="attributedText">
-                                    <fragment content="0.0s slower">
+                                    <fragment content="0.0s slower reverb 100%">
                                         <attributes>
                                             <color key="NSColor" red="1" green="1" blue="1" alpha="0.45000000000000001" colorSpace="custom" customColorSpace="sRGB"/>
                                             <font key="NSFont" size="45" name="HelveticaNeue-Bold"/>
@@ -117,7 +117,7 @@
                             <constraint firstItem="tcb-qP-D3e" firstAttribute="width" secondItem="8bC-Xf-vdC" secondAttribute="width" constant="-500" id="GTS-GX-B3o"/>
                             <constraint firstItem="tcb-qP-D3e" firstAttribute="centerX" secondItem="Ylx-tK-r7n" secondAttribute="centerX" id="LDh-va-VCM"/>
                             <constraint firstItem="Ylx-tK-r7n" firstAttribute="centerX" secondItem="8bC-Xf-vdC" secondAttribute="centerX" constant="2" id="N2Y-E4-wDQ"/>
-                            <constraint firstItem="tcb-qP-D3e" firstAttribute="width" secondItem="8bC-Xf-vdC" secondAttribute="width" multiplier="0.4" id="a2K-QR-V6e"/>
+                            <constraint firstItem="tcb-qP-D3e" firstAttribute="width" secondItem="8bC-Xf-vdC" secondAttribute="width" multiplier="0.7" id="a2K-QR-V6e"/>
                             <constraint firstItem="tcb-qP-D3e" firstAttribute="top" secondItem="y3c-jy-aDJ" secondAttribute="bottom" constant="5" id="egH-Vb-NoS"/>
                             <constraint firstItem="tcb-qP-D3e" firstAttribute="centerX" secondItem="8bC-Xf-vdC" secondAttribute="centerX" id="fJX-J6-h2w"/>
                             <constraint firstItem="Ylx-tK-r7n" firstAttribute="height" secondItem="8bC-Xf-vdC" secondAttribute="height" id="fjk-5M-Jhg"/>
