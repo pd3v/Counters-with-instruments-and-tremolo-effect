@@ -206,15 +206,13 @@ class Counter: UIView {
         operation.start({
             dispatch_async(dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_DEFAULT, 0), {
                 for i in 1...self.MAX_COUNT {
-                    if self.operation.cancelled {break}
+                    if self.operation.cancelled { break }
                     NSThread.sleepForTimeInterval(self.delaySecWithOffset)
                     dispatch_sync(dispatch_get_main_queue(), {
                         self.lblCounting.text = String(i)
                         self.progCounting.progress = Float(i) / Float(self.MAX_COUNT)
                         // For better sync start playing with start counting. It's not a great solution nevertheless very effective on synching.
-                        if self.synth.engine != nil && !self.synth.playing {
-                            self.synth.play()
-                        }
+                        if self.synth.engine != nil && !self.synth.playing { self.synth.play() }
                     })
                 }
                 dispatch_sync(dispatch_get_main_queue(), {
@@ -224,7 +222,6 @@ class Counter: UIView {
                     }
                     self.lblCounting.text = newEndText
                     lazy let _ = self.delegate!.didFinishCounting?(self)
-                    self.synth.stop()
                 })
             })
         })
@@ -232,7 +229,6 @@ class Counter: UIView {
     
     override func removeFromSuperview() {
         operation.cancel()
-        synth.stop()
         super.removeFromSuperview()
     }
     

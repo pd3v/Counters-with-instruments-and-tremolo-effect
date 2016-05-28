@@ -37,12 +37,11 @@ class ViewController: UIViewController, UIGestureRecognizerDelegate, CounterDele
     @IBOutlet weak var labelSpeedChangingValue: UILabel!
     
     let FONTSIZE_RESCALE: CGFloat = 1.3
-    let MAX_COUNTERS_PER_ROW_COLUMN = 6
+    let MAX_COUNTERS_PER_ROW_COLUMN = 3
     
     let engine = AVAudioEngine()
     let reverb = AVAudioUnitReverb()
     let mixer = AVAudioMixerNode()
-    let mixerRight = AVAudioMixerNode()
     
     var numberOfViewsPerRowColumn = 3
     var allIndicators: (UIView) -> Bool = {($0 is UIButton) || !($0 is Counter)}
@@ -56,11 +55,11 @@ class ViewController: UIViewController, UIGestureRecognizerDelegate, CounterDele
             }
         }
         didSet {
-            if reverbWetDryMix < 0 {
+            if reverbWetDryMix <= 0 {
                 reverbWetDryMix = 0
                 reverb.wetDryMix = 0
             }
-            else if reverbWetDryMix > 100 {
+            else if reverbWetDryMix >= 100 {
                 reverbWetDryMix = 100
                 reverb.wetDryMix = 100
             }
@@ -92,13 +91,9 @@ class ViewController: UIViewController, UIGestureRecognizerDelegate, CounterDele
         
         engine.attachNode(reverb)
         reverb.loadFactoryPreset(.LargeHall2)
-        reverb.wetDryMix = 50
+        reverb.wetDryMix = 100
         engine.attachNode(mixer)
-        engine.attachNode(mixerRight)
-        mixer.volume = 0.99
-        mixerRight.volume = 0.99
         mixer.outputVolume = 0.99
-        engine.mainMixerNode.volume = 0.99
         engine.mainMixerNode.outputVolume = 0.99 // Volume < 1.0 to add some room to avoid distortion
         engine.connect(mixer, to: reverb, format: nil)
         engine.connect(reverb, to: engine.mainMixerNode, format: SimpleSynth().outputFormatForBus(0))
@@ -125,6 +120,7 @@ class ViewController: UIViewController, UIGestureRecognizerDelegate, CounterDele
             addGridConstraintsTo(newCounter)
             self.view.bringSubviewToFront(labelSpeedChangingValue)
             
+            relevelSynthsVolumes()
             engine.attachNode(newCounter.synth)
             engine.connect(newCounter.synth, to: mixer, format: mixer.outputFormatForBus(0))
             // buffer == nil -> use default built-in soundwave
@@ -184,19 +180,20 @@ class ViewController: UIViewController, UIGestureRecognizerDelegate, CounterDele
     
     @IBAction func removeCounter() {
         if allCounters.count > 0 {
-            engine.detachNode((allCounters.last as! Counter).synth)
+            engine.detachNode((allCounters.last as! Counter).synth) // No new counter/synth will be reused
             allCounters.last?.removeFromSuperview()
         }
         if allCounters.count == 0 {
             labelSpeedChangingValue.text = "0.0s slower"
             fadeWithDuration(alpha: 1.0, indicators: allIndicators, exclude: nil)
         }
+        relevelSynthsVolumes()
     }
     
     @IBAction func removeAllCounters() {
-        allCounters.forEach{v in
-            engine.detachNode((v as! Counter).synth)
-            v.removeFromSuperview()
+        allCounters.forEach{view in
+            engine.detachNode((view as! Counter).synth) // No new counters/synths will be reused
+            view.removeFromSuperview()
         }
         labelSpeedChangingValue.text = "0.0s slower"
         fadeWithDuration(alpha: 1.0, indicators: allIndicators, exclude: nil)
@@ -208,14 +205,13 @@ class ViewController: UIViewController, UIGestureRecognizerDelegate, CounterDele
         if recognizer.state == .Began {
             fadeWithDuration(alpha: 1.0, indicators: speedIndicators, exclude: [labelInstructions])
         } else if recognizer.state == .Changed {
+            let velocity = panToAccelerate.velocityInView(self.view)
             allCounters.forEach{ view in
                 let counter = view as! Counter
-                let velocity = panToAccelerate.velocityInView(self.view)
                 counter.speed += velocity.y > 0 ? 0.1 : -0.1
                 labelSpeedChangingValue.text = String(format: "%.1fs slower", counter.speed)
-                
-                reverbWetDryMix += velocity.y > 0 ? -2 : 2 // Reverb wetDryMix varies inversely with counting speed
             }
+            reverbWetDryMix += velocity.y > 0 ? -2 : 2 // Reverb wetDryMix varies inversely with counting speed
         } else if recognizer.state == .Ended {
             fadeWithDuration(0.1, alpha: 0.0, indicators: speedIndicators, exclude: [labelInstructions])
         }
@@ -267,6 +263,13 @@ class ViewController: UIViewController, UIGestureRecognizerDelegate, CounterDele
     
     func gestureRecognizer(gestureRecognizer: UIGestureRecognizer, shouldRecognizeSimultaneouslyWithGestureRecognizer otherGestureRecognizer: UIGestureRecognizer) -> Bool {
         return true
+    }
+    
+    func relevelSynthsVolumes() {
+        // Relevel synths' volume <= 1.0 to prevent distortion when adding new synths
+        allCounters.forEach{ view in
+            (view as! Counter).synth.volume = 1.0 / Float(allCounters.count)
+        }
     }
 }
 

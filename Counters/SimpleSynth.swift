@@ -17,8 +17,6 @@ class SimpleSynth: AVAudioPlayerNode {
     
     required override init() {
         super.init()
-        self.volume = 0.99
-        
         for _ in 0..<arc4random_uniform(numOfOctaves) { noteFrequency *= 2 }
     }
     
@@ -41,15 +39,15 @@ class SimpleSynth: AVAudioPlayerNode {
     override func scheduleBuffer(buffer: AVAudioPCMBuffer?, atTime: AVAudioTime?, options: AVAudioPlayerNodeBufferOptions, completionHandler: AVAudioNodeCompletionHandler?) {
         let duration: AVAudioFrameCount
         let amplitudeEnvelope: (sample: Int, buffer: AVAudioPCMBuffer) -> Float
-        //FIXME: The transition from Attack buffer to the Sustain buffer is audible. It souldn't be. Phases match.
+        //FIXME: When buffers are of different lenghts transition between them are audible. It souldn't be. Phases match.
         switch options {
         case AVAudioPlayerNodeBufferOptions.Interrupts: // Attack
-            duration = AVAudioFrameCount(round(sampleRate / noteFrequency * 2)) // '* 2' for twice the needed amount of samples for a smoother attack envelope
+            duration = AVAudioFrameCount(round(sampleRate / noteFrequency))
             amplitudeEnvelope = { sample, buffer in
                 return Float(sample) / Float(buffer.frameLength)
             }
         case AVAudioPlayerNodeBufferOptions.InterruptsAtLoop: // Release
-            duration = AVAudioFrameCount(round(sampleRate / noteFrequency * 2)) // '* 2' for twice the needed amount of samples for a smoother release envelope
+            duration = AVAudioFrameCount(round(sampleRate / noteFrequency))
             amplitudeEnvelope = { sample, buffer in
                 return 1 - (Float(sample) / Float(buffer.frameLength))
             }
