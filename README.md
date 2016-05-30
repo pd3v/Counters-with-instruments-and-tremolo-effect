@@ -3,7 +3,7 @@ This branch is totally based on Counters but with sound! This time each Counter 
 All programmed using AVAudioEngine, AVAudioPlayerNode classes, with code generated soundwaves into AVAudioPCMBuffer buffers, plus AVAudioMixerNode and AVAudioUnitReverb.
 
 ## App's initial screen (added reverb wet/dry info)
-![intial_screen](https://github.com/pd3v/Counters/blob/master/Screenshots/Initial screen (with Instruments).PNG)
+![intial_screen](https://github.com/pd3v/Counters/blob/Counters_with_Instruments/Screenshots/Initial%20screen%20(with%20Instruments).PNG)
 
 ## 3x3 counters screen with speed changing indicator and sound playing with 40% of reverb
 ![3x3_counters_screen_with_speed_changing_and_sound_playing indicator](https://github.com/pd3v/Counters/blob/master/Screenshots/Counters running and playing sound.PNG)
