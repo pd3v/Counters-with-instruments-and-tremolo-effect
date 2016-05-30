@@ -6,4 +6,4 @@ All programmed using AVAudioEngine, AVAudioPlayerNode classes, with code generat
 ![intial_screen](https://github.com/pd3v/Counters/blob/Counters_with_Instruments/Screenshots/Initial%20screen%20(with%20Instruments).PNG)
 
 ## 3x3 counters screen with speed changing indicator and sound playing with 40% of reverb
-![3x3_counters_screen_with_speed_changing_and_sound_playing indicator](https://github.com/pd3v/Counters/blob/master/Screenshots/Counters running and playing sound.PNG)
+![3x3_counters_screen_with_speed_changing_and_sound_playing indicator](https://github.com/pd3v/Counters/blob/Counters_with_Instruments/Screenshots/Counters%20running%20and%20playing%20sound.PNG)
