@@ -10,9 +10,6 @@
 		3A1D2DC31CFC507A00C682E2 /* Initial screen (with Instruments).PNG in Resources */ = {isa = PBXBuildFile; fileRef = 3A1D2DC11CFC507A00C682E2 /* Initial screen (with Instruments).PNG */; };
 		3A1D2DC41CFC507A00C682E2 /* Counters running and playing sound.PNG in Resources */ = {isa = PBXBuildFile; fileRef = 3A1D2DC21CFC507A00C682E2 /* Counters running and playing sound.PNG */; };
 		3A23C1731CEA11C400AA7441 /* SimpleSynth.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3A23C1721CEA11C400AA7441 /* SimpleSynth.swift */; };
-		3A7266261BC92EED00A44F3C /* counters running 2.png in Resources */ = {isa = PBXBuildFile; fileRef = 3A7266231BC92EED00A44F3C /* counters running 2.png */; };
-		3A7266271BC92EED00A44F3C /* counters running.PNG in Resources */ = {isa = PBXBuildFile; fileRef = 3A7266241BC92EED00A44F3C /* counters running.PNG */; };
-		3A7266281BC92EED00A44F3C /* Initial screen.PNG in Resources */ = {isa = PBXBuildFile; fileRef = 3A7266251BC92EED00A44F3C /* Initial screen.PNG */; };
 		3A923EED1BA8430400DBE4A6 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3A923EEC1BA8430400DBE4A6 /* AppDelegate.swift */; };
 		3A923EEF1BA8430400DBE4A6 /* ViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3A923EEE1BA8430400DBE4A6 /* ViewController.swift */; };
 		3A923EF21BA8430400DBE4A6 /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 3A923EF01BA8430400DBE4A6 /* Main.storyboard */; };
@@ -34,9 +31,6 @@
 		3A1D2DC11CFC507A00C682E2 /* Initial screen (with Instruments).PNG */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = "Initial screen (with Instruments).PNG"; path = "Screenshots/Initial screen (with Instruments).PNG"; sourceTree = "<group>"; };
 		3A1D2DC21CFC507A00C682E2 /* Counters running and playing sound.PNG */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = "Counters running and playing sound.PNG"; path = "Screenshots/Counters running and playing sound.PNG"; sourceTree = "<group>"; };
 		3A23C1721CEA11C400AA7441 /* SimpleSynth.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SimpleSynth.swift; sourceTree = "<group>"; };
-		3A7266231BC92EED00A44F3C /* counters running 2.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = "counters running 2.png"; path = "Screenshots/counters running 2.png"; sourceTree = "<group>"; };
-		3A7266241BC92EED00A44F3C /* counters running.PNG */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = "counters running.PNG"; path = "Screenshots/counters running.PNG"; sourceTree = "<group>"; };
-		3A7266251BC92EED00A44F3C /* Initial screen.PNG */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = "Initial screen.PNG"; path = "Screenshots/Initial screen.PNG"; sourceTree = "<group>"; };
 		3A923EE91BA8430400DBE4A6 /* Counters.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = Counters.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		3A923EEC1BA8430400DBE4A6 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		3A923EEE1BA8430400DBE4A6 /* ViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ViewController.swift; sourceTree = "<group>"; };
@@ -100,9 +94,6 @@
 		3AF8FFCA1BC7E844007E8B1E /* Screenshots */ = {
 			isa = PBXGroup;
 			children = (
-				3A7266231BC92EED00A44F3C /* counters running 2.png */,
-				3A7266241BC92EED00A44F3C /* counters running.PNG */,
-				3A7266251BC92EED00A44F3C /* Initial screen.PNG */,
 				3A1D2DC11CFC507A00C682E2 /* Initial screen (with Instruments).PNG */,
 				3A1D2DC21CFC507A00C682E2 /* Counters running and playing sound.PNG */,
 			);
@@ -193,11 +184,8 @@
 			files = (
 				3A923EF41BA8430400DBE4A6 /* Assets.xcassets in Resources */,
 				3A1D2DC31CFC507A00C682E2 /* Initial screen (with Instruments).PNG in Resources */,
-				3A7266261BC92EED00A44F3C /* counters running 2.png in Resources */,
 				3A1D2DC41CFC507A00C682E2 /* Counters running and playing sound.PNG in Resources */,
 				3A923EF21BA8430400DBE4A6 /* Main.storyboard in Resources */,
-				3A7266271BC92EED00A44F3C /* counters running.PNG in Resources */,
-				3A7266281BC92EED00A44F3C /* Initial screen.PNG in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
