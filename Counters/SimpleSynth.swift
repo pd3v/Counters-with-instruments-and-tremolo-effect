@@ -37,7 +37,7 @@ class SimpleSynth: AVAudioPlayerNode {
     override func scheduleBuffer(buffer: AVAudioPCMBuffer?, atTime: AVAudioTime?, options: AVAudioPlayerNodeBufferOptions, completionHandler: AVAudioNodeCompletionHandler?) {
         let duration: AVAudioFrameCount
         let amplitudeEnvelope: (sample: Int, buffer: AVAudioPCMBuffer) -> Float
-        //FIXME: When buffers are of different lenghts transition between them are audible. It souldn't be. Phases match.
+        //TODO: When buffers are of different lenghts transition between them are audible. It souldn't be. Phases match.
         switch options {
         case AVAudioPlayerNodeBufferOptions.Interrupts: // Attack
             duration = AVAudioFrameCount(round(sampleRate / noteFrequency))
