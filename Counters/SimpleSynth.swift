@@ -7,7 +7,6 @@
 import Foundation
 import AVFoundation
 
-
 class SimpleSynth: AVAudioPlayerNode {
     var noteFrequency: Float = 65.4 // note C2
     var numOfOctaves: UInt32 = 5
@@ -58,9 +57,6 @@ class SimpleSynth: AVAudioPlayerNode {
         if buffer?.frameLength == nil {
             waveToBuffer = createSoundwave(sampleRate, duration: duration, numOfOctaves: numOfOctaves, amplitudeEnvelope: amplitudeEnvelope)
         }
-        super.scheduleBuffer(waveToBuffer!,
-                             atTime: atTime,
-                             options: options,
-                             completionHandler: completionHandler)
+        super.scheduleBuffer(waveToBuffer!, atTime: atTime, options: options, completionHandler: completionHandler)
     }
 }
