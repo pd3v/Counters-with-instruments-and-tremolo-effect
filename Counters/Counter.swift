@@ -211,7 +211,7 @@ class Counter: UIView {
                     dispatch_sync(dispatch_get_main_queue(), {
                         self.lblCounting.text = String(i)
                         self.progCounting.progress = Float(i) / Float(self.MAX_COUNT)
-                        // For better sync start playing with start counting. It's not a great solution nevertheless very effective on synching.
+                        // For better sync start playing with start counting. It's not a great solution nevertheless very effective on synchronizing.
                         if self.synth.engine != nil && !self.synth.playing { self.synth.play() }
                     })
                 }
