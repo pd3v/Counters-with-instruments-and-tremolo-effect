@@ -21,7 +21,6 @@
 @implementation AUAudioTremolo {
 	// C++ members need to be ivars; they would be copied on access if they were properties.
     TremoloDSPKernel _kernel;
-
     BufferedInputBus _inputBus;
 }
 @synthesize parameterTree = _parameterTree;
