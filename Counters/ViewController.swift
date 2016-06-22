@@ -300,8 +300,6 @@ class ViewController: UIViewController, UIGestureRecognizerDelegate, CounterDele
     override func motionEnded(motion: UIEventSubtype, withEvent event: UIEvent?)
     {
         if motion == .MotionShake {
-            /*depthParameter.value = Float(arc4random_uniform(UInt32(50))) + 50.0
-            rateFrequencyParameter.value = Float(arc4random_uniform(UInt32(20)))*/
             setTremoloParameters()
         }
     }
