@@ -6,6 +6,7 @@
 
 import UIKit
 import AVFoundation
+import TremoloEffectKit
 
 extension UIViewController {
     var allCounters: [UIView] {
@@ -41,14 +42,19 @@ class ViewController: UIViewController, UIGestureRecognizerDelegate, CounterDele
     
     let engine = AVAudioEngine()
     let reverb = AVAudioUnitReverb()
+    var tremolo = AVAudioUnit() // Audio tremolo effect
     let mixer = AVAudioMixerNode()
+    
+    var depthParameter: AUParameter!
+    var rateFrequencyParameter: AUParameter!
+    var parameterObserverToken: AUParameterObserverToken!
     
     var numberOfViewsPerRowColumn = 3
     var allIndicators: (UIView) -> Bool = {($0 is UIButton) || !($0 is Counter)}
     var speedIndicators: (UIView) -> Bool = {($0 is UILabel) && !($0 is Counter) && !($0 is UIButton)}
     var overallHue: CGFloat = 0
     
-    var reverbWetDryMix: Float = 0.0 {
+    var reverbWetDryMix: Float = 100.0 {
         willSet {
             if newValue >= 0 && newValue <= 100  {
                 reverb.wetDryMix += newValue - reverbWetDryMix
@@ -89,15 +95,39 @@ class ViewController: UIViewController, UIGestureRecognizerDelegate, CounterDele
         labelSpeedChangingValue.textColor = UIColor(hue: 1.0 , saturation: 0.0, brightness: 1.0, alpha: 0.45) // White color
         labelSpeedChangingValue.backgroundColor = UIColor(hue: 1.0, saturation: 1.0, brightness: 0.0, alpha: 0.45) // Black color
         
+        // - Registring in Audio Component system and instantiating custom-made Tremolo effect -
+        var componentDescription = AudioComponentDescription()
+        componentDescription.componentType = kAudioUnitType_Effect
+        componentDescription.componentSubType = 0
+        componentDescription.componentManufacturer = kAudioUnitManufacturer_Apple
+        componentDescription.componentFlags = 0
+        componentDescription.componentFlagsMask = 0
+        
+        AUAudioUnit.registerSubclass(AUAudioTremolo.self, asComponentDescription: componentDescription, name: "Awesome Tremolo", version: UInt32.max)
+        AVAudioUnit.instantiateWithComponentDescription(componentDescription, options: []) { avAudioUnit, error in
+            guard let avAudioUnit = avAudioUnit else { return }
+            self.tremolo = avAudioUnit
+            self.engine.attachNode(self.tremolo)
+        }
+        // - - -
+        
+        guard let parameterTree = tremolo.AUAudioUnit.parameterTree else { return }
+        depthParameter = parameterTree.valueForKey("depth") as? AUParameter
+        rateFrequencyParameter = parameterTree.valueForKey("rateFrequency") as? AUParameter
+        
         engine.attachNode(reverb)
         reverb.loadFactoryPreset(.LargeHall2)
         reverb.wetDryMix = 100
         engine.attachNode(mixer)
         mixer.outputVolume = 0.99
         engine.mainMixerNode.outputVolume = 0.99 // Volume < 1.0 to add some room to avoid distortion
-        engine.connect(mixer, to: reverb, format: nil)
+        engine.connect(mixer, to: tremolo, format: nil)
+        engine.connect(tremolo, to: reverb, format: nil)
         engine.connect(reverb, to: engine.mainMixerNode, format: SimpleSynth().outputFormatForBus(0))
         engine.prepare()
+    
+        setTremoloParameters()
+        
         do {
             try engine.start()
         } catch let error as NSError {
@@ -186,6 +216,7 @@ class ViewController: UIViewController, UIGestureRecognizerDelegate, CounterDele
         if allCounters.count == 0 {
             labelSpeedChangingValue.text = "0.0s slower reverb 100%"
             fadeWithDuration(alpha: 1.0, indicators: allIndicators, exclude: nil)
+            setTremoloParameters()
         }
         relevelSynthsVolumes()
     }
@@ -197,6 +228,7 @@ class ViewController: UIViewController, UIGestureRecognizerDelegate, CounterDele
         }
         labelSpeedChangingValue.text = "0.0s slower reverb 100%"
         fadeWithDuration(alpha: 1.0, indicators: allIndicators, exclude: nil)
+        setTremoloParameters()
     }
     
     @IBAction func accelerating(recognizer: UIPanGestureRecognizer) {
@@ -232,7 +264,7 @@ class ViewController: UIViewController, UIGestureRecognizerDelegate, CounterDele
         numberOfViewsPerRowColumn = newNumberOfCounters
     }
     
-    // CounterDelegate optional methods
+    // - CounterDelegate optional methods -
     func setCounterTextAfterCountingEnd() -> String {
         return "Yeah!"
     }
@@ -265,11 +297,31 @@ class ViewController: UIViewController, UIGestureRecognizerDelegate, CounterDele
         return true
     }
     
+    override func motionEnded(motion: UIEventSubtype, withEvent event: UIEvent?)
+    {
+        if motion == .MotionShake {
+            /*depthParameter.value = Float(arc4random_uniform(UInt32(50))) + 50.0
+            rateFrequencyParameter.value = Float(arc4random_uniform(UInt32(20)))*/
+            setTremoloParameters()
+        }
+    }
+    
     func relevelSynthsVolumes() {
         // Relevel synths' volume <= 1.0 to prevent distortion when adding new synths
         allCounters.forEach{ view in
             (view as! Counter).synth.volume = 1.0 / Float(allCounters.count)
         }
+    }
+
+    func setTremoloParameters() {
+        // Randoms frequencies between 0Hz and 20Hz that are multiples of snapFrequency. 
+        // 0Hz is no tremolo
+        let snapFrequency:Float = 4
+        var rateFrequency = Float(arc4random_uniform(UInt32(20 + snapFrequency)))
+        rateFrequency -= rateFrequency % snapFrequency
+        
+        depthParameter.value = 100.0 // For maximum effect
+        rateFrequencyParameter.value = Float(rateFrequency)
     }
 }
 
