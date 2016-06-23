@@ -39,6 +39,7 @@ class ViewController: UIViewController, UIGestureRecognizerDelegate, CounterDele
     
     let FONTSIZE_RESCALE: CGFloat = 1.3
     let MAX_COUNTERS_PER_ROW_COLUMN = 3
+    let MAX_RATE_FREQUENCY: Float = 20.0
     
     let engine = AVAudioEngine()
     let reverb = AVAudioUnitReverb()
@@ -327,7 +328,6 @@ class ViewController: UIViewController, UIGestureRecognizerDelegate, CounterDele
 
     func setTremoloParameters() {
         // Randoms frequencies between 0Hz and 20Hz. 0Hz is no tremolo
-        let MAX_RATE_FREQUENCY: Float = 20.0
         let rateFrequency = Float(drand48()) * MAX_RATE_FREQUENCY
         
         depthParameter.value = 100.0 // For maximum effect
