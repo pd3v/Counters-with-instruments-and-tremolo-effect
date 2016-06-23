@@ -297,10 +297,24 @@ class ViewController: UIViewController, UIGestureRecognizerDelegate, CounterDele
         return true
     }
     
-    override func motionEnded(motion: UIEventSubtype, withEvent event: UIEvent?)
-    {
+    // Motion shake begining detected, set new values to tremolo effect parameters
+    override func motionBegan(motion: UIEventSubtype, withEvent event: UIEvent?) {
         if motion == .MotionShake {
             setTremoloParameters()
+            labelSpeedChangingValue.text = String(format: "Tremolo rate %.2fHz depth %.1f%%", rateFrequencyParameter.value, depthParameter.value)
+            fadeWithDuration(alpha: 1.0, indicators: speedIndicators, exclude: [labelInstructions])
+        }
+    }
+    
+    override func motionCancelled(motion: UIEventSubtype, withEvent event: UIEvent?) {
+        if motion == .MotionShake {
+            fadeWithDuration(0.5, alpha: 0.0, indicators: speedIndicators, exclude: [labelInstructions])
+        }
+    }
+    
+    override func motionEnded(motion: UIEventSubtype, withEvent event: UIEvent?) {
+        if motion == .MotionShake {
+            fadeWithDuration(1.5, alpha: 0.0, indicators: speedIndicators, exclude: [labelInstructions])
         }
     }
     
@@ -312,14 +326,12 @@ class ViewController: UIViewController, UIGestureRecognizerDelegate, CounterDele
     }
 
     func setTremoloParameters() {
-        // Randoms frequencies between 0Hz and 20Hz that are multiples of snapFrequency. 
-        // 0Hz is no tremolo
-        let snapFrequency:Float = 4
-        var rateFrequency = Float(arc4random_uniform(UInt32(20 + snapFrequency)))
-        rateFrequency -= rateFrequency % snapFrequency
+        // Randoms frequencies between 0Hz and 20Hz. 0Hz is no tremolo
+        let MAX_RATE_FREQUENCY: Float = 20.0
+        let rateFrequency = Float(drand48()) * MAX_RATE_FREQUENCY
         
         depthParameter.value = 100.0 // For maximum effect
-        rateFrequencyParameter.value = Float(rateFrequency)
+        rateFrequencyParameter.value = rateFrequency
     }
 }
 
