@@ -2,7 +2,7 @@
 This branch is totally based on Counters with Instruments + Tremolo audio effect! 
 
 This is a "custom-made" effect subclassing AUAudioUnit. The Tremolo effect algorithm runs is in the function "process" inside TremoloDSPKernel class. 
-#### ⚡️⚡️ Shake the device if you want to change Tremolo rate frequency! ⚡️⚡️🎶
+#### ⚡️⚡️ Shake the device to randomly change Tremolo rate frequency! ⚡️⚡️🎶
 
 Counter with Instruments has a built-in SimpleSynth playing one note. The notes are randomly generated out of C, E, G notes (C Major chord) in various octaves. Slowing down counters' counting increases reverb wet/dry parameter. 
 All programmed using AVAudioEngine, AVAudioPlayerNode classes, with code generated soundwaves into AVAudioPCMBuffer buffers, plus AVAudioMixerNode and AVAudioUnitReverb.
