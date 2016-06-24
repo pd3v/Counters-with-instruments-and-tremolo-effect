@@ -26,6 +26,7 @@
 		3AA69F591D1989600043C053 /* ParameterRamper.hpp in Headers */ = {isa = PBXBuildFile; fileRef = 3AA69F4F1D1989600043C053 /* ParameterRamper.hpp */; };
 		3AA69F5A1D1989600043C053 /* TremoloDSPKernel.hpp in Headers */ = {isa = PBXBuildFile; fileRef = 3AA69F501D1989600043C053 /* TremoloDSPKernel.hpp */; };
 		3AA69F5B1D1989600043C053 /* TremoloEffectKit.h in Headers */ = {isa = PBXBuildFile; fileRef = 3AA69F511D1989600043C053 /* TremoloEffectKit.h */; settings = {ATTRIBUTES = (Public, ); }; };
+		3AD90B441D1D556F00420A0D /* Counters changing tremolo rate.PNG in Resources */ = {isa = PBXBuildFile; fileRef = 3AD90B431D1D556F00420A0D /* Counters changing tremolo rate.PNG */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -74,6 +75,7 @@
 		3AA69F4F1D1989600043C053 /* ParameterRamper.hpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.h; path = ParameterRamper.hpp; sourceTree = "<group>"; };
 		3AA69F501D1989600043C053 /* TremoloDSPKernel.hpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.h; path = TremoloDSPKernel.hpp; sourceTree = "<group>"; };
 		3AA69F511D1989600043C053 /* TremoloEffectKit.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TremoloEffectKit.h; sourceTree = "<group>"; };
+		3AD90B431D1D556F00420A0D /* Counters changing tremolo rate.PNG */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = "Counters changing tremolo rate.PNG"; path = "Screenshots/Counters changing tremolo rate.PNG"; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -148,6 +150,7 @@
 		3AF8FFCA1BC7E844007E8B1E /* Screenshots */ = {
 			isa = PBXGroup;
 			children = (
+				3AD90B431D1D556F00420A0D /* Counters changing tremolo rate.PNG */,
 				3A1D2DC11CFC507A00C682E2 /* Initial screen (with Instruments).PNG */,
 				3A1D2DC21CFC507A00C682E2 /* Counters running and playing sound.PNG */,
 			);
@@ -254,6 +257,7 @@
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				3AD90B441D1D556F00420A0D /* Counters changing tremolo rate.PNG in Resources */,
 				3A923EF41BA8430400DBE4A6 /* Assets.xcassets in Resources */,
 				3A1D2DC31CFC507A00C682E2 /* Initial screen (with Instruments).PNG in Resources */,
 				3A1D2DC41CFC507A00C682E2 /* Counters running and playing sound.PNG in Resources */,
