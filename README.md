@@ -1,5 +1,5 @@
-## Counters with Instruments ... and Tremolo audio effect branch
-This branch is based on Counters with Instruments + Tremolo audio effect! (Upgraded to iOS 9.0)
+## Counters with Instruments and Tremolo audio effect
+This repo is based on Counters with Instruments branch + Tremolo audio effect!
 
 This is a "custom-made" effect subclassing AUAudioUnit. The Tremolo effect algorithm runs is in the function "process" inside TremoloDSPKernel class. 
 #### ⚡️⚡️ Shake the device to randomly change Tremolo rate frequency! ⚡️⚡️🎶
