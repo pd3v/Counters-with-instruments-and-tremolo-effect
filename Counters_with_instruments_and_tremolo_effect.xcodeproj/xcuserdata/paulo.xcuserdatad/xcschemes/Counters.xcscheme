@@ -15,9 +15,9 @@
             <BuildableReference
                BuildableIdentifier = "primary"
                BlueprintIdentifier = "3A923EE81BA8430400DBE4A6"
-               BuildableName = "Counters.app"
-               BlueprintName = "Counters"
-               ReferencedContainer = "container:Counters.xcodeproj">
+               BuildableName = "Counters_with_instruments_and_tremolo_effect.app"
+               BlueprintName = "Counters_with_instruments_and_tremolo_effect"
+               ReferencedContainer = "container:Counters_with_instruments_and_tremolo_effect.xcodeproj">
             </BuildableReference>
          </BuildActionEntry>
       </BuildActionEntries>
@@ -35,7 +35,7 @@
                BlueprintIdentifier = "3ADA8A421BCE922F00CFACF2"
                BuildableName = "CountersTests.xctest"
                BlueprintName = "CountersTests"
-               ReferencedContainer = "container:Counters.xcodeproj">
+               ReferencedContainer = "container:Counters_with_instruments_and_tremolo_effect.xcodeproj">
             </BuildableReference>
          </TestableReference>
       </Testables>
@@ -43,9 +43,9 @@
          <BuildableReference
             BuildableIdentifier = "primary"
             BlueprintIdentifier = "3A923EE81BA8430400DBE4A6"
-            BuildableName = "Counters.app"
-            BlueprintName = "Counters"
-            ReferencedContainer = "container:Counters.xcodeproj">
+            BuildableName = "Counters_with_instruments_and_tremolo_effect.app"
+            BlueprintName = "Counters_with_instruments_and_tremolo_effect"
+            ReferencedContainer = "container:Counters_with_instruments_and_tremolo_effect.xcodeproj">
          </BuildableReference>
       </MacroExpansion>
       <AdditionalOptions>
@@ -66,9 +66,9 @@
          <BuildableReference
             BuildableIdentifier = "primary"
             BlueprintIdentifier = "3A923EE81BA8430400DBE4A6"
-            BuildableName = "Counters.app"
-            BlueprintName = "Counters"
-            ReferencedContainer = "container:Counters.xcodeproj">
+            BuildableName = "Counters_with_instruments_and_tremolo_effect.app"
+            BlueprintName = "Counters_with_instruments_and_tremolo_effect"
+            ReferencedContainer = "container:Counters_with_instruments_and_tremolo_effect.xcodeproj">
          </BuildableReference>
       </BuildableProductRunnable>
       <AdditionalOptions>
@@ -85,9 +85,9 @@
          <BuildableReference
             BuildableIdentifier = "primary"
             BlueprintIdentifier = "3A923EE81BA8430400DBE4A6"
-            BuildableName = "Counters.app"
-            BlueprintName = "Counters"
-            ReferencedContainer = "container:Counters.xcodeproj">
+            BuildableName = "Counters_with_instruments_and_tremolo_effect.app"
+            BlueprintName = "Counters_with_instruments_and_tremolo_effect"
+            ReferencedContainer = "container:Counters_with_instruments_and_tremolo_effect.xcodeproj">
          </BuildableReference>
       </BuildableProductRunnable>
    </ProfileAction>

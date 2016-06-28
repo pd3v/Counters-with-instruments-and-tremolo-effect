@@ -57,7 +57,7 @@
 		3A1D2DC11CFC507A00C682E2 /* Initial screen (with Instruments).PNG */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = "Initial screen (with Instruments).PNG"; path = "Screenshots/Initial screen (with Instruments).PNG"; sourceTree = "<group>"; };
 		3A1D2DC21CFC507A00C682E2 /* Counters running and playing sound.PNG */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = "Counters running and playing sound.PNG"; path = "Screenshots/Counters running and playing sound.PNG"; sourceTree = "<group>"; };
 		3A23C1721CEA11C400AA7441 /* SimpleSynth.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SimpleSynth.swift; sourceTree = "<group>"; };
-		3A923EE91BA8430400DBE4A6 /* Counters.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = Counters.app; sourceTree = BUILT_PRODUCTS_DIR; };
+		3A923EE91BA8430400DBE4A6 /* Counters_with_instruments_and_tremolo_effect.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = Counters_with_instruments_and_tremolo_effect.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		3A923EEC1BA8430400DBE4A6 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		3A923EEE1BA8430400DBE4A6 /* ViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ViewController.swift; sourceTree = "<group>"; };
 		3A923EF11BA8430400DBE4A6 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/Main.storyboard; sourceTree = "<group>"; };
@@ -100,7 +100,7 @@
 		3A923EE01BA8430300DBE4A6 = {
 			isa = PBXGroup;
 			children = (
-				3A923EEB1BA8430400DBE4A6 /* Counters */,
+				3A923EEB1BA8430400DBE4A6 /* Counters_with_instruments_and_tremolo_effect */,
 				3AA69F3D1D19893C0043C053 /* TremoloEffectKit */,
 				3A923EEA1BA8430400DBE4A6 /* Products */,
 				3AF8FFCA1BC7E844007E8B1E /* Screenshots */,
@@ -110,13 +110,13 @@
 		3A923EEA1BA8430400DBE4A6 /* Products */ = {
 			isa = PBXGroup;
 			children = (
-				3A923EE91BA8430400DBE4A6 /* Counters.app */,
+				3A923EE91BA8430400DBE4A6 /* Counters_with_instruments_and_tremolo_effect.app */,
 				3AA69F3C1D19893B0043C053 /* TremoloEffectKit.framework */,
 			);
 			name = Products;
 			sourceTree = "<group>";
 		};
-		3A923EEB1BA8430400DBE4A6 /* Counters */ = {
+		3A923EEB1BA8430400DBE4A6 /* Counters_with_instruments_and_tremolo_effect */ = {
 			isa = PBXGroup;
 			children = (
 				3A923EEC1BA8430400DBE4A6 /* AppDelegate.swift */,
@@ -127,7 +127,7 @@
 				3A923EF31BA8430400DBE4A6 /* Assets.xcassets */,
 				3A923EF81BA8430400DBE4A6 /* Info.plist */,
 			);
-			path = Counters;
+			path = Counters_with_instruments_and_tremolo_effect;
 			sourceTree = SOURCE_ROOT;
 		};
 		3AA69F3D1D19893C0043C053 /* TremoloEffectKit */ = {
@@ -176,9 +176,9 @@
 /* End PBXHeadersBuildPhase section */
 
 /* Begin PBXNativeTarget section */
-		3A923EE81BA8430400DBE4A6 /* Counters */ = {
+		3A923EE81BA8430400DBE4A6 /* Counters_with_instruments_and_tremolo_effect */ = {
 			isa = PBXNativeTarget;
-			buildConfigurationList = 3A923EFB1BA8430400DBE4A6 /* Build configuration list for PBXNativeTarget "Counters" */;
+			buildConfigurationList = 3A923EFB1BA8430400DBE4A6 /* Build configuration list for PBXNativeTarget "Counters_with_instruments_and_tremolo_effect" */;
 			buildPhases = (
 				3A923EE51BA8430400DBE4A6 /* Sources */,
 				3A923EE61BA8430400DBE4A6 /* Frameworks */,
@@ -190,9 +190,9 @@
 			dependencies = (
 				3AA69F421D19893C0043C053 /* PBXTargetDependency */,
 			);
-			name = Counters;
+			name = Counters_with_instruments_and_tremolo_effect;
 			productName = CounterLabels;
-			productReference = 3A923EE91BA8430400DBE4A6 /* Counters.app */;
+			productReference = 3A923EE91BA8430400DBE4A6 /* Counters_with_instruments_and_tremolo_effect.app */;
 			productType = "com.apple.product-type.application";
 		};
 		3AA69F3B1D19893B0043C053 /* TremoloEffectKit */ = {
@@ -233,7 +233,7 @@
 					};
 				};
 			};
-			buildConfigurationList = 3A923EE41BA8430300DBE4A6 /* Build configuration list for PBXProject "Counters" */;
+			buildConfigurationList = 3A923EE41BA8430300DBE4A6 /* Build configuration list for PBXProject "Counters_with_instruments_and_tremolo_effect" */;
 			compatibilityVersion = "Xcode 3.2";
 			developmentRegion = English;
 			hasScannedForEncodings = 0;
@@ -246,7 +246,7 @@
 			projectDirPath = "";
 			projectRoot = "";
 			targets = (
-				3A923EE81BA8430400DBE4A6 /* Counters */,
+				3A923EE81BA8430400DBE4A6 /* Counters_with_instruments_and_tremolo_effect */,
 				3AA69F3B1D19893B0043C053 /* TremoloEffectKit */,
 			);
 		};
@@ -408,15 +408,12 @@
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				EMBEDDED_CONTENT_CONTAINS_SWIFT = YES;
-				FRAMEWORK_SEARCH_PATHS = (
-					"$(inherited)",
-					"$(PROJECT_DIR)/Counters",
-				);
-				INFOPLIST_FILE = Counters/Info.plist;
+				FRAMEWORK_SEARCH_PATHS = "";
+				INFOPLIST_FILE = Counters_with_instruments_and_tremolo_effect/Info.plist;
 				IPHONEOS_DEPLOYMENT_TARGET = 9.0;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
-				PRODUCT_BUNDLE_IDENTIFIER = xyz.Counters;
-				PRODUCT_NAME = Counters;
+				PRODUCT_BUNDLE_IDENTIFIER = xyz.CountersWithInstrumentsAndTremoloEffect;
+				PRODUCT_NAME = Counters_with_instruments_and_tremolo_effect;
 				SWIFT_OBJC_BRIDGING_HEADER = "";
 				TARGETED_DEVICE_FAMILY = "1,2";
 			};
@@ -427,15 +424,12 @@
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				EMBEDDED_CONTENT_CONTAINS_SWIFT = YES;
-				FRAMEWORK_SEARCH_PATHS = (
-					"$(inherited)",
-					"$(PROJECT_DIR)/Counters",
-				);
-				INFOPLIST_FILE = Counters/Info.plist;
+				FRAMEWORK_SEARCH_PATHS = "";
+				INFOPLIST_FILE = Counters_with_instruments_and_tremolo_effect/Info.plist;
 				IPHONEOS_DEPLOYMENT_TARGET = 9.0;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
-				PRODUCT_BUNDLE_IDENTIFIER = xyz.Counters;
-				PRODUCT_NAME = Counters;
+				PRODUCT_BUNDLE_IDENTIFIER = xyz.CountersWithInstrumentsAndTremoloEffect;
+				PRODUCT_NAME = Counters_with_instruments_and_tremolo_effect;
 				SWIFT_OBJC_BRIDGING_HEADER = "";
 				TARGETED_DEVICE_FAMILY = "1,2";
 			};
@@ -491,7 +485,7 @@
 /* End XCBuildConfiguration section */
 
 /* Begin XCConfigurationList section */
-		3A923EE41BA8430300DBE4A6 /* Build configuration list for PBXProject "Counters" */ = {
+		3A923EE41BA8430300DBE4A6 /* Build configuration list for PBXProject "Counters_with_instruments_and_tremolo_effect" */ = {
 			isa = XCConfigurationList;
 			buildConfigurations = (
 				3A923EF91BA8430400DBE4A6 /* Debug */,
@@ -500,7 +494,7 @@
 			defaultConfigurationIsVisible = 0;
 			defaultConfigurationName = Release;
 		};
-		3A923EFB1BA8430400DBE4A6 /* Build configuration list for PBXNativeTarget "Counters" */ = {
+		3A923EFB1BA8430400DBE4A6 /* Build configuration list for PBXNativeTarget "Counters_with_instruments_and_tremolo_effect" */ = {
 			isa = XCConfigurationList;
 			buildConfigurations = (
 				3A923EFC1BA8430400DBE4A6 /* Debug */,
