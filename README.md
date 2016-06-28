@@ -8,7 +8,7 @@ Counter with Instruments has a built-in SimpleSynth playing one note. The notes 
 All programmed using AVAudioEngine, AVAudioPlayerNode classes, with code generated soundwaves into AVAudioPCMBuffer buffers, plus AVAudioMixerNode and AVAudioUnitReverb.
 
 ## App's initial screen (added reverb wet/dry info)
-![intial_screen](https://github.com/pd3v/Counters/blob/Counters_with_Instruments/Screenshots/Initial%20screen%20(with%20Instruments).PNG)
+![intial_screen](https://github.com/pd3v/Counters_with_instruments_and_tremolo_effect/blob/master/Screenshots/Initial%20screen%20(with%20Instruments).PNG)
 
 ## Changing Tremolo effect rate frequency
 ![3x3_counters_screen_with_speed_changing_and_sound_playing indicator](https://github.com/pd3v/Counters_with_instruments_and_tremolo_effect/blob/master/Screenshots/Counters%20changing%20tremolo%20rate.PNG)
