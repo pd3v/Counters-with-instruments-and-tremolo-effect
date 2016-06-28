@@ -1,15 +1,18 @@
-# Counters
-iOS 8.4 Universal app with the purpose of testing some programming ideas. Fills the screen up with a resettable number of counters. Every counter has its own initial speed (and a matching color brightness) but changeable while counting is running. Developed with Autolayout, multi-threading (with GCD and NSOperation) and gesture recognition.
+## Counters with Instruments ... and Tremolo audio effect branch
+This branch is based on Counters with Instruments + Tremolo audio effect! (Upgraded to iOS 9.0)
 
-Updated so that every Counter has now a UIProgressView to shown counting progression. This progression is viable from left-to-right (default) but also from right-to-left with a tap on the Counter view.
+This is a "custom-made" effect subclassing AUAudioUnit. The Tremolo effect algorithm runs is in the function "process" inside TremoloDSPKernel class. 
+#### ⚡️⚡️ Shake the device to randomly change Tremolo rate frequency! ⚡️⚡️🎶
 
-## App's initial screen
-![intial_screen](https://github.com/pd3v/Counters/blob/master/Screenshots/Initial%20screen.PNG)
+Counter with Instruments has a built-in SimpleSynth playing one note. The notes are randomly generated out of C, E, G notes (C Major chord) in various octaves. Slowing down counters' counting increases reverb wet/dry parameter. 
+All programmed using AVAudioEngine, AVAudioPlayerNode classes, with code generated soundwaves into AVAudioPCMBuffer buffers, plus AVAudioMixerNode and AVAudioUnitReverb.
 
-## 3x3 counters screen with speed changing indicator
-![3x3_counters_screen_with_speed_changing_ indicator](https://github.com/pd3v/Counters/blob/master/Screenshots/counters%20running.PNG)
+## App's initial screen (added reverb wet/dry info)
+![intial_screen](https://github.com/pd3v/Counters/blob/Counters_with_Instruments/Screenshots/Initial%20screen%20(with%20Instruments).PNG)
 
-##Autolayout doing its work on a 6x6 counters screen
-![3x3_counters_screen_in_portrait_orientation](https://github.com/pd3v/Counters/blob/master/Screenshots/counters%20running%202.png)
+## Changing Tremolo effect rate frequency
+![3x3_counters_screen_with_speed_changing_and_sound_playing indicator](https://github.com/pd3v/Counters/blob/_and_tremolo_effect/Screenshots/Counters%20changing%20tremolo%20rate.PNG)
 
-String "yeah!" is shown when counter finishes counting. This string is settable using a delegate method in the viewcontroller.
+
+## 3x3 counters screen with speed changing indicator and sound playing with 40% of reverb
+![3x3_counters_screen_with_speed_changing_and_sound_playing indicator](https://github.com/pd3v/Counters/blob/Counters_with_Instruments/Screenshots/Counters%20running%20and%20playing%20sound.PNG)

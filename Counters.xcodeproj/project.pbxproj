@@ -7,30 +7,56 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
-		3A7266261BC92EED00A44F3C /* counters running 2.png in Resources */ = {isa = PBXBuildFile; fileRef = 3A7266231BC92EED00A44F3C /* counters running 2.png */; settings = {ASSET_TAGS = (); }; };
-		3A7266271BC92EED00A44F3C /* counters running.PNG in Resources */ = {isa = PBXBuildFile; fileRef = 3A7266241BC92EED00A44F3C /* counters running.PNG */; settings = {ASSET_TAGS = (); }; };
-		3A7266281BC92EED00A44F3C /* Initial screen.PNG in Resources */ = {isa = PBXBuildFile; fileRef = 3A7266251BC92EED00A44F3C /* Initial screen.PNG */; settings = {ASSET_TAGS = (); }; };
+		3A1D2DC31CFC507A00C682E2 /* Initial screen (with Instruments).PNG in Resources */ = {isa = PBXBuildFile; fileRef = 3A1D2DC11CFC507A00C682E2 /* Initial screen (with Instruments).PNG */; };
+		3A1D2DC41CFC507A00C682E2 /* Counters running and playing sound.PNG in Resources */ = {isa = PBXBuildFile; fileRef = 3A1D2DC21CFC507A00C682E2 /* Counters running and playing sound.PNG */; };
+		3A23C1731CEA11C400AA7441 /* SimpleSynth.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3A23C1721CEA11C400AA7441 /* SimpleSynth.swift */; };
 		3A923EED1BA8430400DBE4A6 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3A923EEC1BA8430400DBE4A6 /* AppDelegate.swift */; };
 		3A923EEF1BA8430400DBE4A6 /* ViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3A923EEE1BA8430400DBE4A6 /* ViewController.swift */; };
 		3A923EF21BA8430400DBE4A6 /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 3A923EF01BA8430400DBE4A6 /* Main.storyboard */; };
 		3A923EF41BA8430400DBE4A6 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 3A923EF31BA8430400DBE4A6 /* Assets.xcassets */; };
-		3A923EFF1BA843B600DBE4A6 /* Counter.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3A923EFE1BA843B600DBE4A6 /* Counter.swift */; settings = {ASSET_TAGS = (); }; };
+		3A923EFF1BA843B600DBE4A6 /* Counter.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3A923EFE1BA843B600DBE4A6 /* Counter.swift */; };
+		3AA69F431D19893C0043C053 /* TremoloEffectKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 3AA69F3C1D19893B0043C053 /* TremoloEffectKit.framework */; };
+		3AA69F441D19893C0043C053 /* TremoloEffectKit.framework in Embed Frameworks */ = {isa = PBXBuildFile; fileRef = 3AA69F3C1D19893B0043C053 /* TremoloEffectKit.framework */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
+		3AA69F521D1989600043C053 /* AUAudioTremolo.h in Headers */ = {isa = PBXBuildFile; fileRef = 3AA69F481D1989600043C053 /* AUAudioTremolo.h */; settings = {ATTRIBUTES = (Public, ); }; };
+		3AA69F531D1989600043C053 /* AUAudioTremolo.mm in Sources */ = {isa = PBXBuildFile; fileRef = 3AA69F491D1989600043C053 /* AUAudioTremolo.mm */; };
+		3AA69F541D1989600043C053 /* Bridging.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3AA69F4A1D1989600043C053 /* Bridging.swift */; };
+		3AA69F551D1989600043C053 /* BufferedAudioBus.hpp in Headers */ = {isa = PBXBuildFile; fileRef = 3AA69F4B1D1989600043C053 /* BufferedAudioBus.hpp */; };
+		3AA69F561D1989600043C053 /* DSPKernel.hpp in Headers */ = {isa = PBXBuildFile; fileRef = 3AA69F4C1D1989600043C053 /* DSPKernel.hpp */; };
+		3AA69F571D1989600043C053 /* DSPKernel.mm in Sources */ = {isa = PBXBuildFile; fileRef = 3AA69F4D1D1989600043C053 /* DSPKernel.mm */; };
+		3AA69F591D1989600043C053 /* ParameterRamper.hpp in Headers */ = {isa = PBXBuildFile; fileRef = 3AA69F4F1D1989600043C053 /* ParameterRamper.hpp */; };
+		3AA69F5A1D1989600043C053 /* TremoloDSPKernel.hpp in Headers */ = {isa = PBXBuildFile; fileRef = 3AA69F501D1989600043C053 /* TremoloDSPKernel.hpp */; };
+		3AA69F5B1D1989600043C053 /* TremoloEffectKit.h in Headers */ = {isa = PBXBuildFile; fileRef = 3AA69F511D1989600043C053 /* TremoloEffectKit.h */; settings = {ATTRIBUTES = (Public, ); }; };
+		3AD90B441D1D556F00420A0D /* Counters changing tremolo rate.PNG in Resources */ = {isa = PBXBuildFile; fileRef = 3AD90B431D1D556F00420A0D /* Counters changing tremolo rate.PNG */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
-		3ADA8A481BCE923100CFACF2 /* PBXContainerItemProxy */ = {
+		3AA69F411D19893C0043C053 /* PBXContainerItemProxy */ = {
 			isa = PBXContainerItemProxy;
 			containerPortal = 3A923EE11BA8430300DBE4A6 /* Project object */;
 			proxyType = 1;
-			remoteGlobalIDString = 3A923EE81BA8430400DBE4A6;
-			remoteInfo = Counters;
+			remoteGlobalIDString = 3AA69F3B1D19893B0043C053;
+			remoteInfo = TremoloEffectKit;
 		};
 /* End PBXContainerItemProxy section */
 
+/* Begin PBXCopyFilesBuildPhase section */
+		3AB7BF641D1957FF00FE1066 /* Embed Frameworks */ = {
+			isa = PBXCopyFilesBuildPhase;
+			buildActionMask = 2147483647;
+			dstPath = "";
+			dstSubfolderSpec = 10;
+			files = (
+				3AA69F441D19893C0043C053 /* TremoloEffectKit.framework in Embed Frameworks */,
+			);
+			name = "Embed Frameworks";
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXCopyFilesBuildPhase section */
+
 /* Begin PBXFileReference section */
-		3A7266231BC92EED00A44F3C /* counters running 2.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = "counters running 2.png"; path = "Screenshots/counters running 2.png"; sourceTree = "<group>"; };
-		3A7266241BC92EED00A44F3C /* counters running.PNG */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = "counters running.PNG"; path = "Screenshots/counters running.PNG"; sourceTree = "<group>"; };
-		3A7266251BC92EED00A44F3C /* Initial screen.PNG */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = "Initial screen.PNG"; path = "Screenshots/Initial screen.PNG"; sourceTree = "<group>"; };
+		3A1D2DC11CFC507A00C682E2 /* Initial screen (with Instruments).PNG */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = "Initial screen (with Instruments).PNG"; path = "Screenshots/Initial screen (with Instruments).PNG"; sourceTree = "<group>"; };
+		3A1D2DC21CFC507A00C682E2 /* Counters running and playing sound.PNG */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = "Counters running and playing sound.PNG"; path = "Screenshots/Counters running and playing sound.PNG"; sourceTree = "<group>"; };
+		3A23C1721CEA11C400AA7441 /* SimpleSynth.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SimpleSynth.swift; sourceTree = "<group>"; };
 		3A923EE91BA8430400DBE4A6 /* Counters.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = Counters.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		3A923EEC1BA8430400DBE4A6 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		3A923EEE1BA8430400DBE4A6 /* ViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ViewController.swift; sourceTree = "<group>"; };
@@ -38,7 +64,18 @@
 		3A923EF31BA8430400DBE4A6 /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
 		3A923EF81BA8430400DBE4A6 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		3A923EFE1BA843B600DBE4A6 /* Counter.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Counter.swift; sourceTree = "<group>"; };
-		3ADA8A431BCE923000CFACF2 /* CountersTests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = CountersTests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
+		3AA69F3C1D19893B0043C053 /* TremoloEffectKit.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = TremoloEffectKit.framework; sourceTree = BUILT_PRODUCTS_DIR; };
+		3AA69F481D1989600043C053 /* AUAudioTremolo.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = AUAudioTremolo.h; sourceTree = "<group>"; };
+		3AA69F491D1989600043C053 /* AUAudioTremolo.mm */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.objcpp; path = AUAudioTremolo.mm; sourceTree = "<group>"; };
+		3AA69F4A1D1989600043C053 /* Bridging.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Bridging.swift; sourceTree = "<group>"; };
+		3AA69F4B1D1989600043C053 /* BufferedAudioBus.hpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.h; path = BufferedAudioBus.hpp; sourceTree = "<group>"; };
+		3AA69F4C1D1989600043C053 /* DSPKernel.hpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.h; path = DSPKernel.hpp; sourceTree = "<group>"; };
+		3AA69F4D1D1989600043C053 /* DSPKernel.mm */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.objcpp; path = DSPKernel.mm; sourceTree = "<group>"; };
+		3AA69F4E1D1989600043C053 /* Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
+		3AA69F4F1D1989600043C053 /* ParameterRamper.hpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.h; path = ParameterRamper.hpp; sourceTree = "<group>"; };
+		3AA69F501D1989600043C053 /* TremoloDSPKernel.hpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.h; path = TremoloDSPKernel.hpp; sourceTree = "<group>"; };
+		3AA69F511D1989600043C053 /* TremoloEffectKit.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TremoloEffectKit.h; sourceTree = "<group>"; };
+		3AD90B431D1D556F00420A0D /* Counters changing tremolo rate.PNG */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = "Counters changing tremolo rate.PNG"; path = "Screenshots/Counters changing tremolo rate.PNG"; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -46,10 +83,11 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				3AA69F431D19893C0043C053 /* TremoloEffectKit.framework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
-		3ADA8A401BCE922F00CFACF2 /* Frameworks */ = {
+		3AA69F381D19893B0043C053 /* Frameworks */ = {
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
@@ -63,6 +101,7 @@
 			isa = PBXGroup;
 			children = (
 				3A923EEB1BA8430400DBE4A6 /* Counters */,
+				3AA69F3D1D19893C0043C053 /* TremoloEffectKit */,
 				3A923EEA1BA8430400DBE4A6 /* Products */,
 				3AF8FFCA1BC7E844007E8B1E /* Screenshots */,
 			);
@@ -72,7 +111,7 @@
 			isa = PBXGroup;
 			children = (
 				3A923EE91BA8430400DBE4A6 /* Counters.app */,
-				3ADA8A431BCE923000CFACF2 /* CountersTests.xctest */,
+				3AA69F3C1D19893B0043C053 /* TremoloEffectKit.framework */,
 			);
 			name = Products;
 			sourceTree = "<group>";
@@ -81,8 +120,9 @@
 			isa = PBXGroup;
 			children = (
 				3A923EEC1BA8430400DBE4A6 /* AppDelegate.swift */,
-				3A923EEE1BA8430400DBE4A6 /* ViewController.swift */,
+				3A23C1721CEA11C400AA7441 /* SimpleSynth.swift */,
 				3A923EFE1BA843B600DBE4A6 /* Counter.swift */,
+				3A923EEE1BA8430400DBE4A6 /* ViewController.swift */,
 				3A923EF01BA8430400DBE4A6 /* Main.storyboard */,
 				3A923EF31BA8430400DBE4A6 /* Assets.xcassets */,
 				3A923EF81BA8430400DBE4A6 /* Info.plist */,
@@ -90,17 +130,50 @@
 			path = Counters;
 			sourceTree = SOURCE_ROOT;
 		};
+		3AA69F3D1D19893C0043C053 /* TremoloEffectKit */ = {
+			isa = PBXGroup;
+			children = (
+				3AA69F511D1989600043C053 /* TremoloEffectKit.h */,
+				3AA69F481D1989600043C053 /* AUAudioTremolo.h */,
+				3AA69F491D1989600043C053 /* AUAudioTremolo.mm */,
+				3AA69F4A1D1989600043C053 /* Bridging.swift */,
+				3AA69F4B1D1989600043C053 /* BufferedAudioBus.hpp */,
+				3AA69F501D1989600043C053 /* TremoloDSPKernel.hpp */,
+				3AA69F4C1D1989600043C053 /* DSPKernel.hpp */,
+				3AA69F4D1D1989600043C053 /* DSPKernel.mm */,
+				3AA69F4E1D1989600043C053 /* Info.plist */,
+				3AA69F4F1D1989600043C053 /* ParameterRamper.hpp */,
+			);
+			path = TremoloEffectKit;
+			sourceTree = "<group>";
+		};
 		3AF8FFCA1BC7E844007E8B1E /* Screenshots */ = {
 			isa = PBXGroup;
 			children = (
-				3A7266231BC92EED00A44F3C /* counters running 2.png */,
-				3A7266241BC92EED00A44F3C /* counters running.PNG */,
-				3A7266251BC92EED00A44F3C /* Initial screen.PNG */,
+				3AD90B431D1D556F00420A0D /* Counters changing tremolo rate.PNG */,
+				3A1D2DC11CFC507A00C682E2 /* Initial screen (with Instruments).PNG */,
+				3A1D2DC21CFC507A00C682E2 /* Counters running and playing sound.PNG */,
 			);
 			name = Screenshots;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
+
+/* Begin PBXHeadersBuildPhase section */
+		3AA69F391D19893B0043C053 /* Headers */ = {
+			isa = PBXHeadersBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				3AA69F521D1989600043C053 /* AUAudioTremolo.h in Headers */,
+				3AA69F5B1D1989600043C053 /* TremoloEffectKit.h in Headers */,
+				3AA69F551D1989600043C053 /* BufferedAudioBus.hpp in Headers */,
+				3AA69F561D1989600043C053 /* DSPKernel.hpp in Headers */,
+				3AA69F5A1D1989600043C053 /* TremoloDSPKernel.hpp in Headers */,
+				3AA69F591D1989600043C053 /* ParameterRamper.hpp in Headers */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXHeadersBuildPhase section */
 
 /* Begin PBXNativeTarget section */
 		3A923EE81BA8430400DBE4A6 /* Counters */ = {
@@ -110,33 +183,35 @@
 				3A923EE51BA8430400DBE4A6 /* Sources */,
 				3A923EE61BA8430400DBE4A6 /* Frameworks */,
 				3A923EE71BA8430400DBE4A6 /* Resources */,
+				3AB7BF641D1957FF00FE1066 /* Embed Frameworks */,
 			);
 			buildRules = (
 			);
 			dependencies = (
+				3AA69F421D19893C0043C053 /* PBXTargetDependency */,
 			);
 			name = Counters;
 			productName = CounterLabels;
 			productReference = 3A923EE91BA8430400DBE4A6 /* Counters.app */;
 			productType = "com.apple.product-type.application";
 		};
-		3ADA8A421BCE922F00CFACF2 /* CountersTests */ = {
+		3AA69F3B1D19893B0043C053 /* TremoloEffectKit */ = {
 			isa = PBXNativeTarget;
-			buildConfigurationList = 3ADA8A4C1BCE923100CFACF2 /* Build configuration list for PBXNativeTarget "CountersTests" */;
+			buildConfigurationList = 3AA69F451D19893C0043C053 /* Build configuration list for PBXNativeTarget "TremoloEffectKit" */;
 			buildPhases = (
-				3ADA8A3F1BCE922F00CFACF2 /* Sources */,
-				3ADA8A401BCE922F00CFACF2 /* Frameworks */,
-				3ADA8A411BCE922F00CFACF2 /* Resources */,
+				3AA69F371D19893B0043C053 /* Sources */,
+				3AA69F381D19893B0043C053 /* Frameworks */,
+				3AA69F391D19893B0043C053 /* Headers */,
+				3AA69F3A1D19893B0043C053 /* Resources */,
 			);
 			buildRules = (
 			);
 			dependencies = (
-				3ADA8A491BCE923100CFACF2 /* PBXTargetDependency */,
 			);
-			name = CountersTests;
-			productName = CountersTests;
-			productReference = 3ADA8A431BCE923000CFACF2 /* CountersTests.xctest */;
-			productType = "com.apple.product-type.bundle.unit-test";
+			name = TremoloEffectKit;
+			productName = TremoloEffectKit;
+			productReference = 3AA69F3C1D19893B0043C053 /* TremoloEffectKit.framework */;
+			productType = "com.apple.product-type.framework";
 		};
 /* End PBXNativeTarget section */
 
@@ -144,6 +219,7 @@
 		3A923EE11BA8430300DBE4A6 /* Project object */ = {
 			isa = PBXProject;
 			attributes = {
+				LastSwiftUpdateCheck = 0730;
 				LastUpgradeCheck = 0700;
 				ORGANIZATIONNAME = xyz;
 				TargetAttributes = {
@@ -151,10 +227,9 @@
 						CreatedOnToolsVersion = 7.0;
 						DevelopmentTeam = LPQL5ZY942;
 					};
-					3ADA8A421BCE922F00CFACF2 = {
-						CreatedOnToolsVersion = 7.0;
+					3AA69F3B1D19893B0043C053 = {
+						CreatedOnToolsVersion = 7.3.1;
 						DevelopmentTeam = LPQL5ZY942;
-						TestTargetID = 3A923EE81BA8430400DBE4A6;
 					};
 				};
 			};
@@ -172,7 +247,7 @@
 			projectRoot = "";
 			targets = (
 				3A923EE81BA8430400DBE4A6 /* Counters */,
-				3ADA8A421BCE922F00CFACF2 /* CountersTests */,
+				3AA69F3B1D19893B0043C053 /* TremoloEffectKit */,
 			);
 		};
 /* End PBXProject section */
@@ -182,15 +257,15 @@
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				3AD90B441D1D556F00420A0D /* Counters changing tremolo rate.PNG in Resources */,
 				3A923EF41BA8430400DBE4A6 /* Assets.xcassets in Resources */,
-				3A7266261BC92EED00A44F3C /* counters running 2.png in Resources */,
+				3A1D2DC31CFC507A00C682E2 /* Initial screen (with Instruments).PNG in Resources */,
+				3A1D2DC41CFC507A00C682E2 /* Counters running and playing sound.PNG in Resources */,
 				3A923EF21BA8430400DBE4A6 /* Main.storyboard in Resources */,
-				3A7266271BC92EED00A44F3C /* counters running.PNG in Resources */,
-				3A7266281BC92EED00A44F3C /* Initial screen.PNG in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
-		3ADA8A411BCE922F00CFACF2 /* Resources */ = {
+		3AA69F3A1D19893B0043C053 /* Resources */ = {
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
@@ -204,26 +279,30 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				3A23C1731CEA11C400AA7441 /* SimpleSynth.swift in Sources */,
 				3A923EEF1BA8430400DBE4A6 /* ViewController.swift in Sources */,
 				3A923EED1BA8430400DBE4A6 /* AppDelegate.swift in Sources */,
 				3A923EFF1BA843B600DBE4A6 /* Counter.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
-		3ADA8A3F1BCE922F00CFACF2 /* Sources */ = {
+		3AA69F371D19893B0043C053 /* Sources */ = {
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				3AA69F571D1989600043C053 /* DSPKernel.mm in Sources */,
+				3AA69F531D1989600043C053 /* AUAudioTremolo.mm in Sources */,
+				3AA69F541D1989600043C053 /* Bridging.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
 /* End PBXSourcesBuildPhase section */
 
 /* Begin PBXTargetDependency section */
-		3ADA8A491BCE923100CFACF2 /* PBXTargetDependency */ = {
+		3AA69F421D19893C0043C053 /* PBXTargetDependency */ = {
 			isa = PBXTargetDependency;
-			target = 3A923EE81BA8430400DBE4A6 /* Counters */;
-			targetProxy = 3ADA8A481BCE923100CFACF2 /* PBXContainerItemProxy */;
+			target = 3AA69F3B1D19893B0043C053 /* TremoloEffectKit */;
+			targetProxy = 3AA69F411D19893C0043C053 /* PBXContainerItemProxy */;
 		};
 /* End PBXTargetDependency section */
 
@@ -279,7 +358,9 @@
 				MTL_ENABLE_DEBUG_INFO = YES;
 				ONLY_ACTIVE_ARCH = YES;
 				SDKROOT = iphoneos;
+				SWIFT_OBJC_BRIDGING_HEADER = "";
 				SWIFT_OPTIMIZATION_LEVEL = "-Onone";
+				USER_HEADER_SEARCH_PATHS = "";
 			};
 			name = Debug;
 		};
@@ -316,6 +397,8 @@
 				IPHONEOS_DEPLOYMENT_TARGET = 9.0;
 				MTL_ENABLE_DEBUG_INFO = NO;
 				SDKROOT = iphoneos;
+				SWIFT_OBJC_BRIDGING_HEADER = "";
+				USER_HEADER_SEARCH_PATHS = "";
 				VALIDATE_PRODUCT = YES;
 			};
 			name = Release;
@@ -324,11 +407,17 @@
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				EMBEDDED_CONTENT_CONTAINS_SWIFT = YES;
+				FRAMEWORK_SEARCH_PATHS = (
+					"$(inherited)",
+					"$(PROJECT_DIR)/Counters",
+				);
 				INFOPLIST_FILE = Counters/Info.plist;
-				IPHONEOS_DEPLOYMENT_TARGET = 8.4;
+				IPHONEOS_DEPLOYMENT_TARGET = 9.0;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
 				PRODUCT_BUNDLE_IDENTIFIER = xyz.Counters;
 				PRODUCT_NAME = Counters;
+				SWIFT_OBJC_BRIDGING_HEADER = "";
 				TARGETED_DEVICE_FAMILY = "1,2";
 			};
 			name = Debug;
@@ -337,36 +426,65 @@
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				EMBEDDED_CONTENT_CONTAINS_SWIFT = YES;
+				FRAMEWORK_SEARCH_PATHS = (
+					"$(inherited)",
+					"$(PROJECT_DIR)/Counters",
+				);
 				INFOPLIST_FILE = Counters/Info.plist;
-				IPHONEOS_DEPLOYMENT_TARGET = 8.4;
+				IPHONEOS_DEPLOYMENT_TARGET = 9.0;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
 				PRODUCT_BUNDLE_IDENTIFIER = xyz.Counters;
 				PRODUCT_NAME = Counters;
+				SWIFT_OBJC_BRIDGING_HEADER = "";
 				TARGETED_DEVICE_FAMILY = "1,2";
 			};
 			name = Release;
 		};
-		3ADA8A4A1BCE923100CFACF2 /* Debug */ = {
+		3AA69F461D19893C0043C053 /* Debug */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
-				BUNDLE_LOADER = "$(TEST_HOST)";
-				INFOPLIST_FILE = CountersTests/Info.plist;
+				CLANG_ANALYZER_NONNULL = YES;
+				CLANG_ENABLE_MODULES = YES;
+				CURRENT_PROJECT_VERSION = 1;
+				DEFINES_MODULE = YES;
+				DYLIB_COMPATIBILITY_VERSION = 1;
+				DYLIB_CURRENT_VERSION = 1;
+				DYLIB_INSTALL_NAME_BASE = "@rpath";
+				INFOPLIST_FILE = TremoloEffectKit/Info.plist;
+				INSTALL_PATH = "$(LOCAL_LIBRARY_DIR)/Frameworks";
+				IPHONEOS_DEPLOYMENT_TARGET = 9.0;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks @loader_path/Frameworks";
-				PRODUCT_BUNDLE_IDENTIFIER = xyz.CountersTests;
+				PRODUCT_BUNDLE_IDENTIFIER = com.xyz.TremoloEffectKit;
 				PRODUCT_NAME = "$(TARGET_NAME)";
-				TEST_HOST = "$(BUILT_PRODUCTS_DIR)/Counters.app/Counters";
+				SKIP_INSTALL = YES;
+				SWIFT_OPTIMIZATION_LEVEL = "-Onone";
+				TARGETED_DEVICE_FAMILY = "1,2";
+				VERSIONING_SYSTEM = "apple-generic";
+				VERSION_INFO_PREFIX = "";
 			};
 			name = Debug;
 		};
-		3ADA8A4B1BCE923100CFACF2 /* Release */ = {
+		3AA69F471D19893C0043C053 /* Release */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
-				BUNDLE_LOADER = "$(TEST_HOST)";
-				INFOPLIST_FILE = CountersTests/Info.plist;
+				CLANG_ANALYZER_NONNULL = YES;
+				CLANG_ENABLE_MODULES = YES;
+				CURRENT_PROJECT_VERSION = 1;
+				DEFINES_MODULE = YES;
+				DYLIB_COMPATIBILITY_VERSION = 1;
+				DYLIB_CURRENT_VERSION = 1;
+				DYLIB_INSTALL_NAME_BASE = "@rpath";
+				INFOPLIST_FILE = TremoloEffectKit/Info.plist;
+				INSTALL_PATH = "$(LOCAL_LIBRARY_DIR)/Frameworks";
+				IPHONEOS_DEPLOYMENT_TARGET = 9.0;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks @loader_path/Frameworks";
-				PRODUCT_BUNDLE_IDENTIFIER = xyz.CountersTests;
+				PRODUCT_BUNDLE_IDENTIFIER = com.xyz.TremoloEffectKit;
 				PRODUCT_NAME = "$(TARGET_NAME)";
-				TEST_HOST = "$(BUILT_PRODUCTS_DIR)/Counters.app/Counters";
+				SKIP_INSTALL = YES;
+				TARGETED_DEVICE_FAMILY = "1,2";
+				VERSIONING_SYSTEM = "apple-generic";
+				VERSION_INFO_PREFIX = "";
 			};
 			name = Release;
 		};
@@ -391,11 +509,11 @@
 			defaultConfigurationIsVisible = 0;
 			defaultConfigurationName = Release;
 		};
-		3ADA8A4C1BCE923100CFACF2 /* Build configuration list for PBXNativeTarget "CountersTests" */ = {
+		3AA69F451D19893C0043C053 /* Build configuration list for PBXNativeTarget "TremoloEffectKit" */ = {
 			isa = XCConfigurationList;
 			buildConfigurations = (
-				3ADA8A4A1BCE923100CFACF2 /* Debug */,
-				3ADA8A4B1BCE923100CFACF2 /* Release */,
+				3AA69F461D19893C0043C053 /* Debug */,
+				3AA69F471D19893C0043C053 /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
 			defaultConfigurationName = Release;

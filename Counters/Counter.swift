@@ -5,6 +5,7 @@
 //
 
 import UIKit
+import AVFoundation
 
 @objc protocol CounterDelegate {
     optional func didFinishCounting(counter: Counter)
@@ -116,10 +117,12 @@ class Operation: NSOperation {
 
 class Counter: UIView {
     lazy var operation = Operation()
-
+    
     let MAX_COUNT: Int = 100
     let MAX_DELAY_SEC: Double = 5.0
     let MIN_DELAY_SEC: Double = 0.0
+    
+    lazy var synth = SimpleSynth()
     
     let lblCounting: UILabel = UILabel(frame: CGRectZero)
     let progCounting: UIProgressView = UIProgressView(frame: CGRectZero)
@@ -157,8 +160,9 @@ class Counter: UIView {
 
     required init(hue: CGFloat) {
         self.hue = hue
+        
         super.init(frame: CGRectZero)
-        let tapToRotateProgress = UITapGestureRecognizer(target: self, action: Selector("rotateCounterProgress"))
+        let tapToRotateProgress = UITapGestureRecognizer(target: self, action: #selector(Counter.rotateCounterProgress))
         self.addGestureRecognizer(tapToRotateProgress)
         lblCounting.translatesAutoresizingMaskIntoConstraints = false
         progCounting.translatesAutoresizingMaskIntoConstraints = false
@@ -202,11 +206,13 @@ class Counter: UIView {
         operation.start({
             dispatch_async(dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_DEFAULT, 0), {
                 for i in 1...self.MAX_COUNT {
-                    if self.operation.cancelled {break}
+                    if self.operation.cancelled { break }
                     NSThread.sleepForTimeInterval(self.delaySecWithOffset)
                     dispatch_sync(dispatch_get_main_queue(), {
                         self.lblCounting.text = String(i)
                         self.progCounting.progress = Float(i) / Float(self.MAX_COUNT)
+                        // For better sync start playing with start counting. It's not a great solution nevertheless very effective on synchronizing.
+                        if self.synth.engine != nil && !self.synth.playing { self.synth.play() }
                     })
                 }
                 dispatch_sync(dispatch_get_main_queue(), {
@@ -250,6 +256,7 @@ class FastCounter: Counter {
         brightness = 0.6
         self.backgroundColor = CounterType.colorWithHue(hue, brightness: brightness)
         delaySec = 0.0
+        synth.noteFrequency = 97.99 // note G2
     }
     
     required init?(coder aDecoder: NSCoder) {
@@ -263,6 +270,7 @@ class AverageCounter: Counter {
         brightness = 0.8
         self.backgroundColor = CounterType.colorWithHue(hue, brightness: brightness)
         delaySec = 0.1
+        synth.noteFrequency = 82.4 // note E2
     }
 
     required init?(coder aDecoder: NSCoder) {
