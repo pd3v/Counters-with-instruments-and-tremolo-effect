@@ -26,11 +26,11 @@
             ignoreCount = "0"
             continueAfterRunningActions = "No"
             filePath = "TremoloEffectKit/AUAudioTremolo.mm"
-            timestampString = "488216048.941155"
+            timestampString = "492366057.766594"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "63"
-            endingLineNumber = "63"
+            startingLineNumber = "62"
+            endingLineNumber = "62"
             landmarkName = "-initWithComponentDescription:options:error:"
             landmarkType = "5">
          </BreakpointContent>

@@ -1,7 +1,6 @@
 
 // This code is a modified excerpt of FilterDemo.mm file from Apple's AudioUnitv3 sample code project.
 
-@class TremoloEffectKit;
 #import "AUAudioTremolo.h"
 #import <AVFoundation/AVFoundation.h>
 #import "TremoloDSPKernel.hpp"
